@@ -1,0 +1,11 @@
+[package]
+name = "todored"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+axum = { version = "0.6.19", features = ["ws"] }
+serde = "1.0.178"
+uuid = { version = "1.4.1", features = ["v4"] }
