@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 async-trait = "0.1.72"
 axum = { version = "0.6.19", features = ["ws"] }
+futures-util = "0.3.28"
 log = "0.4.19"
 micronfig = "0.2.0"
 pkg-version = "1.0.0"
