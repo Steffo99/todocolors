@@ -3,10 +3,10 @@ import {default as React} from "react";
 
 
 export interface UseWsHandlers {
-	onclose?: (event: CloseEvent) => void,
-	onerror?: (event: Event) => void,
-	onmessage?: (event: MessageEvent) => void,
-	onopen?: (event: Event) => void,
+	onclose?: (sock: WebSocket, event: CloseEvent) => void,
+	onerror?: (sock: WebSocket, event: Event) => void,
+	onmessage?: (sock: WebSocket, event: MessageEvent) => void,
+	onopen?: (sock: WebSocket, event: Event) => void,
 }
 
 
@@ -15,10 +15,10 @@ export function useWs(url: string, {onclose, onerror, onmessage, onopen}: UseWsH
 
 	React.useEffect(() => {
 		const sock = new WebSocket(url);
-		sock.onclose = onclose ?? null;
-		sock.onerror = onerror ?? null;
-		sock.onmessage = onmessage ?? null;
-		sock.onopen = onopen ?? null;
+		sock.onclose = onclose ? (ev) => onclose(sock, ev) : null;
+		sock.onerror = onerror ? (ev) => onerror(sock, ev) : null;
+		sock.onmessage = onmessage ? (ev) => onmessage(sock, ev) : null;
+		sock.onopen = onopen ? (ev) => onopen(sock, ev) : null;
 		setWebsocket(sock);
 		return () => {
 			sock.close();

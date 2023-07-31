@@ -26,7 +26,7 @@ impl BoardChange {
 			.log_err_to_error("Failed to serialize BoardOperation")
 			.map_err(|_| ())?;
 
-		log::trace!("Adding to the Redis stream {stream_key:?}...");
+		log::trace!("Adding to the Redis stream {key:?}...");
 		let id = redis::cmd("XADD")
 			.arg(key)
 			.arg("*")

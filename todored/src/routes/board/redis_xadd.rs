@@ -1,38 +1,31 @@
-use axum::extract::ws::{Message, WebSocket};
-use futures_util::stream::SplitStream;
-use crate::routes::board::structs::BoardAction;
+use std::sync::Arc;
+use axum::extract::ws::CloseCode;
+use deadqueue::unlimited::Queue;
+use redis::aio::Connection;
+use crate::routes::board::structs::{BoardAction, BoardRequest};
 
 pub async fn handler(
-	mut receiver: SplitStream<WebSocket>,
-	mut rconn: redis::aio::Connection,
-	board_name: &str,
-) -> Result<SplitStream<WebSocket>, ()> {
+	mut rconn: Connection,
+	key: String,
+	strings_to_process: Arc<Queue<String>>,
+) -> CloseCode {
+	log::trace!("Thread started!");
 
-		log::trace!("Handling websocket frame...");
-		match value {
-			Message::Text(value) => {
-				log::trace!("Trying to parse value from websocket as a BoardRequest...");
-				let action = serde_json::de::from_str::<BoardAction>(&value);
+	loop {
+		log::trace!("Waiting for strings to process...");
+		let message = strings_to_process.pop().await;
 
-				if let Err(err) = action {
-					log::error!("Could not parse value received from websocket as a BoardRequest: {err:?}");
-					return receiver;
-				}
-				let value = action.unwrap();
+		log::trace!("Trying to parse string as a BoardAction...");
+		let action = serde_json::de::from_str::<BoardAction>(&message);
 
-				BoardRequest {
-					name:
-				}
-
-				value.handle(&mut rconn).await;
-			}
-			Message::Binary(_) => {}
-			Message::Ping(_) => {}
-			Message::Pong(_) => {}
-			Message::Close(value) => {
-				log::debug!("Client closed websocket: {value:?}");
-				return receiver;
-			}
+		if let Err(err) = action {
+			log::error!("Could not parse value received from websocket as a BoardRequest, closing connection: {err:?}");
+			return 1002;
 		}
+		let key = key.to_owned();
+		let action = action.unwrap();
+
+		log::trace!("Handling BoardRequest...");
+		BoardRequest { key, action }.handle(&mut rconn).await;
 	}
 }

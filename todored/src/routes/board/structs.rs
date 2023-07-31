@@ -6,9 +6,9 @@ use crate::task::{BoardChange, Task};
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct BoardRequest {
 	/// The Redis key to act on.
-	key: String,
+	pub key: String,
 	/// The [`BoardAction`] to perform.
-	action: BoardAction,
+	pub action: BoardAction,
 }
 
 impl BoardRequest {

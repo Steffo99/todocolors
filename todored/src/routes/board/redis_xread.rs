@@ -1,26 +1,46 @@
-use axum::extract::ws::{Message, WebSocket};
-use futures_util::stream::SplitSink;
+use std::sync::Arc;
+use axum::extract::ws::{CloseCode, Message};
+use deadqueue::unlimited::Queue;
+use redis::aio::Connection;
+
+pub type XReadResult = (String, String, String, String);
 
 pub async fn handler(
-	mut sender: SplitSink<WebSocket, Message>,
-	mut rconn: redis::aio::Connection,
-	board_name: &str,
-) -> SplitSink<WebSocket, Message> {
-	log::trace!("Writer thread spawned successfully!");
+	mut rconn: Connection,
+	key: String,
+	messages_to_send: Arc<Queue<Message>>,
+) -> CloseCode {
+	log::trace!("Thread started!");
 
-	log::trace!("Computing Redis key...");
-	let stream_key = format!("board:{{{board}}}:stream");
+	let mut seq = "0".to_string();
 
 	loop {
+		log::trace!("Waiting for events to broadcast for 5 seconds...");
 		let response = redis::cmd("XREAD")
-			.arg(&stream_key)
 			.arg("COUNT")
 			.arg(1)
 			.arg("BLOCK")
-			.arg(30000)
+			.arg(5000)
+			.arg("STREAMS")
+			.arg(&key)
+			.arg(&seq)
+			.query_async::<Connection, Option<XReadResult>>(&mut rconn).await;
 
+		if let Err(err) = response {
+			log::error!("Could not XREAD Redis stream, closing connection: {err:?}");
+			return 1002;
+		}
+		let response = response.unwrap();
+
+		if response.is_none() {
+			continue;
+		}
+		let response = response.unwrap();
+
+		seq = response.1;
+		let message = response.3;
+
+		log::trace!("Received event, sending it: {message:?}");
+		messages_to_send.push(Message::Text(message))
 	}
-
-	log::trace!("Nothing to do, returning...");
-	sender
 }

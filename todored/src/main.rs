@@ -20,7 +20,7 @@ async fn main() {
 		.route("/version", get(routes::root::version))
 		.route("/", post(routes::root::healthcheck))
 		.route("/healthcheck", post(routes::root::healthcheck))
-		.route("/board/:board/ws", get(routes::board::websocket))
+		.route("/board/:board/ws", get(routes::board::board_websocket))
 		.layer(axum::Extension(rclient))
 		.layer(tower_http::cors::CorsLayer::new()
 			.allow_origin(
