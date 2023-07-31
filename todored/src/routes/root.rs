@@ -1,7 +1,7 @@
 use axum::{Extension, Json};
 use axum::http::StatusCode;
 
-use crate::utils::{RedisConnectOr500, RedisUnwrapOr500, Result};
+use crate::utils::{RedisConnectOr500, UnwrapOr500, Result};
 
 const MAJOR: u32 = pkg_version::pkg_version_major!();
 const MINOR: u32 = pkg_version::pkg_version_minor!();
@@ -24,7 +24,7 @@ pub async fn healthcheck(
 	log::trace!("Sending PING...");
 	let response = redis::cmd("PING")
 		.query_async::<redis::aio::Connection, String>(&mut rconn).await
-		.unwrap_or_500_and_log()?;
+		.expect_or_500_and_log("Failed to PING Redis")?;
 
 	log::trace!("Sent PING and received: {:?}", response);
 
