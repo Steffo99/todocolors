@@ -8,7 +8,7 @@ pub enum ClientOperation {
 	/// Set the board's title.
 	Title(String),
 	/// Create a new [`Task`], or update or delete the task with the given [`Uuid`].
-	Task(Option<u64>, Option<Task>),
+	Task(Option<String>, Option<Task>),
 }
 
 /// An operation sent from the server to the clients, and stored on the database.
@@ -17,7 +17,7 @@ pub enum ServerOperation {
 	/// Set the board's title.
 	Title(String),
 	/// Create, update, or delete the [`Task`] with the given [`Uuid`].
-	Task(u64, Option<Task>),
+	Task(String, Option<Task>),
 }
 
 impl ClientOperation {
