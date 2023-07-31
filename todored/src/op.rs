@@ -27,22 +27,27 @@ impl ClientOperation {
 }
 
 impl BoardOperation {
-	fn store(&self, rconn: redis::aio::Connection, board: &str) -> Result<()> {
+	/// Store this in Redis.
+	pub(crate) async fn store_or_500(&self, rconn: &mut redis::aio::Connection, board: &str) -> Result<String> {
 		log::debug!("Storing BoardOperation in Redis: {:?}", &self);
-
-		log::trace!("Serializing BoardOperation to JSON...");
-		let data = serde_json::ser::to_string(self)
-			.expect_or_500_and_log("Failed to serialize BoardOperation");
 
 		log::trace!("Computing Redis key...");
 		let stream_key = format!("board:{{{board}}}:stream");
 
+		log::trace!("Serializing BoardOperation to JSON...");
+		let operation = serde_json::ser::to_string(self)
+			.expect_or_500_and_log("Failed to serialize BoardOperation")?;
+
 		log::trace!("Adding to the Redis stream {stream_key:?}...");
-		let response = redis::cmd("XADD")
+		let id = redis::cmd("XADD")
 			.arg(stream_key)
-			.arg()
+			.arg("*")
+			.arg("operation")
+			.arg(operation)
+			.query_async::<redis::aio::Connection, String>(rconn).await
+			.expect_or_500_and_log("Failed to XADD to Redis")?;
 
-
-		Ok(())
+		log::trace!("Added to Redis stream with id {id:?}!");
+		Ok(id)
 	}
 }
