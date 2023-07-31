@@ -17,4 +17,3 @@ redis = { version = "0.23.1", features = ["r2d2", "ahash", "cluster", "tokio-com
 serde = { version = "1.0.178", features = ["derive"] }
 tokio = { version = "1.29.1", features = ["macros", "rt-multi-thread"] }
 tower-http = { version = "0.4.3", features = ["cors"] }
-uuid = { version = "1.4.1", features = ["v5", "serde"] }
