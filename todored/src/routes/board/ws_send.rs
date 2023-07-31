@@ -15,10 +15,7 @@ pub async fn handler(
 		log::trace!("Awaiting data to send...");
 		let message = messages_to_send.pop().await;
 
-		let exit_when_done = match message {
-			Message::Close(_) => true,
-			_ => false,
-		};
+		let exit_when_done = matches!(message, Message::Close(_));
 
 		log::trace!("Sending message: {message:?}");
 		let _ = sender.send(message).await

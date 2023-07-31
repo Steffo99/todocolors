@@ -26,6 +26,6 @@ pub async fn handler(
 		let action = action.unwrap();
 
 		log::trace!("Handling BoardRequest...");
-		BoardRequest { key, action }.handle(&mut rconn).await;
+		BoardRequest { board: key, action }.handle(&mut rconn).await;
 	}
 }

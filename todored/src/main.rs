@@ -35,7 +35,7 @@ async fn main() {
 			)
 		);
 
-	axum::Server::bind(&std::net::SocketAddr::from_str(&**config::AXUM_HOST).expect("AXUM_HOST to be a valid SocketAddr"))
+	axum::Server::bind(&std::net::SocketAddr::from_str(&config::AXUM_HOST).expect("AXUM_HOST to be a valid SocketAddr"))
 		.serve(router.into_make_service())
 		.await
 		.expect("to be able to run the Axum server");

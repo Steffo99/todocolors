@@ -2,8 +2,8 @@ use std::sync::Arc;
 use axum::extract::ws::{CloseCode, Message};
 use deadqueue::unlimited::Queue;
 use redis::aio::Connection;
-
-pub type XReadResult = (String, String, String, String);
+use redis::{AsyncCommands, FromRedisValue, RedisResult};
+use redis::streams::{StreamReadOptions, StreamReadReply};
 
 pub async fn handler(
 	mut rconn: Connection,
@@ -16,31 +16,54 @@ pub async fn handler(
 
 	loop {
 		log::trace!("Waiting for events to broadcast for 5 seconds...");
-		let response = redis::cmd("XREAD")
-			.arg("COUNT")
-			.arg(1)
-			.arg("BLOCK")
-			.arg(5000)
-			.arg("STREAMS")
-			.arg(&key)
-			.arg(&seq)
-			.query_async::<Connection, Option<XReadResult>>(&mut rconn).await;
+		let response: RedisResult<StreamReadReply> = rconn.xread_options(
+			&[&key],
+			&[&seq],
+			&StreamReadOptions::default().block(5000)
+		).await;
 
-		if let Err(err) = response {
-			log::error!("Could not XREAD Redis stream, closing connection: {err:?}");
-			return 1002;
+		match response {
+			Err(err) => {
+				log::error!("Could not XREAD Redis stream, closing connection: {err:?}");
+				return 1002;
+			},
+			Ok(reply) => {
+				match reply.keys.get(0) {
+					None => {
+						log::trace!("Stream does not exist yet, retrying...");
+					}
+					Some(key) => {
+						key.ids.iter().for_each(|id| {
+							match id.map.get("change") {
+								None => {
+									log::warn!("Malformed event, skipping: {id:?}");
+								}
+								Some(value) => {
+									match value {
+										redis::Value::Data(data) => {
+											match String::from_byte_vec(data) {
+												None => {
+													log::warn!("Event with no data, skipping: {data:?}");
+												}
+												Some(strings) => {
+													strings.into_iter().for_each(|string| {
+														log::trace!("Received event, sending it: {string:?}");
+														messages_to_send.push(Message::Text(string))
+													})
+												}
+											}
+										}
+										_ => {
+											log::warn!("Malformed value, skipping...");
+										}
+									}
+								}
+							}
+							seq = id.id.clone();
+						})
+					}
+				}
+			},
 		}
-		let response = response.unwrap();
-
-		if response.is_none() {
-			continue;
-		}
-		let response = response.unwrap();
-
-		seq = response.1;
-		let message = response.3;
-
-		log::trace!("Received event, sending it: {message:?}");
-		messages_to_send.push(Message::Text(message))
 	}
 }

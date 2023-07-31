@@ -33,7 +33,7 @@ pub async fn healthcheck(
 	response.eq("PONG")
 		.then_some(())
 		.log_err_to_error("Received invalid PONG from Redis")
-		.ok_or_else(|| StatusCode::INTERNAL_SERVER_ERROR)?;
+		.ok_or(StatusCode::INTERNAL_SERVER_ERROR)?;
 
 	Ok(Json(compose_version()))
 }

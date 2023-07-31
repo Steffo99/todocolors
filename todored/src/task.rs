@@ -22,7 +22,7 @@ impl BoardChange {
 		log::debug!("Storing BoardOperation in Redis: {:?}", &self);
 
 		log::trace!("Serializing BoardOperation to JSON...");
-		let operation = serde_json::ser::to_string(self)
+		let change = serde_json::ser::to_string(self)
 			.log_err_to_error("Failed to serialize BoardOperation")
 			.map_err(|_| ())?;
 
@@ -30,8 +30,8 @@ impl BoardChange {
 		let id = redis::cmd("XADD")
 			.arg(key)
 			.arg("*")
-			.arg("operation")
-			.arg(operation)
+			.arg("change")
+			.arg(change)
 			.query_async::<redis::aio::Connection, String>(rconn).await
 			.log_err_to_error("Failed to XADD to Redis")
 			.map_err(|_| ())?;
