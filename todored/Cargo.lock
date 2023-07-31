@@ -208,6 +208,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "338089f42c427b86394a5ee60ff321da23a5c89c9d89514c829687b26359fcff"
 
 [[package]]
+name = "crossbeam-queue"
+version = "0.3.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d1cfb3ea8a53f37c40dea2c7bedcbd88bdfae54f5e2175d6ecaff1c988353add"
+dependencies = [
+ "cfg-if",
+ "crossbeam-utils",
+]
+
+[[package]]
+name = "crossbeam-utils"
+version = "0.8.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5a22b2d63d4d1dc0b7f1b6b2747dd0088008a9be28b6ddf0b1e7d335e3037294"
+dependencies = [
+ "cfg-if",
+]
+
+[[package]]
 name = "crypto-common"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -222,6 +241,16 @@ name = "data-encoding"
 version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2e66c9d817f1720209181c316d28635c050fa304f9c79e47a520882661b7308"
+
+[[package]]
+name = "deadqueue"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16a2561fd313df162315935989dceb8c99db4ee1933358270a57a3cfb8c957f3"
+dependencies = [
+ "crossbeam-queue",
+ "tokio",
+]
 
 [[package]]
 name = "digest"
@@ -1039,8 +1068,8 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 name = "todored"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "axum",
+ "deadqueue",
  "futures-util",
  "log",
  "micronfig",
@@ -1048,6 +1077,7 @@ dependencies = [
  "pretty_env_logger",
  "redis",
  "serde",
+ "serde_json",
  "tokio",
  "tower-http",
  "uuid",
@@ -1261,8 +1291,8 @@ version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "79daa5ed5740825c40b389c5e50312b9c86df53fccd33f281df655642b43869d"
 dependencies = [
+ "getrandom",
  "serde",
- "sha1_smol",
 ]
 
 [[package]]
