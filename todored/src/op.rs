@@ -13,7 +13,7 @@ pub enum ClientOperation {
 
 /// An operation sent from the server to the clients, and stored on the database.
 #[derive(Clone, Debug, Serialize, Deserialize)]
-pub enum ServerOperation {
+pub enum BoardOperation {
 	/// Set the board's title.
 	Title(String),
 	/// Create, update, or delete the [`Task`] with the given [`Uuid`].
@@ -26,13 +26,13 @@ impl ClientOperation {
 	}
 }
 
-impl ServerOperation {
+impl BoardOperation {
 	fn store(&self, rconn: redis::aio::Connection, board: &str) -> Result<()> {
-		log::debug!("Storing ServerOperation in Redis: {:?}", &self);
+		log::debug!("Storing BoardOperation in Redis: {:?}", &self);
 
-		log::trace!("Serializing ServerOperation to JSON...");
+		log::trace!("Serializing BoardOperation to JSON...");
 		let data = serde_json::ser::to_string(self)
-			.expect_or_500_and_log("Failed to serialize ServerOperation");
+			.expect_or_500_and_log("Failed to serialize BoardOperation");
 
 		log::trace!("Computing Redis key...");
 		let stream_key = format!("board:{{{board}}}:stream");
