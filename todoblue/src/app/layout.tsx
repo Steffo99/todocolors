@@ -3,6 +3,7 @@
 import "@steffo/bluelib/dist/base.root.css"
 import "@steffo/bluelib/dist/classic.root.css"
 import "@steffo/bluelib/dist/glass.root.css"
+import "@steffo/bluelib/dist/layouts-center.root.css"
 import "@steffo/bluelib/dist/colors-royalblue.root.css"
 import "@steffo/bluelib/dist/fonts-fira-ghpages.root.css"
 
@@ -18,7 +19,7 @@ export const metadata: NextMetadata = {
 export default function RootLayout({children}: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<body>
+			<body className={"theme-bluelib layout-center"}>
 				{children}
 			</body>
 		</html>
