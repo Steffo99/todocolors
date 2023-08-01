@@ -10,8 +10,6 @@ use uuid::Uuid;
 pub enum BoardChange {
 	/// Set the board's title.
 	Title(String),
-	/// Set the board's grouping.
-	Group(BoardGrouping),
 	/// Create, update, or delete the [`Task`] with the given [`Uuid`].
 	Task(Uuid, Option<Task>),
 }
@@ -39,20 +37,6 @@ impl BoardChange {
 		log::trace!("Added to Redis stream with id {id:?}!");
 		Ok(id)
 	}
-}
-
-/// A possible grouping of a board's tasks.
-#[derive(Clone, Debug, Serialize, Deserialize)]
-#[non_exhaustive]
-pub enum BoardGrouping {
-	/// Group tasks by icon.
-	Icon,
-	/// Group tasks by importance.
-	Importance,
-	/// Group tasks by priority.
-	Priority,
-	/// Group tasks by status.
-	Status,
 }
 
 /// A task that can be displayed on the board.
