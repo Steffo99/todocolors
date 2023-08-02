@@ -1,0 +1,65 @@
+.boardHeader {
+	display: grid;
+	align-items: center;
+	padding-top: 4px;
+}
+
+@media screen and (max-width: 450px) {
+	.boardHeader {
+		grid-template-areas:
+			"left right"
+			"title title"
+		;
+		grid-template-columns: auto auto;
+		grid-template-rows: auto auto;
+
+	}
+}
+
+@media screen and (min-width: 451px) {
+	.boardHeader {
+		grid-template-areas:
+			"left title right"
+		;
+		grid-template-columns: auto 1fr auto;
+		grid-template-rows: auto;
+	}
+}
+
+.boardButtons {
+	width: auto;
+	min-width: unset;
+
+	display: flex;
+	gap: 4px;
+}
+
+.boardButtonsLeft {
+	grid-area: left;
+	justify-self: start;
+}
+
+.boardButtonsRight {
+	grid-area: right;
+	justify-self: end;
+}
+
+.boardTitle {
+	grid-area: title;
+}
+
+.boardButtons button {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: hsla(
+		var(--bhsl-background-hue),
+		var(--bhsl-background-saturation),
+		var(--bhsl-background-lightness),
+		100%
+	);
+
+	width: 36px;
+	height: 36px;
+}

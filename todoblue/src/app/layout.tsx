@@ -6,9 +6,13 @@ import "@steffo/bluelib/dist/glass.root.css"
 import "@steffo/bluelib/dist/layouts-center.root.css"
 import "@steffo/bluelib/dist/colors-royalblue.root.css"
 import "@steffo/bluelib/dist/fonts-fira-ghpages.root.css"
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false; /* eslint-disable import/first */
 
 import type {Metadata as NextMetadata} from "next"
-import {ReactNode} from "react"
+import {default as React, ReactNode} from "react"
 
 
 export const metadata: NextMetadata = {
@@ -21,6 +25,13 @@ export default function RootLayout({children}: { children: ReactNode }) {
 		<html lang="en">
 			<body className={"theme-bluelib layout-center"}>
 				{children}
+				<footer>
+					<p>
+						© <a href="https://steffo.eu">Stefano Pigozzi</a> -
+						<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a> -
+						<a href="https://github.com/Steffo99/todocolors">GitHub</a>
+					</p>
+				</footer>
 			</body>
 		</html>
 	)
