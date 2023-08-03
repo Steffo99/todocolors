@@ -1,4 +1,4 @@
-import {TaskGroupColumn} from "@/app/board/[board]/TaskGroupColumn"
+import {BoardColumn} from "@/app/board/[board]/BoardColumn"
 import {useManagedBoard} from "@/app/board/[board]/BoardManager"
 import style from "./BoardMainTaskGroups.module.css"
 
@@ -8,7 +8,7 @@ export function BoardMainTaskGroups() {
 
 	return (
 		<main className={style.boardMainTaskGroups}>
-			{taskGroups.map((tg) => <TaskGroupColumn taskGroup={tg}/>)}
+			{taskGroups.map((tg) => <BoardColumn taskGroup={tg}/>)}
 		</main>
 	)
 }

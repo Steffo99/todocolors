@@ -3,9 +3,9 @@ import {TaskGroup} from "@/app/board/[board]/useBoardTaskArranger"
 import style from "./TaskGroupColumn.module.css"
 
 
-export function TaskGroupColumn({taskGroup}: {taskGroup: TaskGroup}) {
+export function BoardColumn({taskGroup}: {taskGroup: TaskGroup}) {
 	return (
-		<div className={style.taskGroupColumn}>
+		<div className={style.boardColumn}>
 			<h3>
 				{taskGroup.name}
 			</h3>
