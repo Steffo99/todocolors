@@ -1,7 +1,8 @@
 import {BoardMainTaskGroups} from "@/app/board/[board]/BoardMainTaskGroups"
-import {BoardError} from "@/app/board/[board]/BoardError"
-import {BoardMainLoading} from "@/app/board/[board]/BoardMainLoading"
+import {BoardMainIcon} from "@/app/board/[board]/BoardMainIcon"
 import {useBoardContext} from "@/app/board/[board]/useBoardContext"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faGear, faArrowsSpin, faExclamationCircle} from "@fortawesome/free-solid-svg-icons"
 
 
 export function BoardBody() {
@@ -9,13 +10,13 @@ export function BoardBody() {
 
 	switch(websocketState) {
 		case undefined:
-			return <BoardMainLoading text={"Caricamento..."}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon icon={faGear} spin/>} text={"Caricamento..."}/>
 		case WebSocket.CONNECTING:
-			return <BoardMainLoading text={"Connessione..."}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon icon={faArrowsSpin} spin/>} text={"Connessione..."}/>
 		case WebSocket.OPEN:
 			return <BoardMainTaskGroups/>
 		case WebSocket.CLOSING:
 		case WebSocket.CLOSED:
-			return <BoardError text={"Errore"}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon icon={faExclamationCircle}/>} text={"Errore"} className={"red"}/>
 	}
 }

@@ -49,10 +49,6 @@
 	padding: 8px;
 }
 
-.asdaf {
-	--something: hsl(150, 1%, 41%), hsl(213, 22%, 61%), hsl(212, 100%, 81%), hsl(6, 66%, 72%), hsl(17, 98%, 52%);
-}
-
 .taskImportanceHighest {
 	--bhsl-current-hue: 15deg;
 	--bhsl-current-saturation: 98%;
