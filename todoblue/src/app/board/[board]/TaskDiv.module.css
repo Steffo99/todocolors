@@ -1,23 +1,36 @@
 .taskDiv {
 	display: grid;
+	align-items: center;
+	min-width: unset;
+	width: 240px;
+	height: 44px;
+
+	cursor: pointer;
+}
+
+.taskDivFront {
 	grid-template-areas:
 		"icon description"
 	;
 	grid-template-columns: auto 1fr;
-	align-items: center;
-	min-width: unset;
+}
+
+.taskDivBack {
+	grid-template-areas:
+		"buttons"
+	;
+	grid-template-columns: 1fr;
 }
 
 .taskIcon {
 	grid-area: icon;
 	justify-self: start;
-
-	cursor: pointer;
 }
 
 .taskDescription {
 	grid-area: description;
 	justify-self: start;
+	width: 100%;
 }
 
 .taskDescriptionComplete {
@@ -89,16 +102,7 @@
 	font-weight: 300;
 }
 
-@keyframes inProgress {
-	0% {
-		filter: brightness(100%);
-	}
-
-	100% {
-		filter: brightness(150%);
-	}
-}
-
-.taskStatusInProgress {
-	animation: 1.7s inProgress ease-out infinite alternate-reverse;
+.taskButtons {
+	grid-area: buttons;
+	justify-self: end;
 }

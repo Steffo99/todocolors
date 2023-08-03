@@ -28,7 +28,7 @@ function sortGroupsByPriority(a: TaskGroup, b: TaskGroup) {
 function iconToTitle(a: string) {
 	let icon = a as TaskIcon;
 	return <>
-		<TaskIconEl icon={icon} style={"solid"}/>
+		<TaskIconEl icon={icon} status={"Complete"} size={"lg"}/>
 		&nbsp;
 		{a}
 	</>

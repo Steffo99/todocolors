@@ -1,15 +1,22 @@
 import {TaskIconEl} from "@/app/board/[board]/TaskIconEl"
 import {Task, TaskWithId} from "@/app/board/[board]/Types"
 import {useBoardContext} from "@/app/board/[board]/useBoardContext"
-import {useCallback} from "react"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {useCallback, useState, MouseEvent} from "react"
+import {faArrowTurnRight, faTrashCanArrowUp} from "@fortawesome/free-solid-svg-icons"
 import style from "./TaskDiv.module.css"
 import cn from "classnames"
 
 export function TaskDiv({task}: {task: TaskWithId}) {
 	const {send} = useBoardContext()
+	const [isDisplayingActions, setDisplayingActions] = useState<boolean>(false)
 
-	const toggleStatus = useCallback(() => {
+	const toggleStatus = useCallback((e: MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation();
 		if(task.status === "Unfinished") {
+			send({"Task": [task.id, {...task, status: "InProgress"}]})
+		}
+		if(task.status === "InProgress") {
 			send({"Task": [task.id, {...task, status: "Complete"}]})
 		}
 		else if(task.status === "Complete") {
@@ -17,10 +24,34 @@ export function TaskDiv({task}: {task: TaskWithId}) {
 		}
 	}, [send, task])
 
+	let contents;
+	if(isDisplayingActions) {
+		contents = <div className={style.taskButtons}>
+			<button>
+				<FontAwesomeIcon icon={faTrashCanArrowUp}/>&nbsp;Ricrea
+			</button>
+		</div>
+	}
+	else {
+		contents = <>
+			<div className={style.taskIcon} onClick={toggleStatus} tabIndex={0}>
+				<TaskIconEl size={"lg"} icon={task.icon} status={task.status}/>
+			</div>
+			<div className={cn({
+				[style.taskDescription]: true,
+				[style.taskDescriptionComplete]: task.status === "Complete",
+			})} tabIndex={0}>
+				{task.text}
+			</div>
+		</>
+	}
+
 	return (
-		<div onClick={toggleStatus} tabIndex={0} className={cn({
+		<div className={cn({
 			"panel": true,
 			[style.taskDiv]: true,
+			[style.taskDivFront]: !isDisplayingActions,
+			[style.taskDivBack]: isDisplayingActions,
 			[style.taskPriorityHighest]: task.priority === "Highest",
 			[style.taskPriorityHigh]: task.priority === "High",
 			[style.taskPriorityNormal]: task.priority === "Normal",
@@ -34,16 +65,8 @@ export function TaskDiv({task}: {task: TaskWithId}) {
 			[style.taskStatusUnfinished]: task.status === "Unfinished",
 			[style.taskStatusInProgress]: task.status === "InProgress",
 			[style.taskStatusComplete]: task.status === "Complete",
-		})}>
-			<div className={style.taskIcon}>
-				<TaskIconEl size={"lg"} icon={task.icon} style={task.status === "Complete" ? "solid" : "regular"}/>
-			</div>
-			<div className={cn({
-				[style.taskDescription]: true,
-				[style.taskDescriptionComplete]: task.status === "Complete",
-			})}>
-				{task.text}
-			</div>
+		})} onClick={() => setDisplayingActions(!isDisplayingActions)}>
+			{contents}
 		</div>
 	)
 }

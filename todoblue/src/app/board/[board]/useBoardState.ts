@@ -1,6 +1,6 @@
 "use client";
 
-import {BoardAction, Task, TaskBoardAction, TitleBoardAction} from "@/app/board/[board]/types"
+import {BoardAction, Task, TaskBoardAction, TitleBoardAction} from "@/app/board/[board]/Types"
 import {Reducer, useReducer} from "react"
 
 

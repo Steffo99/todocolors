@@ -1,4 +1,4 @@
-import {TaskIcon} from "@/app/board/[board]/Types"
+import {TaskIcon, TaskStatus} from "@/app/board/[board]/Types"
 import {SizeProp} from "@fortawesome/fontawesome-svg-core"
 import {
 	faUser as faUserSolid,
@@ -99,8 +99,8 @@ export const ICONS = {
 }
 
 
-export function TaskIconEl({icon, style, size}: {icon: TaskIcon, style: "solid" | "regular", size?: SizeProp}) {
+export function TaskIconEl({icon, status, size}: {icon: TaskIcon, status: TaskStatus, size?: SizeProp}) {
 	return (
-		<FontAwesomeIcon icon={ICONS[style][icon]} size={size}/>
+		<FontAwesomeIcon icon={ICONS[status === "Complete" ? "solid" : "regular"][icon]} size={size} beatFade={status === "InProgress"}/>
 	)
 }
