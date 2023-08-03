@@ -1,0 +1,11 @@
+.boardMainTaskGroups {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.boardMainTaskGroups > div {
+	flex-basis: 240px;
+	flex-shrink: 0;
+}

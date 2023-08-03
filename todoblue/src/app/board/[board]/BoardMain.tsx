@@ -10,13 +10,13 @@ export function BoardMain() {
 
 	switch(websocketState) {
 		case undefined:
-			return <BoardMainIcon icon={<FontAwesomeIcon icon={faGear} spin/>} text={"Caricamento..."}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faGear} spin/>} text={"Caricamento..."}/>
 		case WebSocket.CONNECTING:
-			return <BoardMainIcon icon={<FontAwesomeIcon icon={faArrowsSpin} spin/>} text={"Connessione..."}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faArrowsSpin} spin/>} text={"Connessione..."}/>
 		case WebSocket.OPEN:
 			return <BoardMainTaskGroups/>
 		case WebSocket.CLOSING:
 		case WebSocket.CLOSED:
-			return <BoardMainIcon icon={<FontAwesomeIcon icon={faExclamationCircle}/>} text={"Errore"} className={"red"}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faExclamationCircle}/>} text={"Errore"} className={"red"}/>
 	}
 }
