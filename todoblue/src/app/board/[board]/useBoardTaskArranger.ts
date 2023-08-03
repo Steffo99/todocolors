@@ -1,6 +1,6 @@
 "use client";
 
-import {Task, TaskWithId} from "@/app/board/[board]/types"
+import {Task, TaskWithId} from "@/app/board/[board]/Types"
 import {ReactNode, useMemo} from "react"
 
 export type TaskGroup = {

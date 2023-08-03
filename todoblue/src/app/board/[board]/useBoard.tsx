@@ -1,20 +1,31 @@
 "use client";
 
 import {TaskIconEl} from "@/app/board/[board]/TaskIconEl"
-import {BoardAction} from "@/app/board/[board]/Types"
-import {TaskIcon, TaskWithId} from "@/app/board/[board]/types"
+import {BoardAction, IMPORTANCE_TO_NUMBER, IMPORTANCE_TO_STRING, PRIORITY_TO_NUMBER, PRIORITY_TO_STRING, TaskImportance, TaskPriority} from "@/app/board/[board]/Types"
+import {TaskIcon, TaskWithId} from "@/app/board/[board]/Types"
 import {useBoardWebSocket} from "@/app/board/[board]/useBoardWebSocket"
 import {GroupNamingFunction, GroupSortingFunction, TaskGroup, TaskGroupingFunction, TaskSortingFunction, useBoardTaskArranger} from "@/app/board/[board]/useBoardTaskArranger"
 import {useBoardTitleEditor} from "@/app/board/[board]/useBoardTitleEditor"
 import {useCycleState} from "@/app/useCycleState"
-import {faBell, faBookmark, faBuilding, faCircle, faClock, faComment, faEnvelope, faEye, faFaceSmile, faFile, faFlag, faHand, faHandshake, faHeart, faImage, faMoon, faPaperPlane, faSquare, faStar, faSun, faUser, IconDefinition} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {Dispatch, SetStateAction} from "react"
 
 function groupTasksByIcon(a: TaskWithId) {return a.icon}
-function sortGroupsByKey(a: TaskGroup, b: TaskGroup) {return a.key.localeCompare(b.key)}
+function groupTasksByImportance(a: TaskWithId) {return a.importance}
+function groupTasksByPriority(a: TaskWithId) {return a.priority}
 
-function nameToFontAwesomeIcon(a: string) {
+function sortGroupsByKey(a: TaskGroup, b: TaskGroup) {return a.key.localeCompare(b.key)}
+function sortGroupsByImportance(a: TaskGroup, b: TaskGroup) {
+	const aN = IMPORTANCE_TO_NUMBER[a.key as TaskImportance]
+	const bN = IMPORTANCE_TO_NUMBER[b.key as TaskImportance]
+	return bN - aN;
+}
+function sortGroupsByPriority(a: TaskGroup, b: TaskGroup) {
+	const aN = PRIORITY_TO_NUMBER[a.key as TaskPriority]
+	const bN = PRIORITY_TO_NUMBER[b.key as TaskPriority]
+	return bN - aN;
+}
+
+function iconToTitle(a: string) {
 	let icon = a as TaskIcon;
 	return <>
 		<TaskIconEl icon={icon} style={"solid"}/>
@@ -22,9 +33,17 @@ function nameToFontAwesomeIcon(a: string) {
 		{a}
 	</>
 }
+function importanceToTitle(a: string) {
+	return IMPORTANCE_TO_STRING[a as TaskImportance];
+}
+function priorityToTitle(a: string) {
+	return PRIORITY_TO_STRING[a as TaskPriority];
+}
 
 const TASK_GROUPERS: [TaskGroupingFunction, GroupSortingFunction, GroupNamingFunction][] = [
-	[groupTasksByIcon, sortGroupsByKey, nameToFontAwesomeIcon],
+	[groupTasksByIcon, sortGroupsByKey, iconToTitle],
+	[groupTasksByImportance, sortGroupsByImportance, importanceToTitle],
+	[groupTasksByPriority, sortGroupsByPriority, priorityToTitle],
 ]
 
 function sortTasksByText(a: TaskWithId, b: TaskWithId) {return a.text.localeCompare(b.text)}
