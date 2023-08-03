@@ -3,7 +3,7 @@ import {faSpinner} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
-export function BoardLoading({text}: {text: string}) {
+export function BoardMainLoading({text}: {text: string}) {
 	return (
 		<main className={style.boardLoading}>
 			<div>

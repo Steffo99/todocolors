@@ -1,6 +1,6 @@
 import {BoardColumns} from "@/app/board/[board]/BoardColumns"
 import {BoardError} from "@/app/board/[board]/BoardError"
-import {BoardLoading} from "@/app/board/[board]/BoardLoading"
+import {BoardMainLoading} from "@/app/board/[board]/BoardMainLoading"
 import {useBoardContext} from "@/app/board/[board]/useBoardContext"
 
 
@@ -9,9 +9,9 @@ export function BoardBody() {
 
 	switch(websocketState) {
 		case undefined:
-			return <BoardLoading text={"Caricamento..."}/>
+			return <BoardMainLoading text={"Caricamento..."}/>
 		case WebSocket.CONNECTING:
-			return <BoardLoading text={"Connessione..."}/>
+			return <BoardMainLoading text={"Connessione..."}/>
 		case WebSocket.OPEN:
 			return <BoardColumns/>
 		case WebSocket.CLOSING:
