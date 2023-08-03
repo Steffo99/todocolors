@@ -36,7 +36,7 @@ export function TaskDiv({task}: {task: TaskWithId}) {
 			[style.taskStatusComplete]: task.status === "Complete",
 		})}>
 			<div className={style.taskIcon}>
-				<TaskIconEl icon={task.icon} style={task.status === "Complete" ? "solid" : "regular"}/>
+				<TaskIconEl size={"lg"} icon={task.icon} style={task.status === "Complete" ? "solid" : "regular"}/>
 			</div>
 			<div className={cn({
 				[style.taskDescription]: true,
