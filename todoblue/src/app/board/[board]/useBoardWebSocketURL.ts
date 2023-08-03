@@ -2,6 +2,6 @@ import {useMemo} from "react"
 
 
 export function useBoardWebSocketURL(name: string) {
-    const webSocketURL = useMemo(() => `ws://127.0.0.1:8080/board/${name}/ws`, [name]);
+    const webSocketURL = useMemo(() => `${process.env.NEXT_PUBLIC_API_BASE_URL}/board/${name}/ws`, [name]);
     return {webSocketURL}
 }

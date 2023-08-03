@@ -1,18 +1,20 @@
 "use client";
 
 import {Task, TaskWithId} from "@/app/board/[board]/types"
-import {useMemo} from "react"
+import {ReactNode, useMemo} from "react"
 
 export type TaskGroup = {
 	key: string,
+	name: ReactNode,
 	tasks: TaskWithId[],
 }
 
 export type TaskGroupingFunction = (a: TaskWithId) => string
-export type TaskSortingFunction = (a: TaskWithId, b: TaskWithId) => number;
 export type GroupSortingFunction = (a: TaskGroup, b: TaskGroup) => number;
+export type GroupNamingFunction = (a: string) => ReactNode;
+export type TaskSortingFunction = (a: TaskWithId, b: TaskWithId) => number;
 
-export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, taskSorter: TaskSortingFunction): TaskGroup[] {
+export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, groupNamer: GroupNamingFunction, taskSorter: TaskSortingFunction): TaskGroup[] {
 	const groupsByKey: {[group: string]: TaskWithId[]} = {}
 
 	for(const [id, task] of Object.entries(tasksById)) {
@@ -31,7 +33,8 @@ export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper:
 	const groups: TaskGroup[] = []
 
 	for(const [key, tasks] of Object.entries(groupsByKey)) {
-		groups.push({key, tasks})
+		const name = groupNamer(key);
+		groups.push({key, name, tasks})
 	}
 
 	groups.sort(groupSorter)
@@ -40,8 +43,8 @@ export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper:
 }
 
 
-export function useBoardTaskArranger(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, taskSorter: TaskSortingFunction) {
-	const taskGroups = useMemo(() => arrangeBoardTasks(tasksById, taskGrouper, groupSorter, taskSorter), [tasksById, taskGrouper, taskSorter, groupSorter])
+export function useBoardTaskArranger(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, groupNamer: GroupNamingFunction, taskSorter: TaskSortingFunction) {
+	const taskGroups = useMemo(() => arrangeBoardTasks(tasksById, taskGrouper, groupSorter, groupNamer, taskSorter), [tasksById, taskGrouper, taskSorter, groupSorter])
 
 	return {taskGroups};
 }

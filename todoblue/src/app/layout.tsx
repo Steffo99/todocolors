@@ -29,7 +29,8 @@ export default function RootLayout({children}: { children: ReactNode }) {
 					<p>
 						© <a href="https://steffo.eu">Stefano Pigozzi</a> -
 						<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a> -
-						<a href="https://github.com/Steffo99/todocolors">GitHub</a>
+						<a href="https://github.com/Steffo99/todocolors">GitHub</a> -
+						Using {process.env.NEXT_PUBLIC_API_BASE_URL}
 					</p>
 				</footer>
 			</body>

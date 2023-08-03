@@ -1,3 +1,4 @@
+import {BoardColumns} from "@/app/board/[board]/BoardColumns"
 import {BoardError} from "@/app/board/[board]/BoardError"
 import {BoardLoading} from "@/app/board/[board]/BoardLoading"
 import {useBoardContext} from "@/app/board/[board]/useBoardContext"
@@ -12,7 +13,7 @@ export function BoardBody() {
 		case WebSocket.CONNECTING:
 			return <BoardLoading text={"Connessione..."}/>
 		case WebSocket.OPEN:
-			return <>nothing here</>
+			return <BoardColumns/>
 		case WebSocket.CLOSING:
 		case WebSocket.CLOSED:
 			return <BoardError text={"Errore"}/>

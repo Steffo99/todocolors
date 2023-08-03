@@ -7,7 +7,9 @@
     </scripts>
     <arguments value="--port=8081" />
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="NEXT_PUBLIC_API_BASE_URL" value="ws://192.168.1.135:8080" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

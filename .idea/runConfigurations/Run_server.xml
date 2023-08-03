@@ -10,7 +10,7 @@
     <option name="buildTarget" value="REMOTE" />
     <option name="backtrace" value="SHORT" />
     <envs>
-      <env name="AXUM_HOST" value="127.0.0.1:8080" />
+      <env name="AXUM_HOST" value="0.0.0.0:8080" />
       <env name="REDIS_CONN" value="redis://127.0.0.1:6379/" />
       <env name="RUST_LOG" value="todored" />
     </envs>

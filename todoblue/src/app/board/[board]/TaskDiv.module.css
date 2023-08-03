@@ -1,0 +1,94 @@
+.taskDiv {
+	display: grid;
+	grid-template-areas:
+		"icon description"
+	;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	min-width: unset;
+}
+
+.taskIcon {
+	grid-area: icon;
+	justify-self: start;
+
+	cursor: pointer;
+}
+
+.taskDescription {
+	grid-area: description;
+	justify-self: start;
+}
+
+.taskDescriptionComplete {
+	text-decoration: 2px currentColor solid line-through;
+}
+
+.taskPriorityHighest {
+	border: 4px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+	padding: 4px;
+}
+
+.taskPriorityHigh {
+	border: 3px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+	padding: 5px;
+}
+
+.taskPriorityNormal {
+	border: 2px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+	padding: 6px;
+}
+
+.taskPriorityLow {
+	border: 1px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+	padding: 7px;
+}
+
+.taskPriorityLowest {
+	border: 0;
+	padding: 8px;
+}
+
+.taskImportanceHighest {
+	--bhsl-current-hue: 100deg;
+	--bhsl-current-saturation: 37%;
+	--bhsl-current-lightness: 68.2%;
+}
+
+.taskImportanceHigh {
+	--bhsl-current-hue: 159deg;
+	--bhsl-current-saturation: 30%;
+	--bhsl-current-lightness: 52%;
+}
+
+.taskImportanceNormal {
+	--bhsl-current-hue: 186deg;
+	--bhsl-current-saturation: 47%;
+	--bhsl-current-lightness: 38%;
+}
+
+.taskImportanceLow {
+	--bhsl-current-hue: 203deg;
+	--bhsl-current-saturation: 64%;
+	--bhsl-current-lightness: 32%;
+}
+
+.taskImportanceLowest {
+	--bhsl-current-hue: 237deg;
+	--bhsl-current-saturation: 44%;
+	--bhsl-current-lightness: 31%;
+}
+
+@keyframes inProgress {
+	0% {
+		filter: brightness(100%);
+	}
+
+	100% {
+		filter: brightness(150%);
+	}
+}
+
+.taskStatusInProgress {
+	animation: 1.7s inProgress ease-out infinite alternate-reverse;
+}
