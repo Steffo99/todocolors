@@ -1,57 +1,36 @@
 'use client';
 
-import {BoardAction, Task} from "@/app/board/[board]/types"
-import {useMemo, useCallback, useState} from "react"
-import {useWebSocket} from "@/app/board/[board]/useWebSocket"
+import {BoardAction} from "@/app/board/[board]/types"
+import {useBoardState} from "@/app/board/[board]/useBoardState"
+import {useBoardWebSocketURL} from "@/app/board/[board]/useBoardWebSocketURL"
+import {useCallback} from "react"
+import {useWebSocket} from "@/app/useWebSocket"
 
 
-export function useBoardWebSocket(board: string) {
-	const url = useMemo(() => `ws://127.0.0.1:8080/board/${board}/ws`, [board]);
-	const [title, setTitle] = useState<string>("Nuovo tabellone");
-	const [tasks, setTasks] = useState<{[key: string]: Task}>(() => ({}));
+export function useBoardWebSocket(name: string) {
+	const {webSocketURL} = useBoardWebSocketURL(name)
+	const {state, act} = useBoardState();
 
-	const onopen = useCallback((sock: WebSocket, event: Event) => {
-		setTasks(() => ({}))
-		console.debug("[useBoardWebSocket] Connected to the websocket of board:", board);
-	}, [])
+	const {websocket, websocketState} = useWebSocket(webSocketURL, {
+		onopen: useCallback((_sock: WebSocket, _event: Event) => {
+			console.debug("[useBoard] Connected to board:", name);
+			act(null);
+		}, []),
+		onmessage: useCallback((_sock: WebSocket, event: MessageEvent) => {
+			const action: BoardAction = JSON.parse(event.data);
+			console.debug("[useBoard] Received:", action);
+			act(action)
+		}, []),
+	});
 
-	const onmessage = useCallback((sock: WebSocket, event: MessageEvent) => {
-		const data: BoardAction = JSON.parse(event.data);
-		console.debug("[useBoardWebSocket] Received:", data);
-		if(data["Title"] !== undefined) {
-			setTitle(data["Title"]);
-		}
-		else if(data["Task"] !== undefined) {
-			const id = data["Task"][0]
-			const task = data["Task"][1]
-			setTasks((prevTasks) => {
-				const tasks = {...prevTasks}
-				if(task === null) {
-					delete tasks[id]
-				}
-				else {
-					tasks[id] = task
-				}
-				return tasks
-			})
-		}
-	}, [])
-
-	const {websocket} = useWebSocket(url, {onopen, onmessage});
-	const readyState = websocket?.readyState;
-
-	const pushEvent = useCallback((data: any) => {
-		if(!websocket) {
-			console.warn("[useBoardWebSocket] Socket does not exist yet, cannot send:", data)
-			return;
-		}
-		if(readyState != 1) {
-			console.warn("[useBoardWebSocket] Socket isn't ready yet, cannot send:", data);
+	const send = useCallback((data: BoardAction) => {
+		if(!websocket || websocketState !== WebSocket.OPEN) {
+			console.warn("[useBoardWebSocket] Webbsocket is not yet ready, cannot send:", data);
 			return;
 		}
 		console.debug("[useBoardWebSocket] Sending:", data);
 		websocket.send(JSON.stringify(data));
-	}, [websocket, readyState])
+	}, [websocket, websocketState])
 
-	return {title, tasks, pushEvent, readyState}
+	return {state, send, websocketState}
 }

@@ -1,44 +1,44 @@
 export type TaskIcon =
-	"User" &
-	"Image" &
-	"Envelope" &
-	"Star" &
-	"Heart" &
-	"Comment" &
-	"FaceSmile" &
-	"File" &
-	"Bell" &
-	"Bookmark" &
-	"Eye" &
-	"Hand" &
-	"PaperPlane" &
-	"Handshake" &
-	"Sun" &
-	"Clock" &
-	"Circle" &
-	"Square" &
-	"Building" &
-	"Flag" &
+	"User" |
+	"Image" |
+	"Envelope" |
+	"Star" |
+	"Heart" |
+	"Comment" |
+	"FaceSmile" |
+	"File" |
+	"Bell" |
+	"Bookmark" |
+	"Eye" |
+	"Hand" |
+	"PaperPlane" |
+	"Handshake" |
+	"Sun" |
+	"Clock" |
+	"Circle" |
+	"Square" |
+	"Building" |
+	"Flag" |
 	"Moon";
 
 export type TaskImportance =
-	"Highest" &
-	"High" &
-	"Normal" &
-	"Low" &
+	"Highest" |
+	"High" |
+	"Normal" |
+	"Low" |
 	"Lowest";
 
 export type TaskPriority =
-	"Highest" &
-	"High" &
-	"Normal" &
-	"Low" &
+	"Highest" |
+	"High" |
+	"Normal" |
+	"Low" |
 	"Lowest";
 
 export type TaskStatus =
-	"Unfinished" &
-	"InProgress" &
-	"Complete"
+	"Unfinished" |
+	"InProgress" |
+	"Complete";
 
 export type Task = {
 	text: string,
@@ -46,6 +46,10 @@ export type Task = {
 	importance: TaskImportance,
 	priority: TaskPriority,
 	status: TaskStatus,
+}
+
+export type TaskWithId = Task & {
+	id: string,
 }
 
 export type TitleBoardAction = {
@@ -59,4 +63,6 @@ export type TaskBoardAction = {
 	]
 }
 
-export type BoardAction = TitleBoardAction & TaskBoardAction;
+export type BoardAction =
+	TitleBoardAction |
+	TaskBoardAction;

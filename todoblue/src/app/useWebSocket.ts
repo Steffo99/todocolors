@@ -11,22 +11,22 @@ export interface WebSocketHandlers {
 
 export function useWebSocket(url: string, {onclose, onerror, onmessage, onopen}: WebSocketHandlers) {
 	const [websocket, setWebsocket] = useState<WebSocket | null>(null)
-	const [readyState, setReadyState] = useState<number>(0);
+	const [websocketState, setWebsocketState] = useState<number>(0);
 
 	useEffect(() => {
 		console.debug("[useWebSocket] Creating websocket...");
 		const sock = new WebSocket(url);
 		setWebsocket(sock);
 		sock.onopen = (ev) => {
-			setReadyState(sock.readyState);
+			setWebsocketState(sock.readyState);
 			onopen?.(sock, ev);
 		}
 		sock.onclose = (ev) => {
-			setReadyState(sock.readyState);
+			setWebsocketState(sock.readyState);
 			onclose?.(sock, ev);
 		}
 		sock.onerror = (ev) => {
-			setReadyState(sock.readyState);
+			setWebsocketState(sock.readyState);
 			onerror?.(sock, ev);
 		}
 		sock.onmessage = (ev) => {
@@ -39,5 +39,5 @@ export function useWebSocket(url: string, {onclose, onerror, onmessage, onopen}:
 		}
 	}, [url, onclose, onerror, onmessage, onopen])
 
-	return {websocket, readyState}
+	return {websocket, websocketState}
 }
