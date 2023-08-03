@@ -2,7 +2,7 @@ import {TaskGroupColumn} from "@/app/board/[board]/TaskGroupColumn"
 import {useBoardContext} from "@/app/board/[board]/useBoardContext"
 
 
-export function BoardColumns() {
+export function BoardMainTaskGroups() {
 	const {taskGroups} = useBoardContext()
 
 	return (
