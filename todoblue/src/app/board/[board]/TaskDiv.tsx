@@ -1,14 +1,14 @@
 import {TaskIconEl} from "@/app/board/[board]/TaskIconEl"
-import {Task, TaskWithId} from "@/app/board/[board]/Types"
-import {useBoardContext} from "@/app/board/[board]/useBoardContext"
+import {TaskWithId} from "@/app/board/[board]/Types"
+import {useManagedBoard} from "@/app/board/[board]/BoardManager"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {useCallback, useState, MouseEvent} from "react"
-import {faArrowTurnRight, faTrashCanArrowUp} from "@fortawesome/free-solid-svg-icons"
+import {faTrashCanArrowUp} from "@fortawesome/free-solid-svg-icons"
 import style from "./TaskDiv.module.css"
 import cn from "classnames"
 
 export function TaskDiv({task}: {task: TaskWithId}) {
-	const {send} = useBoardContext()
+	const {send} = useManagedBoard()
 	const [isDisplayingActions, setDisplayingActions] = useState<boolean>(false)
 
 	const toggleStatus = useCallback((e: MouseEvent<HTMLDivElement>) => {

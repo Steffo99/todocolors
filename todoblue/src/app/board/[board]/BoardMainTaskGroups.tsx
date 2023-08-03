@@ -1,10 +1,10 @@
 import {TaskGroupColumn} from "@/app/board/[board]/TaskGroupColumn"
-import {useBoardContext} from "@/app/board/[board]/useBoardContext"
+import {useManagedBoard} from "@/app/board/[board]/BoardManager"
 import style from "./BoardMainTaskGroups.module.css"
 
 
 export function BoardMainTaskGroups() {
-	const {taskGroups} = useBoardContext()
+	const {taskGroups} = useManagedBoard()
 
 	return (
 		<main className={style.boardMainTaskGroups}>

@@ -1,12 +1,12 @@
 import style from "./BoardHeader.module.css"
-import {useBoardContext} from "@/app/board/[board]/useBoardContext"
+import {useManagedBoard} from "@/app/board/[board]/BoardManager"
 import {faArrowDownWideShort, faHouse, faPencil, faTableColumns} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 
 
 export function BoardHeader() {
-	const {title, isEditingTitle, editTitle, setEditTitle, toggleEditingTitle, nextGrouper, nextSorter, websocketState} = useBoardContext();
+	const {title, isEditingTitle, editTitle, setEditTitle, toggleEditingTitle, nextGrouper, nextSorter, websocketState} = useManagedBoard();
 
 	const isReady = websocketState === WebSocket.OPEN
 
