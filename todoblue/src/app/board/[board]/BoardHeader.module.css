@@ -27,7 +27,7 @@
 	}
 }
 
-.boardButtons {
+.buttonsArea {
 	width: auto;
 	min-width: unset;
 
@@ -35,34 +35,24 @@
 	gap: 4px;
 }
 
-.boardButtonsLeft {
-	grid-area: left;
-	justify-self: start;
-}
-
-.boardButtonsRight {
-	grid-area: right;
-	justify-self: end;
-}
-
-.boardTitle {
+.titleArea {
 	grid-area: title;
 	height: 80px;
 }
 
-.boardTitle div {
+.titleDisplay {
 	padding-top: 0.125em;
 	padding-right: 0.75ex;
 	padding-left: 0.75ex;
 	padding-bottom: calc(0.125em + 2px);
 }
 
-.boardTitle input {
+.titleInput {
 	text-align: center;
 	width: 100%;
 }
 
-.boardButtons button {
+.buttonsArea button {
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
@@ -76,4 +66,14 @@
 
 	width: 36px;
 	height: 36px;
+}
+
+.leftButtonsArea {
+	grid-area: left;
+	justify-self: start;
+}
+
+.rightButtonsArea {
+	grid-area: right;
+	justify-self: end;
 }
