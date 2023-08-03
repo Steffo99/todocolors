@@ -6,8 +6,8 @@ export function BoardMainTaskGroups() {
 	const {taskGroups} = useBoardContext()
 
 	return (
-		<div className={"chapter-5"}>
+		<main className={"chapter-5"}>
 			{taskGroups.map((tg) => <TaskGroupColumn taskGroup={tg}/>)}
-		</div>
+		</main>
 	)
 }
