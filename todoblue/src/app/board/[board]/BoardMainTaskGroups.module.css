@@ -1,11 +1,21 @@
 .boardMainTaskGroups {
 	display: flex;
 	gap: 8px;
-	justify-content: center;
-	flex-wrap: wrap;
+	justify-content: start;
+	flex-wrap: nowrap;
+
+	overflow-x: scroll;
+	overflow-y: hidden;
 }
 
 .boardMainTaskGroups > div {
 	flex-basis: 240px;
 	flex-shrink: 0;
+}
+
+.boardMainTaskGroups > div > div {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	overflow-y: scroll;
 }

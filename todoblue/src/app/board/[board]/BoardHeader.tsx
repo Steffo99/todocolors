@@ -7,11 +7,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 
 
-export function BoardHeader() {
+export function BoardHeader({className}: {className?: string}) {
 	const {isEditingTitle} = useManagedBoard();
 
 	return (
-		<header className={style.boardHeader}>
+		<header className={cn(style.boardHeader, className)}>
 			<TitleArea>
 				{isEditingTitle ? <TitleInput/> : <TitleDisplay/>}
 			</TitleArea>
@@ -36,16 +36,18 @@ function TitleArea({children}: {children: ReactNode}) {
 }
 
 function TitleInput() {
-	const {editTitle, setEditTitle} = useManagedBoard()
+	const {editTitle, setEditTitle, stopEditingTitle} = useManagedBoard()
 
 	return (
-		<input
-			className={style.titleInput}
-			type={"text"}
-			placeholder={"Titolo"}
-			onChange={(e) => setEditTitle(e.target.value)}
-			value={editTitle}
-		/>
+		<form onSubmit={stopEditingTitle}>
+			<input
+				className={style.titleInput}
+				type={"text"}
+				placeholder={"Titolo"}
+				onChange={(e) => setEditTitle(e.target.value)}
+				value={editTitle}
+			/>
+		</form>
 	)
 }
 

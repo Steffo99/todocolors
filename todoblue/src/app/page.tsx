@@ -1,15 +1,29 @@
 import {CreatePrivateBoardPanel} from "@/app/CreatePrivateBoardPanel"
 import {CreatePublicBoardPanel} from "@/app/CreatePublicBoardPanel"
 import {default as React} from "react";
+import style from "./page.module.css"
 
 export default function Page() {
-	return <>
-		<header>
+	return <div className={style.pageRoot}>
+		<PageHeader/>
+		<PageMain/>
+		<PageFooter/>
+	</div>
+}
+
+function PageHeader() {
+	return (
+		<header className={style.pageHeader}>
 			<h1>
 				{process.env.NEXT_PUBLIC_SITE_NAME ?? "Todoblue"}
 			</h1>
 		</header>
-		<main>
+	)
+}
+
+function PageMain() {
+	return (
+		<main className={style.pageMain}>
 			<div className={"chapter-2"}>
 				<h2>
 					Crea un nuovo tabellone
@@ -18,5 +32,17 @@ export default function Page() {
 				<CreatePrivateBoardPanel/>
 			</div>
 		</main>
-	</>
+	)
+}
+
+function PageFooter() {
+	return (
+		<footer className={style.pageFooter}>
+			<p>
+				© <a href="https://steffo.eu">Stefano Pigozzi</a> -
+				<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a> -
+				<a href="https://github.com/Steffo99/todocolors">GitHub</a>
+			</p>
+		</footer>
+	)
 }

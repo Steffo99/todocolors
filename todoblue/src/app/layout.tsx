@@ -1,12 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import "@steffo/bluelib/dist/base.root.css"
-import "@steffo/bluelib/dist/classic.root.css"
-import "@steffo/bluelib/dist/glass.root.css"
-import "@steffo/bluelib/dist/layouts-center.root.css"
-import "@steffo/bluelib/dist/colors-royalblue.root.css"
-import "@steffo/bluelib/dist/fonts-fira-ghpages.root.css"
-import '@fortawesome/fontawesome-svg-core/styles.css';
+import "./layout.css";
+import {AppBody} from "@/app/AppBody"
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false; /* eslint-disable import/first */
@@ -23,17 +18,9 @@ export const metadata: NextMetadata = {
 export default function RootLayout({children}: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={"theme-bluelib layout-center"}>
+			<AppBody>
 				{children}
-				<footer>
-					<p>
-						© <a href="https://steffo.eu">Stefano Pigozzi</a> -
-						<a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a> -
-						<a href="https://github.com/Steffo99/todocolors">GitHub</a> -
-						Using {process.env.NEXT_PUBLIC_API_BASE_URL}
-					</p>
-				</footer>
-			</body>
+			</AppBody>
 		</html>
 	)
 }
