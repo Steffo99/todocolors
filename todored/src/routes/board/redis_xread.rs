@@ -15,11 +15,11 @@ pub async fn handler(
 	let mut seq = "0".to_string();
 
 	loop {
-		log::trace!("Waiting for events to broadcast for 5 seconds...");
+		log::trace!("Waiting for events to broadcast for 60 seconds...");
 		let response: RedisResult<StreamReadReply> = rconn.xread_options(
 			&[&key],
 			&[&seq],
-			&StreamReadOptions::default().block(5000)
+			&StreamReadOptions::default().block(60000)
 		).await;
 
 		match response {
