@@ -1,8 +1,7 @@
 .taskDiv {
 	display: grid;
 	align-items: center;
-	min-width: unset;
-	width: 240px;
+	min-width: 240px;
 	min-height: 44px;
 
 	cursor: pointer;
