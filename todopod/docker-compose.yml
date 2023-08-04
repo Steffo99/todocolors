@@ -2,6 +2,12 @@ services:
   redis:
     image: "redis"
     restart: unless-stopped
+    command: >-
+      redis-server
+      --save 60 1
+      --loglevel notice
+    volumes:
+      - "./data/redis/rdata:/data"
   red:
     image: "ghcr.io/steffo99/todocolors-red"
     restart: unless-stopped
