@@ -1,6 +1,6 @@
 import {TaskDisplay} from "@/app/board/[board]/TaskDisplay"
 import {TaskGroup} from "@/app/board/[board]/useBoardTaskArranger"
-import style from "./TaskGroupColumn.module.css"
+import style from "./BoardColumn.module.css"
 
 
 export function BoardColumn({taskGroup}: {taskGroup: TaskGroup}) {
