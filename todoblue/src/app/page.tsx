@@ -1,7 +1,9 @@
 import {CreatePrivateBoardPanel} from "@/app/CreatePrivateBoardPanel"
 import {CreatePublicBoardPanel} from "@/app/CreatePublicBoardPanel"
+import {SiteName} from "@/app/SiteName"
 import {default as React} from "react";
 import style from "./page.module.css"
+
 
 export default function Page() {
 	return <div className={style.pageRoot}>
@@ -15,7 +17,7 @@ function PageHeader() {
 	return (
 		<header className={style.pageHeader}>
 			<h1>
-				{process.env.NEXT_PUBLIC_SITE_NAME ?? "Todoblue"}
+				<SiteName/>
 			</h1>
 		</header>
 	)
