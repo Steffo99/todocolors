@@ -3,7 +3,7 @@
 	align-items: center;
 	min-width: unset;
 	width: 240px;
-	height: 44px;
+	min-height: 44px;
 
 	cursor: pointer;
 }
@@ -17,7 +17,7 @@
 
 .taskDivBack {
 	grid-template-areas:
-		"buttons"
+		"id buttons"
 	;
 	grid-template-columns: 1fr;
 }
@@ -116,4 +116,11 @@
 .taskButtons {
 	grid-area: buttons;
 	justify-self: end;
+}
+
+.taskId {
+	grid-area: id;
+
+	font-size: xx-small;
+	word-break: break-all;
 }

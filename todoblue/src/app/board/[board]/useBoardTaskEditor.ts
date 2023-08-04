@@ -1,12 +1,12 @@
-import {Task} from "@/app/board/[board]/Types"
+import {Task, TaskIcon, TaskImportance, TaskPriority} from "@/app/board/[board]/Types"
 import {useCallback, useMemo, useState} from "react"
 
 
-const PRIORITY_RE = /[^][1-5]\b/
-const IMPORTANCE_RE = /![1-5]\b/
-const ICON_RE = /\[[A-Za-z]+]\b/
+const PRIORITY_RE = /\^[1-5]\s?/
+const IMPORTANCE_RE = /![1-5]\s?/
+const ICON_RE = /\[([A-Za-z]+)]\s?/
 
-const MATCH_TO_IMPORTANCE = {
+const MATCH_TO_IMPORTANCE: {[key: string]: TaskImportance} = {
 	"!1": "Lowest",
 	"!2": "Low",
 	"!3": "Normal",
@@ -14,7 +14,15 @@ const MATCH_TO_IMPORTANCE = {
 	"!5": "Highest",
 }
 
-const MATCH_TO_PRIORITY = {
+const IMPORTANCE_TO_MATCH: {[key in TaskImportance]: string} = {
+	"Lowest": "!1",
+	"Low": "!2",
+	"Normal": "!3",
+	"High": "!4",
+	"Highest": "!5",
+}
+
+const MATCH_TO_PRIORITY: {[key: string]: TaskPriority} = {
 	"^1": "Lowest",
 	"^2": "Low",
 	"^3": "Normal",
@@ -22,7 +30,15 @@ const MATCH_TO_PRIORITY = {
 	"^5": "Highest",
 }
 
-const MATCH_TO_ICON = {
+const PRIORITY_TO_MATCH: {[key in TaskPriority]: string} = {
+	"Lowest": "^1",
+	"Low": "^2",
+	"Normal": "^3",
+	"High": "^4",
+	"Highest": "^5",
+}
+
+const MATCH_TO_ICON: {[key: string]: TaskIcon} = {
 	"user": "User",
 	"image": "Image",
 	"envelope": "Envelope",
@@ -46,19 +62,22 @@ const MATCH_TO_ICON = {
 	"moon": "Moon",
 }
 
-export function rawToEvent(raw: string): Task {
-	const priorityMatch = raw.match(PRIORITY_RE)
-	const importanceMatch = raw.match(IMPORTANCE_RE)
-	const iconMatch = raw.match(ICON_RE)
+function rawToTask(raw: string): Task {
+	const priorityMatch = PRIORITY_RE.exec(raw)
+	const importanceMatch = IMPORTANCE_RE.exec(raw)
+	const iconMatch = ICON_RE.exec(raw)
 
-	const priority = MATCH_TO_PRIORITY[priorityMatch?.[0]];
-	const importance = MATCH_TO_IMPORTANCE[importanceMatch?.[0]];
-	const icon = MATCH_TO_ICON[iconMatch?.[0]?.toLowerCase()]
+	// @ts-ignore TS2538
+	const priority = MATCH_TO_PRIORITY[priorityMatch?.[0]?.trim()] ?? "Normal";
+	// @ts-ignore TS2538
+	const importance = MATCH_TO_IMPORTANCE[importanceMatch?.[0]?.trim()] ?? "Normal";
+	// @ts-ignore TS2538
+	const icon = MATCH_TO_ICON[iconMatch?.[1]?.trim()?.toLowerCase()] ?? "Circle";
 
 	// TODO: Splice so the regex aren't executed twice
-	raw = raw.replace(PRIORITY_RE, "")
-	raw = raw.replace(IMPORTANCE_RE, "")
-	raw = raw.replace(ICON_RE, "")
+	raw = raw?.replace(PRIORITY_RE, "")
+	raw = raw?.replace(IMPORTANCE_RE, "")
+	raw = raw?.replace(ICON_RE, "")
 
 	raw = raw.trim()
 
@@ -71,13 +90,18 @@ export function rawToEvent(raw: string): Task {
 	}
 }
 
+function taskToRaw(task: Task): string {
+	return `[${task.icon}] ${IMPORTANCE_TO_MATCH[task.importance]} ${PRIORITY_TO_MATCH[task.priority]} ${task.text}`
+}
 
 export function useBoardTaskEditor() {
-	const [raw, setRaw] = useState<string>();
+	const [editedTaskText, setEditedTaskText] = useState<string>("");
 
-	const task = useMemo(() => rawToEvent(raw), [raw])
+	const editedTask = useMemo(() => rawToTask(editedTaskText), [editedTaskText])
 
-	const setTask = useCallback((t: Task) => {
-		setRaw("") // TODO
+	const setEditedTask = useCallback((t: Task) => {
+		setEditedTaskText(taskToRaw(t))
 	}, [])
+
+	return {editedTaskText, setEditedTaskText, editedTask, setEditedTask}
 }

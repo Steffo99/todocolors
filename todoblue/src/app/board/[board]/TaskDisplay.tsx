@@ -27,11 +27,16 @@ export function TaskDisplay({task}: {task: TaskWithId}) {
 
 	let contents;
 	if(isDisplayingActions) {
-		contents = <div className={style.taskButtons}>
-			<button>
-				<FontAwesomeIcon icon={faTrashCanArrowUp}/>&nbsp;Ricrea
-			</button>
-		</div>
+		contents = <>
+			<small className={style.taskId}>
+				<code>
+					{task.id}
+				</code>
+			</small>
+			<div className={style.taskButtons}>
+				<RecreateButton task={task}/>
+			</div>
+		</>
 	}
 	else {
 		contents = <>
@@ -69,5 +74,22 @@ export function TaskDisplay({task}: {task: TaskWithId}) {
 		})} onClick={() => setDisplayingActions(!isDisplayingActions)}>
 			{contents}
 		</div>
+	)
+}
+
+function RecreateButton({task}: {task: TaskWithId}) {
+	const {setEditedTask, send} = useManagedBoard()
+
+	const id = task.id;
+
+	const recreateTask = useCallback(() => {
+		setEditedTask(task)
+		send({"Task": [id, null]})
+	}, [send, id])
+
+	return (
+		<button onClick={recreateTask}>
+			<FontAwesomeIcon icon={faTrashCanArrowUp}/>&nbsp;Ricrea
+		</button>
 	)
 }

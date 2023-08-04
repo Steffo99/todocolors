@@ -60,6 +60,12 @@ export type TaskBoardAction = {
 	"Task": [
 		string,
 		Task,
+	] | [
+		null,
+		Task,
+	] | [
+		string,
+		null,
 	]
 }
 

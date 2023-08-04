@@ -3,6 +3,7 @@
 import {TASK_GROUPERS} from "@/app/board/[board]/doTaskGrouping"
 import {TASK_SORTERS} from "@/app/board/[board]/doTaskSorting"
 import {BoardAction, Task} from "@/app/board/[board]/Types"
+import {useBoardTaskEditor} from "@/app/board/[board]/useBoardTaskEditor"
 import {useBoardWebSocket} from "@/app/board/[board]/useBoardWebSocket"
 import {TaskGroup, useBoardTaskArranger} from "@/app/board/[board]/useBoardTaskArranger"
 import {useBoardTitleEditor} from "@/app/board/[board]/useBoardTitleEditor"
@@ -27,6 +28,10 @@ export interface UseBoardReturns {
 	editTitle: string,
 	setEditTitle: Dispatch<SetStateAction<string>>,
 	send: (action: BoardAction) => void,
+	editedTaskText: string,
+	setEditedTaskText: (text: string) => void,
+	editedTask: Task,
+	setEditedTask: (task: Task) => void,
 }
 
 export function useBoard(name: string): UseBoardReturns {
@@ -37,6 +42,8 @@ export function useBoard(name: string): UseBoardReturns {
 
     const {taskGroups} = useBoardTaskArranger(tasksById, taskGrouper, groupSorter, groupNamer, taskSorter);
 	const {isEditingTitle, stopEditingTitle, startEditingTitle, toggleEditingTitle, editTitle, setEditTitle} = useBoardTitleEditor(title, send);
+
+	const {editedTaskText, setEditedTaskText, editedTask, setEditedTask} = useBoardTaskEditor()
 
     return {
 		title,
@@ -56,5 +63,9 @@ export function useBoard(name: string): UseBoardReturns {
 		editTitle,
 		setEditTitle,
 		send,
+		editedTaskText,
+		setEditedTaskText,
+		editedTask,
+		setEditedTask,
 	}
 }
