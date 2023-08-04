@@ -22,14 +22,15 @@ function boardReducer(state: BoardState, action: BoardAction | null) {
     }
     else if(Object.hasOwn(action, "Task")) {
         const taskAction = action as TaskBoardAction;
-        const id = taskAction["Task"][0]
         const task = taskAction["Task"][1]
         const tasksById = {...state.tasksById}
         if(task === null) {
+			const id = taskAction["Task"][0]
             console.debug("[boardReducer] Deleting task:", id)
             delete tasksById[id]
         }
         else {
+			const id = taskAction["Task"][0] as string
             console.debug("[boardReducer] Putting task:", id)
             tasksById[id] = task
         }
