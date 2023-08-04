@@ -2,7 +2,7 @@
 
 import {TASK_GROUPERS} from "@/app/board/[board]/doTaskGrouping"
 import {TASK_SORTERS} from "@/app/board/[board]/doTaskSorting"
-import {BoardAction} from "@/app/board/[board]/Types"
+import {BoardAction, Task} from "@/app/board/[board]/Types"
 import {useBoardWebSocket} from "@/app/board/[board]/useBoardWebSocket"
 import {TaskGroup, useBoardTaskArranger} from "@/app/board/[board]/useBoardTaskArranger"
 import {useBoardTitleEditor} from "@/app/board/[board]/useBoardTitleEditor"
@@ -11,6 +11,7 @@ import {Dispatch, SetStateAction} from "react"
 
 export interface UseBoardReturns {
 	title: string,
+	tasksById: {[id: string]: Task},
 	taskGroups: TaskGroup[],
 	websocketState: number,
 	isEditingTitle: boolean,
@@ -39,6 +40,7 @@ export function useBoard(name: string): UseBoardReturns {
 
     return {
 		title,
+		tasksById,
 		taskGroups,
 		websocketState,
 		isEditingTitle,
