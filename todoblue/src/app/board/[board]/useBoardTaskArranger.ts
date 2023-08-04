@@ -9,12 +9,12 @@ export type TaskGroup = {
 	tasks: TaskWithId[],
 }
 
-export type TaskGroupingFunction = (a: TaskWithId) => string
-export type GroupSortingFunction = (a: TaskGroup, b: TaskGroup) => number;
-export type GroupNamingFunction = (a: string) => ReactNode;
+export type TaskCategorizer = (a: TaskWithId) => string
+export type TaskGroupComparer = (a: TaskGroup, b: TaskGroup) => number;
+export type TaskGroupTitleComponent = (a: {key: string}) => ReactNode;
 export type TaskSortingFunction = (a: TaskWithId, b: TaskWithId) => number;
 
-export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, groupNamer: GroupNamingFunction, taskSorter: TaskSortingFunction): TaskGroup[] {
+export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper: TaskCategorizer, groupSorter: TaskGroupComparer, groupNamer: TaskGroupTitleComponent, taskSorter: TaskSortingFunction): TaskGroup[] {
 	const groupsByKey: {[group: string]: TaskWithId[]} = {}
 
 	for(const [id, task] of Object.entries(tasksById)) {
@@ -33,7 +33,7 @@ export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper:
 	const groups: TaskGroup[] = []
 
 	for(const [key, tasks] of Object.entries(groupsByKey)) {
-		const name = groupNamer(key);
+		const name = groupNamer({key});
 		groups.push({key, name, tasks})
 	}
 
@@ -43,7 +43,7 @@ export function arrangeBoardTasks(tasksById: { [p: string]: Task }, taskGrouper:
 }
 
 
-export function useBoardTaskArranger(tasksById: { [p: string]: Task }, taskGrouper: TaskGroupingFunction, groupSorter: GroupSortingFunction, groupNamer: GroupNamingFunction, taskSorter: TaskSortingFunction) {
+export function useBoardTaskArranger(tasksById: { [p: string]: Task }, taskGrouper: TaskCategorizer, groupSorter: TaskGroupComparer, groupNamer: TaskGroupTitleComponent, taskSorter: TaskSortingFunction) {
 	const taskGroups = useMemo(() => arrangeBoardTasks(tasksById, taskGrouper, groupSorter, groupNamer, taskSorter), [tasksById, taskGrouper, taskSorter, groupSorter])
 
 	return {taskGroups};

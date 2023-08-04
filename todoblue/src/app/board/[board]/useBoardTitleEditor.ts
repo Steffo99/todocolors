@@ -1,6 +1,6 @@
 "use client";
 
-import {BoardAction} from "@/app/board/[board]/types"
+import {BoardAction} from "@/app/board/[board]/Types"
 import {useCallback, useState} from "react"
 
 

@@ -28,44 +28,12 @@ export type TaskImportance =
 	"Low" |
 	"Lowest";
 
-export const IMPORTANCE_TO_NUMBER = {
-	"Highest": 5,
-	"High": 4,
-	"Normal": 3,
-	"Low": 2,
-	"Lowest": 1,
-}
-
-export const IMPORTANCE_TO_STRING = {
-	"Highest": "Critico",
-	"High": "Importante",
-	"Normal": "Normale",
-	"Low": "Opzionale",
-	"Lowest": "Irrilevante"
-}
-
 export type TaskPriority =
 	"Highest" |
 	"High" |
 	"Normal" |
 	"Low" |
 	"Lowest";
-
-export const PRIORITY_TO_NUMBER = {
-	"Highest": 5,
-	"High": 4,
-	"Normal": 3,
-	"Low": 2,
-	"Lowest": 1,
-}
-
-export const PRIORITY_TO_STRING = {
-	"Highest": "Urgente",
-	"High": "Prioritario",
-	"Normal": "Normale",
-	"Low": "Rimandabile",
-	"Lowest": "In qualsiasi momento"
-}
 
 export type TaskStatus =
 	"Unfinished" |
