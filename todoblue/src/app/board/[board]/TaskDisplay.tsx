@@ -4,10 +4,11 @@ import {useManagedBoard} from "@/app/board/[board]/BoardManager"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {useCallback, useState, MouseEvent} from "react"
 import {faTrashCanArrowUp} from "@fortawesome/free-solid-svg-icons"
-import style from "./TaskDiv.module.css"
+import style from "./TaskDisplay.module.css"
 import cn from "classnames"
 
-export function TaskDiv({task}: {task: TaskWithId}) {
+
+export function TaskDisplay({task}: {task: TaskWithId}) {
 	const {send} = useManagedBoard()
 	const [isDisplayingActions, setDisplayingActions] = useState<boolean>(false)
 

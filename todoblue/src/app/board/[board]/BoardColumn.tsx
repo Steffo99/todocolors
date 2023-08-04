@@ -1,4 +1,4 @@
-import {TaskDiv} from "@/app/board/[board]/TaskDiv"
+import {TaskDisplay} from "@/app/board/[board]/TaskDisplay"
 import {TaskGroup} from "@/app/board/[board]/useBoardTaskArranger"
 import style from "./TaskGroupColumn.module.css"
 
@@ -9,7 +9,7 @@ export function BoardColumn({taskGroup}: {taskGroup: TaskGroup}) {
 			<h3>
 				{taskGroup.name}
 			</h3>
-			{taskGroup.tasks.map(task => <TaskDiv task={task}/>)}
+			{taskGroup.tasks.map(task => <TaskDisplay task={task}/>)}
 		</div>
 	)
 }
