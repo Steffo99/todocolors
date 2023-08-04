@@ -1,5 +1,5 @@
-import {CreatePrivateBoard} from "@/app/CreatePrivateBoard"
-import {CreatePublicBoard} from "@/app/CreatePublicBoard"
+import {CreatePrivateBoardPanel} from "@/app/CreatePrivateBoardPanel"
+import {CreatePublicBoardPanel} from "@/app/CreatePublicBoardPanel"
 import {default as React} from "react";
 
 export default function Page() {
@@ -14,8 +14,8 @@ export default function Page() {
 				<h2>
 					Crea un nuovo tabellone
 				</h2>
-				<CreatePublicBoard/>
-				<CreatePrivateBoard/>
+				<CreatePublicBoardPanel/>
+				<CreatePrivateBoardPanel/>
 			</div>
 		</main>
 	</>

@@ -7,7 +7,7 @@ import {default as React} from "react"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
-export function CreatePublicBoard() {
+export function CreatePublicBoardPanel() {
 	const [code, setCode] = useLowerKebabState("")
 	const {createBoard} = useBoardCreator();
 

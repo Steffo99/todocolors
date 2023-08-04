@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import {default as React} from "react"
 
-export function CreatePrivateBoard() {
+export function CreatePrivateBoardPanel() {
 	const {createBoard} = useBoardCreator();
 
 	const isSecure = typeof window !== "undefined" && window.isSecureContext;
