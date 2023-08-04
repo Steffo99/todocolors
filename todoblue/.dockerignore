@@ -1,0 +1,10 @@
+/.devcontainer/
+/.github/
+/.git/
+/.idea/
+/.vscode/
+/.next/
+/node_modules/
+/.dockerignore
+/.gitignore
+/todoblue.iml
