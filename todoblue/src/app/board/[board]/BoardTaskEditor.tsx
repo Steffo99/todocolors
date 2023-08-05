@@ -7,13 +7,17 @@ import {faAdd} from "@fortawesome/free-solid-svg-icons"
 
 
 export function BoardTaskEditor({className}: {className?: string}) {
-	const {editedTask, send, setEditedTaskText} = useManagedBoard()
+	const {editedTask, send, setEditedTaskText, websocketState} = useManagedBoard()
 
 	const submitTask = useCallback((e: FormEvent) => {
 		e.preventDefault();
 		send({"Task": [null, editedTask]});
 		setEditedTaskText("")
 	}, [send, editedTask])
+
+	if(websocketState != WebSocket.OPEN) {
+		return null
+	}
 
 	return (
 		<form onSubmit={submitTask} className={cn(style.editorForm, className)}>
