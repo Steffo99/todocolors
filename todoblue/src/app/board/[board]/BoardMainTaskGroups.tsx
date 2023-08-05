@@ -9,7 +9,7 @@ export function BoardMainTaskGroups({className}: {className?: string}) {
 
 	return (
 		<main className={cn(style.boardMainTaskGroups, className)}>
-			{taskGroups.map((tg) => <BoardColumn taskGroup={tg}/>)}
+			{taskGroups.map((tg) => <BoardColumn taskGroup={tg} key={tg.key}/>)}
 		</main>
 	)
 }

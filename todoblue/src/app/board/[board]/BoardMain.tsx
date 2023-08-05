@@ -1,23 +1,23 @@
 import {BoardMainIcon} from "@/app/board/[board]/BoardMainIcon"
 import {BoardMainTaskGroups} from "@/app/board/[board]/BoardMainTaskGroups"
 import {useManagedBoard} from "@/app/board/[board]/BoardManager"
-import {faArrowsSpin, faExclamationCircle, faGear} from "@fortawesome/free-solid-svg-icons"
+import {faLink, faLinkSlash, faGear} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import cn from "classnames"
 
 
 export function BoardMain({className}: {className?: string}) {
-	const {websocketState} = useManagedBoard()
+	const {webSocketState} = useManagedBoard()
 
-	switch(websocketState) {
+	switch(webSocketState) {
 		case undefined:
-			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faGear} spin/>} text={"Caricamento..."} className={className}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faGear} beatFade/>} text={"Caricamento..."} className={className}/>
 		case WebSocket.CONNECTING:
-			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faArrowsSpin} spin/>} text={"Connessione..."} className={className}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLink} beatFade/>} text={"Connessione..."} className={className}/>
 		case WebSocket.OPEN:
 			return <BoardMainTaskGroups className={className}/>
 		case WebSocket.CLOSING:
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash} beatFade/>} text={"Disconnessione..."} className={className}/>
 		case WebSocket.CLOSED:
-			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faExclamationCircle}/>} text={"Errore"} className={cn("red", className)}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash}/>} text={"Disconnesso"} className={className}/>
 	}
 }

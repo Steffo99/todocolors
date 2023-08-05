@@ -10,7 +10,7 @@ export function BoardColumn({taskGroup}: {taskGroup: TaskGroup}) {
 				{taskGroup.name}
 			</h3>
 			<div>
-				{taskGroup.tasks.map(task => <TaskDisplay task={task}/>)}
+				{taskGroup.tasks.map(task => <TaskDisplay task={task} key={task.id}/>)}
 			</div>
 		</div>
 	)

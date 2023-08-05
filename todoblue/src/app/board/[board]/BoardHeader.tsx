@@ -36,7 +36,11 @@ function TitleArea({children}: {children: ReactNode}) {
 }
 
 function TitleInput() {
-	const {editTitle, setEditTitle, stopEditingTitle} = useManagedBoard()
+	const {editTitle, setEditTitle, stopEditingTitle, webSocketState} = useManagedBoard()
+
+	if(webSocketState !== WebSocket.OPEN) {
+		return null
+	}
 
 	return (
 		<form onSubmit={stopEditingTitle}>
@@ -52,7 +56,11 @@ function TitleInput() {
 }
 
 function TitleDisplay() {
-	const {title} = useManagedBoard()
+	const {title, webSocketState} = useManagedBoard()
+
+	if(webSocketState !== WebSocket.OPEN) {
+		return null
+	}
 
 	return (
 		<div
@@ -85,9 +93,9 @@ function HomeButton() {
 }
 
 function EditTitleButton() {
-	const {websocketState, toggleEditingTitle} = useManagedBoard()
+	const {webSocketState, toggleEditingTitle} = useManagedBoard()
 
-	if(websocketState != WebSocket.OPEN) {
+	if(webSocketState != WebSocket.OPEN) {
 		return null;
 	}
 
@@ -107,9 +115,9 @@ function RightButtonsArea({children}: {children: ReactNode}) {
 }
 
 function CycleGroupButton() {
-	const {websocketState, nextGrouper} = useManagedBoard()
+	const {webSocketState, nextGrouper} = useManagedBoard()
 
-	if(websocketState != WebSocket.OPEN) {
+	if(webSocketState != WebSocket.OPEN) {
 		return null;
 	}
 
@@ -121,9 +129,9 @@ function CycleGroupButton() {
 }
 
 function CycleSortButton() {
-	const {websocketState, nextSorter} = useManagedBoard()
+	const {webSocketState, nextSorter} = useManagedBoard()
 
-	if(websocketState != WebSocket.OPEN) {
+	if(webSocketState != WebSocket.OPEN) {
 		return null;
 	}
 

@@ -55,25 +55,28 @@ export function TaskDisplay({task}: {task: TaskWithId}) {
 	}
 
 	return (
-		<div className={cn({
-			"panel": true,
-			[style.taskDiv]: true,
-			[style.taskDivFront]: !isDisplayingActions,
-			[style.taskDivBack]: isDisplayingActions,
-			[style.taskPriorityHighest]: task.priority === "Highest",
-			[style.taskPriorityHigh]: task.priority === "High",
-			[style.taskPriorityNormal]: task.priority === "Normal",
-			[style.taskPriorityLow]: task.priority === "Low",
-			[style.taskPriorityLowest]: task.priority === "Lowest",
-			[style.taskImportanceHighest]: task.importance === "Highest",
-			[style.taskImportanceHigh]: task.importance === "High",
-			[style.taskImportanceNormal]: task.importance === "Normal",
-			[style.taskImportanceLow]: task.importance === "Low",
-			[style.taskImportanceLowest]: task.importance === "Lowest",
-			[style.taskStatusUnfinished]: task.status === "Unfinished",
-			[style.taskStatusInProgress]: task.status === "InProgress",
-			[style.taskStatusComplete]: task.status === "Complete",
-		})} onClick={() => setDisplayingActions(!isDisplayingActions)}>
+		<div
+			className={cn({
+				"panel": true,
+				[style.taskDiv]: true,
+				[style.taskDivFront]: !isDisplayingActions,
+				[style.taskDivBack]: isDisplayingActions,
+				[style.taskPriorityHighest]: task.priority === "Highest",
+				[style.taskPriorityHigh]: task.priority === "High",
+				[style.taskPriorityNormal]: task.priority === "Normal",
+				[style.taskPriorityLow]: task.priority === "Low",
+				[style.taskPriorityLowest]: task.priority === "Lowest",
+				[style.taskImportanceHighest]: task.importance === "Highest",
+				[style.taskImportanceHigh]: task.importance === "High",
+				[style.taskImportanceNormal]: task.importance === "Normal",
+				[style.taskImportanceLow]: task.importance === "Low",
+				[style.taskImportanceLowest]: task.importance === "Lowest",
+				[style.taskStatusUnfinished]: task.status === "Unfinished",
+				[style.taskStatusInProgress]: task.status === "InProgress",
+				[style.taskStatusComplete]: task.status === "Complete",
+			})}
+			onClick={() => setDisplayingActions(!isDisplayingActions)}
+		>
 			{contents}
 		</div>
 	)

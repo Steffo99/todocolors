@@ -7,7 +7,7 @@ import {faAdd} from "@fortawesome/free-solid-svg-icons"
 
 
 export function BoardTaskEditor({className}: {className?: string}) {
-	const {editedTask, send, setEditedTaskText, websocketState} = useManagedBoard()
+	const {editedTask, send, setEditedTaskText, webSocketState} = useManagedBoard()
 
 	const submitTask = useCallback((e: FormEvent) => {
 		e.preventDefault();
@@ -15,7 +15,7 @@ export function BoardTaskEditor({className}: {className?: string}) {
 		setEditedTaskText("")
 	}, [send, editedTask])
 
-	if(websocketState != WebSocket.OPEN) {
+	if(webSocketState != WebSocket.OPEN) {
 		return null
 	}
 
