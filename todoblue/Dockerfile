@@ -6,8 +6,8 @@ COPY ./ ./
 RUN yarn install
 RUN yarn run build
 
-ENTRYPOINT ["yarn", "run", "start"]
-CMD ["--port=8081"]
+ENTRYPOINT ["yarn", "run", "start", "--port=8081"]
+CMD []
 
 LABEL org.opencontainers.image.title="Todocolors Blue"
 LABEL org.opencontainers.image.description="Blue(lib) frontend for Todocolors"

@@ -67,7 +67,7 @@ COPY --from=builder \
     /usr/src/todored/target/*/release/todored \
     /usr/bin/
 
-ENTRYPOINT []
+ENTRYPOINT ["todored"]
 CMD []
 
 LABEL org.opencontainers.image.title="Todocolors Red"
