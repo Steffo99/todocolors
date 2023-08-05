@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {useBoardCreator} from "@/app/useBoardCreator"
 import {useLowerKebabState} from "@/app/useKebabState"

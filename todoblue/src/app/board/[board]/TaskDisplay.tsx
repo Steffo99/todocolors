@@ -1,3 +1,5 @@
+"use client";
+
 import {TaskIconEl} from "@/app/board/[board]/TaskIconEl"
 import {TaskWithId} from "@/app/board/[board]/Types"
 import {useManagedBoard} from "@/app/board/[board]/BoardManager"

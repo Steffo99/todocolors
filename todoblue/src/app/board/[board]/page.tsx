@@ -6,7 +6,6 @@ import {BoardHeader} from "@/app/board/[board]/BoardHeader"
 import {BoardTaskEditor} from "@/app/board/[board]/BoardTaskEditor"
 import style from "./page.module.css"
 
-
 export default function Page({params: {board}}: {params: {board: string}}) {
 	return (
 		<BoardManager name={board}>
