@@ -15,6 +15,7 @@ export const metadata: NextMetadata = {
 	description: "Self-hosted multiplayer todo app",
 	viewport: {initialScale: 1, width: "device-width", userScalable: false},
 	creator: "Steffo",
+	robots: "noindex, nofollow",
 }
 
 export default function layout({children}: { children: ReactNode }) {
