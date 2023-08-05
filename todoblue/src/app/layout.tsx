@@ -16,6 +16,7 @@ export const metadata: NextMetadata = {
 	viewport: {initialScale: 1, width: "device-width", userScalable: false},
 	creator: "Steffo",
 	robots: "noindex, nofollow",
+	manifest: "manifest.json",
 }
 
 export default function layout({children}: { children: ReactNode }) {

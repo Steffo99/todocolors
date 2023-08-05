@@ -1,0 +1,7 @@
+{
+    "name": "Todoblue",
+    "short_name": "Todoblue",
+    "display": "standalone",
+    "background_color": "#0c193b",
+    "description": "Self-hostable multiplayer todo app"
+}
