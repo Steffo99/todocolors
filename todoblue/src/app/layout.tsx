@@ -13,7 +13,7 @@ export const metadata: NextMetadata = {
 	applicationName: "Todoblue",
 	title: "Home",
 	description: "Self-hosted multiplayer todo app",
-	viewport: {userScalable: false}
+	viewport: {initialScale: 1, width: "device-width", userScalable: false}
 }
 
 export default function layout({children}: { children: ReactNode }) {
