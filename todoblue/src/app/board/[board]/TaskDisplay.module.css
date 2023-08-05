@@ -43,10 +43,6 @@
 	justify-content: center;
 }
 
-.taskDescriptionComplete {
-	text-decoration: 2px currentColor solid line-through;
-}
-
 .taskPriorityHighest {
 	border: 4px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.45);
 	padding: 4px;
@@ -122,4 +118,27 @@
 
 	font-size: xx-small;
 	word-break: break-all;
+}
+
+@keyframes fade {
+	0%, 100% {
+		opacity: 0.4;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+.taskStatusInProgress .taskDescription {
+	animation-name: fade;
+	animation-delay: 0s;
+	animation-direction: normal;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.taskStatusComplete .taskDescription {
+	opacity: 0.4;
+	text-decoration: 2px currentColor solid line-through;
 }
