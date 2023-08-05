@@ -13,12 +13,12 @@ services:
     restart: unless-stopped
     environment:
       REDIS_CONN: "redis://redis:6379/"  # You probably don't need to change this
-    ports:
-      - "127.0.0.1:8080:8080"
   blue:
     image: "ghcr.io/steffo99/todocolors-blue"
     restart: unless-stopped
-    environment:
-      NEXT_PUBLIC_API_BASE_URL: "ws://example.org:8080"  # Change this to the URL where red will be accessible at
-    ports:
-      - "127.0.0.1:8081:8081"
+  caddy:
+    image: "caddy"
+    restart: unless-stopped
+    volumes:
+      - "./data/caddy:/data"
+      - "./config/caddy/Caddyfile:/etc/caddy/Caddyfile"

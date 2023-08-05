@@ -1,10 +1,17 @@
-import {useServersideConfiguration} from "@/app/ServersideConfigurationManager"
+"use client";
 import {useMemo} from "react"
 
 
-export function useBoardWebSocketURL(name: string) {
-	const {baseURL} = useServersideConfiguration()
+const HTTP_TO_WS = {
+	"http:": "ws:",
+	"https:": "wss:",
+}
 
-    const webSocketURL = useMemo(() => `${baseURL}/board/${name}/ws`, [name]);
+export function useBoardWebSocketURL(name: string) {
+	// @ts-ignore
+	const protocol = HTTP_TO_WS[window.location.protocol]
+	const host = window.location.host
+	
+    const webSocketURL = useMemo(() => `${protocol}//${host}/api/board/${name}/ws`, [name]);
     return {webSocketURL}
 }

@@ -1,0 +1,8 @@
+:8080 {
+    route /api/* {
+        uri strip_prefix /api
+        reverse_proxy "http://red:8080"
+    }
+
+    reverse_proxy "http://blue:8081"
+}

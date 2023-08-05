@@ -1,9 +1,11 @@
 FROM node:20
 
 WORKDIR /usr/src/todoblue
-COPY ./ ./
 
+COPY ./package.json ./yarn.lock ./
 RUN yarn install
+
+COPY ./ ./
 RUN yarn run build
 
 ENTRYPOINT ["yarn", "run", "start", "--port=8081"]
