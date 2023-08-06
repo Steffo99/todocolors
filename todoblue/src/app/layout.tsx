@@ -11,12 +11,13 @@ config.autoAddCss = false;
 
 export const metadata: NextMetadata = {
 	applicationName: "Todoblue",
-	title: "Home",
+	title: "Todocolors",
 	description: "Self-hosted multiplayer todo app",
 	viewport: {initialScale: 1, width: "device-width", userScalable: false},
 	creator: "Steffo",
 	robots: "noindex, nofollow",
 	manifest: "manifest.json",
+	icons: "favicon.ico"
 }
 
 export default function layout({children}: { children: ReactNode }) {

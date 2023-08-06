@@ -1,7 +1,47 @@
 {
     "name": "Todoblue",
     "short_name": "Todoblue",
-    "display": "standalone",
+	"start_url": ".",
+    "display": "minimal-ui",
     "background_color": "#0c193b",
-    "description": "Self-hostable multiplayer todo app"
+    "description": "Self-hostable multiplayer todo app",
+	"categories": ["productivity"],
+	"icons": [
+		{
+			"src": "logo-wbg-32.png",
+			"sizes": "32x32",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "logo-wbg-64.png",
+			"sizes": "64x64",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "logo-wbg-128.png",
+			"sizes": "128x128",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "logo-wbg-256.png",
+			"sizes": "256x256",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "logo-wbg-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable any"
+		},
+		{
+			"src": "favicon.ico",
+			"sizes": "32x32 64x64 128x128 256x256 512x512",
+			"type": "image/x-icon",
+			"purpose": "maskable any"
+		}
+	]
 }
