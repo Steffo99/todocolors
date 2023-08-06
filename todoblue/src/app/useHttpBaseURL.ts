@@ -11,7 +11,7 @@ export function useHttpBaseURL(): string | undefined {
 
     useEffect(() => {
         let url = process.env.NEXT_PUBLIC_TODOBLUE_OVERRIDE_BASE_URL;
-        if(!url) url = `${window.location.protocol}//${window.location.host}`;
+        if(!url) url = `${window.location.protocol}//${window.location.host}/api`;
         console.debug("[useBaseURL] Using base URL:", url);
         setBaseURL(url);
     }, []);
