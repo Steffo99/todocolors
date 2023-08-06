@@ -10,7 +10,7 @@ config.autoAddCss = false;
 
 
 export const metadata: NextMetadata = {
-	applicationName: "Todoblue",
+	applicationName: "Todocolors",
 	title: "Todocolors",
 	description: "Self-hosted multiplayer todo app",
 	viewport: {initialScale: 1, width: "device-width", userScalable: false},
