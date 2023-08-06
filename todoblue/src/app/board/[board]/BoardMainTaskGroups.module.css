@@ -1,9 +1,6 @@
 .boardMainTaskGroups {
 	display: flex;
 	overflow-x: hidden;
-
-	--todoblue-column-min-width: 240px;
-	--todoblue-column-max-width: 480px;
 }
 
 .boardMainTaskGroupsSingleColumn {
@@ -42,12 +39,13 @@
 }
 
 .boardMainTaskGroupsSingleColumn .boardColumn {
-	width: var(--todoblue-column-max-width);
+	width: 488px;
+	max-width: 100%;
 }
 
 .boardMainTaskGroupsMultiColumn .boardColumn {
 	width: 248px;
-	max-width: var(--todoblue-column-max-width);
+	max-width: 488px;
 	height: 100%;
 }
 
