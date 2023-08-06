@@ -65,7 +65,7 @@ function compareImportancePriorityText(a: TaskWithId, b: TaskWithId) {
 }
 
 export const TASK_SORTERS: TaskSortingFunction[] = [
-	compareText,
 	comparePriorityImportanceText,
 	compareImportancePriorityText,
+	compareText,
 ];

@@ -173,8 +173,8 @@ function TaskGroupTitleFromStatus({key}: {key: string}): ReactNode {
 }
 
 export const TASK_GROUPERS: [TaskCategorizer, TaskGroupComparer, TaskGroupTitleComponent][] = [
-	[categorizeTaskByIcon, compareGroupsByKey, TaskGroupTitleFromIcon],
-	[categorizeTaskByStatus, compareGroupsByAscendingStatus, TaskGroupTitleFromStatus],
 	[categorizeTaskByImportance, compareGroupsByDescendingImportance, TaskGroupTitleFromImportance],
 	[categorizeTaskByPriority, compareGroupsByDescendingPriority, TaskGroupTitleFromPriority],
+	[categorizeTaskByIcon, compareGroupsByKey, TaskGroupTitleFromIcon],
+	[categorizeTaskByStatus, compareGroupsByAscendingStatus, TaskGroupTitleFromStatus],
 ]
