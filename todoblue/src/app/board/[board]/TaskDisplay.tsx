@@ -54,6 +54,13 @@ export function TaskDisplay({task}: {task: TaskWithId}) {
 		</>
 	}
 
+	const conditionalToggleDisplayingActions = useCallback(() => {
+		if(window.getSelection()?.isCollapsed === false) {
+			return
+		}
+		setDisplayingActions(prev => !prev)
+	}, [])
+
 	return (
 		<div
 			className={cn({
@@ -75,7 +82,7 @@ export function TaskDisplay({task}: {task: TaskWithId}) {
 				[style.taskStatusInProgress]: task.status === "InProgress",
 				[style.taskStatusComplete]: task.status === "Complete",
 			})}
-			onClick={() => setDisplayingActions(!isDisplayingActions)}
+			onClick={conditionalToggleDisplayingActions}
 		>
 			{contents}
 		</div>
