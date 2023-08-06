@@ -1,4 +1,4 @@
-# Todocolors
+# ![](media/icon.png) Todocolors
 
 A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
 
@@ -16,4 +16,4 @@ A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
 
 ## Screenshots
 
-![Screenshot of the application, detailing a nonsensical "Plan for conquering the world"](screenshot.png 'Screenshot of the application, detailing a nonsensical "Plan for conquering the world')
+![Screenshot of the application, detailing a nonsensical "Plan for conquering the world"](media/screenshot.png 'Screenshot of the application, detailing a nonsensical "Plan for conquering the world')
