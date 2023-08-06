@@ -17,13 +17,3 @@
 
 	max-width: 480px;
 }
-
-.boardMainTaskGroups > div > div {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	overflow-y: scroll;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-bottom: 8px;
-}

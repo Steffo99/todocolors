@@ -9,7 +9,7 @@ export function BoardColumn({taskGroup}: {taskGroup: TaskGroup}) {
 			<h3>
 				{taskGroup.name}
 			</h3>
-			<div>
+			<div className={style.boardColumnContents}>
 				{taskGroup.tasks.map(task => <TaskDisplay task={task} key={task.id}/>)}
 			</div>
 		</div>
