@@ -8,7 +8,7 @@ import {useBoardWs} from "@/app/board/[board]/useBoardWs"
 import {TaskGroup, useBoardTaskArranger} from "@/app/board/[board]/useBoardTaskArranger"
 import {useBoardTitleEditor} from "@/app/board/[board]/useBoardTitleEditor"
 import {useCycleState} from "@/app/useCycleState"
-import {Dispatch, SetStateAction} from "react"
+import {Dispatch, SetStateAction, useState} from "react"
 
 export interface UseBoardReturns {
 	title: string,
@@ -32,6 +32,8 @@ export interface UseBoardReturns {
 	setEditedTaskText: (text: string) => void,
 	editedTask: Task,
 	setEditedTask: (task: Task) => void,
+	isSingleColumn: boolean,
+	setSingleColumn: Dispatch<SetStateAction<boolean>>,
 }
 
 export function useBoard(name: string): UseBoardReturns {
@@ -44,6 +46,8 @@ export function useBoard(name: string): UseBoardReturns {
 	const {isEditingTitle, stopEditingTitle, startEditingTitle, toggleEditingTitle, editTitle, setEditTitle} = useBoardTitleEditor(title, sendAction);
 
 	const {editedTaskText, setEditedTaskText, editedTask, setEditedTask} = useBoardTaskEditor()
+
+	const [isSingleColumn, setSingleColumn] = useState<boolean>(false)
 
     return {
 		title,
@@ -67,5 +71,7 @@ export function useBoard(name: string): UseBoardReturns {
 		setEditedTaskText,
 		editedTask,
 		setEditedTask,
+		isSingleColumn,
+		setSingleColumn,
 	}
 }

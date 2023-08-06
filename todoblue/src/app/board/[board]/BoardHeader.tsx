@@ -2,7 +2,7 @@ import {useRouter} from "next/navigation"
 import {ReactNode, useCallback} from "react"
 import style from "./BoardHeader.module.css"
 import {useManagedBoard} from "@/app/board/[board]/BoardManager"
-import {faArrowDownWideShort, faHouse, faPencil, faTableColumns} from "@fortawesome/free-solid-svg-icons"
+import {faArrowDownWideShort, faHouse, faPencil, faObjectGroup, faTableColumns} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 
@@ -20,6 +20,7 @@ export function BoardHeader({className}: {className?: string}) {
 				<EditTitleButton/>
 			</LeftButtonsArea>
 			<RightButtonsArea>
+				<ToggleSingleColumnButton/>
 				<CycleGroupButton/>
 				<CycleSortButton/>
 			</RightButtonsArea>
@@ -114,6 +115,20 @@ function RightButtonsArea({children}: {children: ReactNode}) {
 	)
 }
 
+function ToggleSingleColumnButton() {
+	const {webSocketState, isSingleColumn, setSingleColumn} = useManagedBoard()
+
+	if(webSocketState != WebSocket.OPEN) {
+		return null;
+	}
+
+	return (
+		<button title={"Cambia numero di colonne"} onClick={() => setSingleColumn(prev => !prev)}>
+			<FontAwesomeIcon icon={faTableColumns}/>
+		</button>
+	)
+}
+
 function CycleGroupButton() {
 	const {webSocketState, nextGrouper} = useManagedBoard()
 
@@ -123,7 +138,7 @@ function CycleGroupButton() {
 
 	return (
 		<button title={"Cambia raggruppamento"} onClick={nextGrouper}>
-			<FontAwesomeIcon icon={faTableColumns}/>
+			<FontAwesomeIcon icon={faObjectGroup}/>
 		</button>
 	)
 }

@@ -1,19 +1,69 @@
 .boardMainTaskGroups {
 	display: flex;
-	justify-content: flex-start;
-	flex-wrap: nowrap;
+	overflow-x: hidden;
 
-	overflow-x: scroll;
+	--todoblue-column-min-width: 240px;
+	--todoblue-column-max-width: 480px;
+}
+
+.boardMainTaskGroupsSingleColumn {
+	flex-direction: column;
+
+	justify-content: flex-start;
+	align-items: stretch;
+
+	overflow-y: scroll;
+}
+
+.boardMainTaskGroupsMultiColumn {
+	flex-direction: row;
+
+	justify-content: flex-start;
+	align-items: flex-start;
+
 	overflow-y: hidden;
 }
 
-.boardMainTaskGroups > div {
-	flex-basis: 240px;
+.boardMainTaskGroupsMultiColumn .boardColumnContents {
+	overflow-y: scroll;
+}
+
+.boardColumn {
 	flex-shrink: 0;
 	flex-grow: 1;
 
-	margin-right: auto;
-	margin-left: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	gap: 8px;
 
-	max-width: 480px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.boardMainTaskGroupsSingleColumn .boardColumn {
+	width: var(--todoblue-column-max-width);
+}
+
+.boardMainTaskGroupsMultiColumn .boardColumn {
+	width: 248px;
+	max-width: var(--todoblue-column-max-width);
+	height: 100%;
+}
+
+.boardColumnContents {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-bottom: 8px;
+}
+
+.boardMainTaskGroupsMultiColumn .boardColumnContents {
+	overflow-y: scroll;
+}
+
+.boardColumnContents > * {
+	flex-shrink: 0;
 }
