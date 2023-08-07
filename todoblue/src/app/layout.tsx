@@ -2,6 +2,7 @@
 
 import "./layout.css";
 import {AppBody} from "@/app/AppBody"
+import {StarredManager} from "@/app/StarContext"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
 
@@ -24,7 +25,9 @@ export default function layout({children}: { children: ReactNode }) {
 	return (
 		<html lang="en">
 			<AppBody>
-				{children}
+				<StarredManager>
+					{children}
+				</StarredManager>
 			</AppBody>
 		</html>
 	)

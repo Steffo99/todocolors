@@ -11,6 +11,7 @@ import {useCycleState} from "@/app/useCycleState"
 import {Dispatch, SetStateAction, useState} from "react"
 
 export interface UseBoardReturns {
+	name: string,
 	title: string,
 	tasksById: {[id: string]: Task},
 	taskGroups: TaskGroup[],
@@ -50,6 +51,7 @@ export function useBoard(name: string): UseBoardReturns {
 	const [isSingleColumn, setSingleColumn] = useState<boolean>(false)
 
     return {
+		name,
 		title,
 		tasksById,
 		taskGroups,

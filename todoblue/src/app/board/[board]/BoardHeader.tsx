@@ -1,13 +1,15 @@
+import {useManagedStarred} from "@/app/StarContext"
 import {useRouter} from "next/navigation"
 import {ReactNode, useCallback} from "react"
 import style from "./BoardHeader.module.css"
 import {useManagedBoard} from "@/app/board/[board]/BoardManager"
-import {faArrowDownWideShort, faHouse, faPencil, faObjectGroup, faTableColumns} from "@fortawesome/free-solid-svg-icons"
+import {faArrowDownWideShort, faHouse, faPencil, faObjectGroup, faTableColumns, faStar as faStarSolid} from "@fortawesome/free-solid-svg-icons"
+import {faStar as faStarRegular} from "@fortawesome/free-regular-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 
 
-export function BoardHeader({className}: {className?: string}) {
+export function BoardHeader({className}: {boardName: string, className?: string}) {
 	const {isEditingTitle} = useManagedBoard();
 
 	return (
@@ -17,6 +19,7 @@ export function BoardHeader({className}: {className?: string}) {
 			</TitleArea>
 			<LeftButtonsArea>
 				<HomeButton/>
+				<StarButton/>
 				<EditTitleButton/>
 			</LeftButtonsArea>
 			<RightButtonsArea>
@@ -93,6 +96,20 @@ function HomeButton() {
 	)
 }
 
+function StarButton() {
+	const {name} = useManagedBoard()
+	const {starred, addStarred, removeStarred} = useManagedStarred()
+	const isStarred = starred.indexOf(name) >= 0
+
+	const toggleStarred = useCallback(() => isStarred ? removeStarred(name) : addStarred(name), [name, isStarred, addStarred, removeStarred])
+
+	return (
+		<button title={"Stella tabellone"} onClick={toggleStarred}>
+			<FontAwesomeIcon icon={isStarred ? faStarSolid : faStarRegular}/>
+		</button>
+	)
+}
+
 function EditTitleButton() {
 	const {webSocketState, toggleEditingTitle} = useManagedBoard()
 
@@ -116,7 +133,7 @@ function RightButtonsArea({children}: {children: ReactNode}) {
 }
 
 function ToggleSingleColumnButton() {
-	const {webSocketState, isSingleColumn, setSingleColumn} = useManagedBoard()
+	const {webSocketState, setSingleColumn} = useManagedBoard()
 
 	if(webSocketState != WebSocket.OPEN) {
 		return null;
