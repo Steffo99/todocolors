@@ -2,7 +2,7 @@
 
 import "./layout.css";
 import {Body} from "@/app/[lang]/(layout)/Body"
-import {StarredManager} from "@/app/[lang]/StarContext"
+import {StarredManager} from "@/app/[lang]/(layout)/StarredManager"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
 

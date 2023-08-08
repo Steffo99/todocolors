@@ -1,4 +1,4 @@
-import {useManagedStarred} from "@/app/[lang]/StarContext"
+import {useManagedStarred} from "@/app/[lang]/(layout)/StarredManager"
 import {useRouter} from "next/navigation"
 import {ReactNode, useCallback} from "react"
 import style from "./BoardHeader.module.css"
