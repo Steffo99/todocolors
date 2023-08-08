@@ -18,7 +18,7 @@ async function init(lng: string, ns: string): Promise<i18n> {
     return instance
 }
 
-export async function useTranslation(lng: string, ns: string) {
+export async function useServerTranslation(lng: string, ns: string) {
     const instance = await init(lng, ns)
     return {
         t: instance.getFixedT(lng, Array.isArray(ns) ? ns[0] : ns),

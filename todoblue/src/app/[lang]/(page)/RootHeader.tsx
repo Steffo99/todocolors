@@ -1,10 +1,10 @@
-import {useTranslation} from "@/app/(i18n)/server"
+import {useServerTranslation} from "@/app/(i18n)/server"
 import style from "./RootHeader.module.css"
 import {default as React} from "react"
 
 
 export async function RootHeader({lng}: {lng: string}) {
-	const {t} = await useTranslation(lng, "root")
+	const {t} = await useServerTranslation(lng, "root")
 
 	return (
 		<header className={style.pageHeader}>

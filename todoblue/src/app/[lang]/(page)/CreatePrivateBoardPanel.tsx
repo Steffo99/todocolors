@@ -1,6 +1,6 @@
 "use client";
 
-import {useTranslation} from "@/app/(i18n)/client"
+import {useClientTranslation} from "@/app/(i18n)/client"
 import {faLock} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation"
 import {default as React, SyntheticEvent, useCallback, useEffect, useState} from "react"
 
 export function CreatePrivateBoardPanel({lng}: {lng: string}) {
-	const {t} = useTranslation(lng, "root")
+	const {t} = useClientTranslation(lng, "root")
 	const router = useRouter();
 	const [canCreate, setCanCreate] = useState<boolean | null>(null);
 

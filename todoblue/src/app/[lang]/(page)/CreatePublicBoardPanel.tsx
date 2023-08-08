@@ -1,6 +1,6 @@
 "use client";
 
-import {useTranslation} from "@/app/(i18n)/client"
+import {useClientTranslation} from "@/app/(i18n)/client"
 import {useLowerKebabState} from "@/app/[lang]/useKebabState"
 import {faGlobe} from "@fortawesome/free-solid-svg-icons"
 import cn from "classnames"
@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
 export function CreatePublicBoardPanel({lng}: {lng: string}) {
-	const {t} = useTranslation(lng, "root")
+	const {t} = useClientTranslation(lng, "root")
 	const [code, setCode] = useLowerKebabState("")
 	const router = useRouter();
 

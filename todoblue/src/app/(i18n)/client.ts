@@ -20,7 +20,7 @@ async function init(lng: string, ns: string): Promise<i18n> {
     return instance
 }
 
-export function useTranslation(lng: string, ns: string) {
+export function useClientTranslation(lng: string, ns: string) {
     const [instance, setInstance] = useState<i18n | undefined>(undefined);
 
     useEffect(
