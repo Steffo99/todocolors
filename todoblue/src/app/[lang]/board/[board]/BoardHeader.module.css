@@ -1,7 +1,6 @@
 .boardHeader {
 	display: grid;
 	align-items: center;
-	padding-top: 4px;
 	grid-row-gap: 4px;
 	grid-column-gap: 10px;
 }
