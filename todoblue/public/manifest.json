@@ -2,7 +2,7 @@
     "name": "Todocolors",
     "short_name": "Todocolors",
 	"start_url": ".",
-    "display": "minimal-ui",
+    "display": "standalone",
     "background_color": "#0c193b",
     "description": "Self-hostable multiplayer todo app",
 	"categories": ["productivity"],
