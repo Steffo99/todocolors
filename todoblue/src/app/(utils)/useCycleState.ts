@@ -1,6 +1,11 @@
 import {useCallback, useMemo, useState} from "react"
 
 
+/**
+ * **Hook** similar to {@link useState}, but which allows a value to be chosen from a cycle of items.
+ *
+ * @param items The items in the cycle.
+ */
 export function useCycleState(items: any[]) {
 	const [index, setIndex] = useState<number>(0);
 

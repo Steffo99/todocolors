@@ -7,7 +7,7 @@ import {useBoardTaskEditor} from "@/app/[lang]/board/[board]/useBoardTaskEditor"
 import {useBoardWs} from "@/app/[lang]/board/[board]/useBoardWs"
 import {TaskGroup, useBoardTaskArranger} from "@/app/[lang]/board/[board]/useBoardTaskArranger"
 import {useBoardTitleEditor} from "@/app/[lang]/board/[board]/useBoardTitleEditor"
-import {useCycleState} from "@/app/[lang]/useCycleState"
+import {useCycleState} from "@/app/(utils)/useCycleState"
 import {Dispatch, SetStateAction, useState} from "react"
 
 export interface UseBoardReturns {
