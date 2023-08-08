@@ -4,7 +4,7 @@ import style from "./Body.module.css"
 
 export function Body({children}: {children: ReactNode}) {
 	return (
-		<body className={style.appBody}>
+		<body className={style.body}>
 			{children}
 		</body>
 	)
