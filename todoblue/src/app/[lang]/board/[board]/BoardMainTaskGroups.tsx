@@ -1,3 +1,4 @@
+import {BoardMainIcon} from "@/app/[lang]/board/[board]/BoardMainIcon"
 import {useManagedBoard} from "@/app/[lang]/board/[board]/BoardManager"
 import {TaskDisplay} from "@/app/[lang]/board/[board]/TaskDisplay"
 import {TaskGroup} from "@/app/[lang]/board/[board]/useBoardTaskArranger"
