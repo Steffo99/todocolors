@@ -8,7 +8,7 @@ export async function RootHeader({lng}: {lng: string}) {
 
 	return (
 		<header className={style.pageHeader}>
-			<img className={style.pageLogo} src={"/logo-nbg-64.png"} alt={""}/>
+			<img className={style.pageLogo} src={"/logo-nbg-160.png"} width={64} height={64} alt={""}/>
 			<h1 className={style.pageTitle}>
 				{t("title")}
 			</h1>

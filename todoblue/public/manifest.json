@@ -11,37 +11,73 @@
 			"src": "logo-wbg-32.png",
 			"sizes": "32x32",
 			"type": "image/png",
-			"purpose": "maskable any"
+			"purpose": "maskable"
 		},
 		{
 			"src": "logo-wbg-64.png",
 			"sizes": "64x64",
 			"type": "image/png",
-			"purpose": "maskable any"
+			"purpose": "maskable"
 		},
 		{
 			"src": "logo-wbg-128.png",
 			"sizes": "128x128",
 			"type": "image/png",
-			"purpose": "maskable any"
+			"purpose": "maskable"
 		},
 		{
 			"src": "logo-wbg-256.png",
 			"sizes": "256x256",
 			"type": "image/png",
-			"purpose": "maskable any"
+			"purpose": "maskable"
 		},
 		{
 			"src": "logo-wbg-512.png",
 			"sizes": "512x512",
 			"type": "image/png",
-			"purpose": "maskable any"
+			"purpose": "maskable"
 		},
 		{
-			"src": "favicon.ico",
+			"src": "logo-nbg-32.png",
+			"sizes": "32x32",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "logo-nbg-64.png",
+			"sizes": "64x64",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "logo-nbg-128.png",
+			"sizes": "128x128",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "logo-nbg-160.png",
+			"sizes": "160x160",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "logo-nbg-321.png",
+			"sizes": "321x321",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "favicon-wbg.ico",
 			"sizes": "32x32 64x64 128x128 256x256 512x512",
 			"type": "image/x-icon",
-			"purpose": "maskable any"
+			"purpose": "maskable"
+		},
+		{
+			"src": "favicon-nbg.ico",
+			"sizes": "32x32 64x64 128x128 160x160 321x321",
+			"type": "image/x-icon",
+			"purpose": "any"
 		}
 	]
 }

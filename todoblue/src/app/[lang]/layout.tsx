@@ -18,7 +18,7 @@ export const metadata: NextMetadata = {
 	creator: "Steffo",
 	robots: "noindex, nofollow",
 	manifest: "manifest.json",
-	icons: "favicon.ico"
+	icons: "favicon-wbg.ico"
 }
 
 export default function layout({children}: { children: ReactNode }) {
