@@ -1,0 +1,9 @@
+.pageHeader {
+    display: flex;
+    align-items: center;
+    gap: 2ex;
+}
+
+.pageLogo {
+
+}

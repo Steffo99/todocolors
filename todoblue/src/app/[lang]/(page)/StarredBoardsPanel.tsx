@@ -28,7 +28,7 @@ export function StarredBoardsPanel({lng}: {lng: string}) {
 			</p>
 		</>
 	}
-	if(starred.length === 0) {
+	else if(starred.length === 0) {
 		content = <>
 			<p>
 				{t("existingStarredBoardsEmptyDescription")}
