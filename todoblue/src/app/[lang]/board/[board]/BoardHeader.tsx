@@ -1,4 +1,4 @@
-import {useManagedStarred} from "@/app/[lang]/(layout)/StarredManager"
+import {useStarredConsumer} from "../../(layout)/(contextStarred)"
 import {useRouter} from "next/navigation"
 import {ReactNode, useCallback} from "react"
 import style from "./BoardHeader.module.css"
@@ -98,7 +98,7 @@ function HomeButton() {
 
 function StarButton() {
 	const {name} = useManagedBoard()
-	const {starred, addStarred, removeStarred} = useManagedStarred()
+	const {starred, addStarred, removeStarred} = useStarredConsumer()
 	const isStarred = starred.indexOf(name) >= 0
 
 	const toggleStarred = useCallback(() => isStarred ? removeStarred(name) : addStarred(name), [name, isStarred, addStarred, removeStarred])

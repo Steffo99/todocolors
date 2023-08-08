@@ -1,7 +1,7 @@
 "use client";
 
 import {useClientTranslation} from "@/app/(i18n)/client"
-import {useManagedStarred} from "@/app/[lang]/(layout)/StarredManager"
+import {useStarredConsumer} from "@/app/[lang]/(layout)/(contextStarred)/StarredProvider"
 import {faStar} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
@@ -12,7 +12,7 @@ import {useEffect, useState} from "react"
 export function StarredBoardsPanel({lng}: {lng: string}) {
 	const {t} = useClientTranslation(lng, "root")
 	const [isClient, setIsClient] = useState<true | null>(null);
-	const {starred} = useManagedStarred()
+	const {starred} = useStarredConsumer()
 
 	useEffect(() => setIsClient(true), [])
 

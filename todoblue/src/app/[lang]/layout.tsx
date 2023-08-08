@@ -2,7 +2,7 @@
 
 import "./layout.css";
 import {Body} from "@/app/[lang]/(layout)/Body"
-import {StarredManager} from "@/app/[lang]/(layout)/StarredManager"
+import {StarredProvider} from "@/app/[lang]/(layout)/(contextStarred)/StarredProvider"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
 
@@ -25,9 +25,9 @@ export default function layout({children}: { children: ReactNode }) {
 	return (
 		<html lang="en">
 			<Body>
-				<StarredManager>
+				<StarredProvider>
 					{children}
-				</StarredManager>
+				</StarredProvider>
 			</Body>
 		</html>
 	)
