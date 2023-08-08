@@ -1,11 +1,8 @@
-import {useTranslation} from "@/app/(i18n)/server"
 import style from "@/app/[lang]/page.module.css"
 import {default as React} from "react"
 
 
-export async function RootFooter({lng}: {lng: string}) {
-	const {t} = await useTranslation(lng, "root")
-
+export async function RootFooter() {
 	return (
 		<footer className={style.pageFooter}>
 			<p>

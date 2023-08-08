@@ -10,7 +10,7 @@ export default async function page({params: {lng}}: {params: {lng: string}}) {
 		<div className={style.pageRoot}>
 			<RootHeader lng={lng}/>
 			<RootMain lng={lng}/>
-			<RootFooter lng={lng}/>
+			<RootFooter/>
 		</div>
 	)
 }
