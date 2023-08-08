@@ -1,4 +1,4 @@
-import {useHttpBaseURL} from "@/app/[lang]/useHttpBaseURL"
+import {useHttpBaseURL} from "@/app/(api)/useHttpBaseURL"
 
 
 /**

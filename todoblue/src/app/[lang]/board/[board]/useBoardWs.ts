@@ -2,9 +2,9 @@
 
 import {BoardAction} from "@/app/[lang]/board/[board]/Types"
 import {useBoardState} from "@/app/[lang]/board/[board]/useBoardState"
-import {useWsBaseURL} from "@/app/[lang]/useWsBaseURL"
+import {useWsBaseURL} from "@/app/(api)/useWsBaseURL"
 import {useCallback, useMemo} from "react"
-import {useWs, WebSocketHandlerParams} from "@/app/[lang]/useWs"
+import {useWs, WebSocketHandlerParams} from "@/app/(api)/useWs"
 
 
 export function useBoardWs(name: string) {
