@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import "./layout.css";
-import {AppBody} from "@/app/[lang]/AppBody"
+import {Body} from "@/app/[lang]/Body"
 import {StarredManager} from "@/app/[lang]/StarContext"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
@@ -24,11 +24,11 @@ export const metadata: NextMetadata = {
 export default function layout({children}: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<AppBody>
+			<Body>
 				<StarredManager>
 					{children}
 				</StarredManager>
-			</AppBody>
+			</Body>
 		</html>
 	)
 }
