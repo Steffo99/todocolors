@@ -1,7 +1,7 @@
 "use client";
 
 import {useClientTranslation} from "@/app/(i18n)/client"
-import {useStarredConsumer} from "@/app/[lang]/(layout)/(contextStarred)/StarredProvider"
+import {useStarredConsumer} from "@/app/[lang]/(layout)/(contextStarred)"
 import {faStar} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
