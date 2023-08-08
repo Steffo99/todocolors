@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
 export function BoardMain({className}: {className?: string}) {
-	const {webSocketState} = useManagedBoard()
+	const {webSocketState, webSocketBackoffMs} = useManagedBoard()
 
 	switch(webSocketState) {
 		case undefined:
@@ -18,6 +18,6 @@ export function BoardMain({className}: {className?: string}) {
 		case WebSocket.CLOSING:
 			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash} beatFade/>} text={"Disconnessione..."} className={className}/>
 		case WebSocket.CLOSED:
-			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash}/>} text={"Disconnesso"} className={className}/>
+			return <BoardMainIcon icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash}/>} text={`Disconnesso, riconnessione tra ${webSocketBackoffMs}ms`} className={className}/>
 	}
 }

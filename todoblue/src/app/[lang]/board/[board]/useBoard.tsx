@@ -16,6 +16,7 @@ export interface UseBoardReturns {
 	tasksById: {[id: string]: Task},
 	taskGroups: TaskGroup[],
 	webSocketState: number | undefined,
+	webSocketBackoffMs: number,
 	isEditingTitle: boolean,
 	stopEditingTitle: () => void,
 	startEditingTitle: () => void,
@@ -38,7 +39,7 @@ export interface UseBoardReturns {
 }
 
 export function useBoard(name: string): UseBoardReturns {
-    const {state: {title, tasksById}, sendAction, webSocketState} = useBoardWs(name);
+    const {state: {title, tasksById}, sendAction, webSocketState, webSocketBackoffMs} = useBoardWs(name);
 
 	const {value: [taskGrouper, groupSorter, groupNamer], move: moveGrouper, next: nextGrouper, previous: previousGrouper} = useCycleState(TASK_GROUPERS);
 	const {value: taskSorter, move: moveSorter, next: nextSorter, previous: previousSorter} = useCycleState(TASK_SORTERS);
@@ -56,6 +57,7 @@ export function useBoard(name: string): UseBoardReturns {
 		tasksById,
 		taskGroups,
 		webSocketState,
+		webSocketBackoffMs,
 		isEditingTitle,
 		stopEditingTitle,
 		startEditingTitle,

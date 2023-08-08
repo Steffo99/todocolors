@@ -13,7 +13,7 @@ export function useBoardWs(name: string) {
 
 	const {state, act} = useBoardState();
 
-	const {webSocket, webSocketState} = useWs(wsFullURL, {
+	const {webSocket, webSocketState, webSocketBackoffMs} = useWs(wsFullURL, {
 		onopen: useCallback(({}) => {
 			console.debug("[useBoardWs] Connected to board:", name);
 			act(null);
@@ -27,9 +27,8 @@ export function useBoardWs(name: string) {
 			console.error("[useBoardWs] Encountered a WebSocket error, closing current connection:", event);
 			closeWebSocket()
 		}, []),
-		onclose: useCallback(({event, openWebSocket}: WebSocketHandlerParams<Event>) => {
-			console.debug("[useBoardWs] WebSocket was closed, trying to reconnect:", event);
-			openWebSocket()
+		onclose: useCallback(({event}: WebSocketHandlerParams<Event>) => {
+			console.debug("[useBoardWs] WebSocket was closed:", event);
 		}, [])
 	});
 
@@ -42,5 +41,5 @@ export function useBoardWs(name: string) {
 		webSocket.send(JSON.stringify(data));
 	}, [webSocket, webSocketState])
 
-	return {state, sendAction, webSocketState}
+	return {state, sendAction, webSocketState, webSocketBackoffMs}
 }

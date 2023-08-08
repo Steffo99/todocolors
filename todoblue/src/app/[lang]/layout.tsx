@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import "./layout.css";
-import {Body} from "@/app/[lang]/Body"
+import {Body} from "@/app/[lang]/(layout)/Body"
 import {StarredManager} from "@/app/[lang]/StarContext"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
