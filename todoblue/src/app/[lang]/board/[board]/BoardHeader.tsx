@@ -9,7 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 
 
-export function BoardHeader({className}: {boardName: string, className?: string}) {
+export function BoardHeader({className}: {className?: string}) {
 	const {isEditingTitle} = useManagedBoard();
 
 	return (
