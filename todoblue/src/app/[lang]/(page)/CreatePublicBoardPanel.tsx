@@ -1,7 +1,7 @@
 "use client";
 
 import {useClientTranslation} from "@/app/(i18n)/client"
-import {useLowerKebabState} from "@/app/[lang]/useKebabState"
+import {useLowerKebabState} from "@/app/(utils)/useKebabState"
 import {faGlobe} from "@fortawesome/free-solid-svg-icons"
 import cn from "classnames"
 import {useRouter} from "next/navigation"
