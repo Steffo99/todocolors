@@ -4,16 +4,16 @@ import {StarredBoardsPanel} from "@/app/[lang]/(page)/StarredBoardsPanel"
 import {default as React} from "react"
 
 
-export async function ExistingBoardChapter({lng}: {lng: string}) {
-	const {t} = await useServerTranslation(lng, "root")
+export async function ExistingBoardChapter({lang}: {lang: string}) {
+	const {t} = await useServerTranslation(lang, "root")
 
 	return (
 		<div className={"chapter-2"}>
 			<h2>
 				{t("existingBoardTitle")}
 			</h2>
-			<KnownBoardsPanel lng={lng}/>
-			<StarredBoardsPanel lng={lng}/>
+			<KnownBoardsPanel lang={lang}/>
+			<StarredBoardsPanel lang={lang}/>
 		</div>
 	)
 }

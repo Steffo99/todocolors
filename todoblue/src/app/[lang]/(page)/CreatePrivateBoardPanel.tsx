@@ -7,8 +7,8 @@ import classNames from "classnames"
 import {useRouter} from "next/navigation"
 import {default as React, SyntheticEvent, useCallback, useEffect, useState} from "react"
 
-export function CreatePrivateBoardPanel({lng}: {lng: string}) {
-	const {t} = useClientTranslation(lng, "root")
+export function CreatePrivateBoardPanel({lang}: {lang: string}) {
+	const {t} = useClientTranslation(lang, "root")
 	const router = useRouter();
 	const [canCreate, setCanCreate] = useState<boolean | null>(null);
 

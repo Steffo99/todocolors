@@ -9,8 +9,8 @@ import Link from "next/link"
 import {useEffect, useState} from "react"
 
 
-export function StarredBoardsPanel({lng}: {lng: string}) {
-	const {t} = useClientTranslation(lng, "root")
+export function StarredBoardsPanel({lang}: {lang: string}) {
+	const {t} = useClientTranslation(lang, "root")
 	const [isClient, setIsClient] = useState<true | null>(null);
 	const {starred} = useStarredConsumer()
 

@@ -4,16 +4,16 @@ import {CreatePublicBoardPanel} from "@/app/[lang]/(page)/CreatePublicBoardPanel
 import {default as React} from "react"
 
 
-export async function CreateBoardChapter({lng}: {lng: string}) {
-	const {t} = await useServerTranslation(lng, "root")
+export async function CreateBoardChapter({lang}: {lang: string}) {
+	const {t} = await useServerTranslation(lang, "root")
 
 	return (
 		<div className={"chapter-2"}>
 			<h2>
 				{t("createBoardTitle")}
 			</h2>
-			<CreatePublicBoardPanel lng={lng}/>
-			<CreatePrivateBoardPanel lng={lng}/>
+			<CreatePublicBoardPanel lang={lang}/>
+			<CreatePrivateBoardPanel lang={lang}/>
 		</div>
 	)
 }

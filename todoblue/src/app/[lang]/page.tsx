@@ -5,11 +5,11 @@ import {default as React} from "react";
 import style from "./page.module.css"
 
 
-export default async function page({params: {lng}}: {params: {lng: string}}) {
+export default async function page({params: {lang}}: {params: {lang: string}}) {
 	return (
 		<div className={style.pageRoot}>
-			<RootHeader lng={lng}/>
-			<RootMain lng={lng}/>
+			<RootHeader lang={lang}/>
+			<RootMain lang={lang}/>
 			<RootFooter/>
 		</div>
 	)

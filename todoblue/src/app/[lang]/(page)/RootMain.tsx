@@ -4,11 +4,11 @@ import style from "./RootMain.module.css"
 import {default as React} from "react"
 
 
-export async function RootMain({lng}: {lng: string}) {
+export async function RootMain({lang}: {lang: string}) {
 	return (
 		<main className={style.rootMain}>
-			<CreateBoardChapter lng={lng}/>
-			<ExistingBoardChapter lng={lng}/>
+			<CreateBoardChapter lang={lang}/>
+			<ExistingBoardChapter lang={lang}/>
 		</main>
 	)
 }

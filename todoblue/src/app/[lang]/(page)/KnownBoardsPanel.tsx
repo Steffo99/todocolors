@@ -9,8 +9,8 @@ import {default as React, SyntheticEvent, useCallback} from "react"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
-export function KnownBoardsPanel({lng}: {lng: string}) {
-    const {t} = useClientTranslation(lng, "root")
+export function KnownBoardsPanel({lang}: {lang: string}) {
+    const {t} = useClientTranslation(lang, "root")
     const [code, setCode] = useLowerKebabState("")
     const router = useRouter();
 

@@ -3,8 +3,8 @@ import style from "./RootHeader.module.css"
 import {default as React} from "react"
 
 
-export async function RootHeader({lng}: {lng: string}) {
-	const {t} = await useServerTranslation(lng, "root")
+export async function RootHeader({lang}: {lang: string}) {
+	const {t} = await useServerTranslation(lang, "root")
 
 	return (
 		<header className={style.pageHeader}>
