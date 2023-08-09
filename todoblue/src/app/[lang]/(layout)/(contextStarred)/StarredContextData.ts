@@ -6,4 +6,5 @@ export interface StarredContextData {
 	setStarred: Dispatch<SetStateAction<string[] | undefined>>
 	addStarred: (key: string) => void,
 	removeStarred: (key: string) => void,
+	isStarred: (key: string) => boolean,
 }
