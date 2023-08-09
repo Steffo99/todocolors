@@ -9,7 +9,7 @@ export function useStarredConsumer(): StarredContextData {
 	const context = useContext(StarredContext)
 
 	if(context === null) {
-		throw new Error("useStarContext used outside a StarredContext.")
+		throw new Error("useStarredConsumer used outside a StarredContext.")
 	}
 
 	return context
