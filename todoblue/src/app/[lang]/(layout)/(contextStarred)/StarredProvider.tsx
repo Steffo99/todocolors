@@ -32,12 +32,29 @@ export function StarredProvider({children}: {children: ReactNode}) {
 		})
 	}, [])
 
+	const toggleStarred = useCallback((value: string) => {
+		setStarred(prev => {
+			if(!prev) {
+				return [value]
+			}
+			const result = [...prev]
+			const index = result.indexOf(value)
+			if(!index) {
+				result.push(value)
+			}
+			else {
+				result.splice(index, 1)
+			}
+			return result
+		})
+	}, [])
+
 	const isStarred = useCallback((value: string) => {
 		return starred.indexOf(value) >= 0
 	}, [starred])
 
 	return (
-		<StarredContext.Provider value={{starred, setStarred, addStarred, removeStarred, isStarred}}>
+		<StarredContext.Provider value={{starred, setStarred, addStarred, removeStarred, toggleStarred, isStarred}}>
 			{children}
 		</StarredContext.Provider>
 	)
