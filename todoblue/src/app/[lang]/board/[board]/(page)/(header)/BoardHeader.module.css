@@ -36,6 +36,7 @@
 
 .titleArea {
 	grid-area: title;
+	height: 72px;
 }
 
 .titleDisplay {

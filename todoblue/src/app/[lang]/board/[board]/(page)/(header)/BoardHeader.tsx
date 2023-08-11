@@ -22,12 +22,12 @@ interface BoardHeaderProps {
 export function BoardHeader({lang, className, metadataHook, layoutHook: {columningHook, groupingHook, sortingHook}}: BoardHeaderProps) {
 	return (
 		<header className={cn(style.boardHeader, className)}>
-			<BoardHeaderTitle className={style.titleArea} editorHook={metadataHook}/>
 			<div className={cn(style.buttonsArea, style.leftButtonsArea)}>
 				<NavigateHomeButton lang={lang}/>
 				<ToggleStarredButton lang={lang}/>
 				<ToggleEditingButton lang={lang} metadataHook={metadataHook}/>
 			</div>
+			<BoardHeaderTitle className={style.titleArea} editorHook={metadataHook}/>
 			<div className={cn(style.buttonsArea, style.rightButtonsArea)}>
 				<CycleColumningButton lang={lang} value={columningHook.value} next={columningHook.next}/>
 				<CycleGroupingButton lang={lang} next={groupingHook.next}/>

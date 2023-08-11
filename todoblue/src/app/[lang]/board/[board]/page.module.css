@@ -6,7 +6,8 @@
 		"main"
 		"editor"
 	;
-	grid-template-rows: 72px 1fr 48px;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr 48px;
 	grid-row-gap: 8px;
 
 	justify-content: stretch;
@@ -30,6 +31,4 @@
 
 .pageEditor {
 	grid-area: editor;
-
-	min-height: 44px;
 }

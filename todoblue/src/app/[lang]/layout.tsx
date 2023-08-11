@@ -18,7 +18,8 @@ export const metadata: NextMetadata = {
 	creator: "Steffo",
 	robots: "noindex, nofollow",
 	manifest: "manifest.json",
-	icons: "favicon-wbg.ico"
+	icons: "favicon-wbg.ico",
+	themeColor: "#0d193b"
 }
 
 export default function layout({children}: { children: ReactNode }) {

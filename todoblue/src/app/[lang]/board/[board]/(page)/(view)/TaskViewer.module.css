@@ -18,5 +18,9 @@
 }
 
 .taskViewerBack {
-	flex-direction: row-reverse;
+	justify-content: end;
+}
+
+.taskViewerDebug {
+	font-size: xx-small;
 }

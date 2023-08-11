@@ -1,5 +1,6 @@
 .taskEditorContainer {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 }
 
@@ -8,8 +9,6 @@
 	align-items: center;
 	border-style: dashed;
 
-	width: 100%;
-	max-width: 480px;
 	height: 100%;
 }
 

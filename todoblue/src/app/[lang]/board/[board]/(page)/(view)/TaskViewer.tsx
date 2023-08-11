@@ -9,11 +9,22 @@ import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(view)/(task)/TaskWi
 import {faTrashArrowUp} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
-import {Dispatch, MouseEvent, SetStateAction, useCallback, useState} from "react"
+import {Dispatch, SyntheticEvent, SetStateAction, useCallback, useState} from "react"
 
 
 export function TaskViewer({lang, task, setEditorInput}: {lang: string, task: TaskWithId, setEditorInput: Dispatch<SetStateAction<string>>}) {
     const [isFlipped, setFlipped] = useState<boolean>(false)
+
+	const toggleFlipped = useCallback((e: SyntheticEvent<HTMLElement>) => {
+		if("key" in e && typeof e["key"] === "string") {
+			if(!["Enter", " "].includes(e.key)) {
+				return;
+			}
+		}
+		e.preventDefault()
+		e.stopPropagation()
+		setFlipped(prev => !prev)
+	}, [])
 
 	return (
 		<div
@@ -23,17 +34,23 @@ export function TaskViewer({lang, task, setEditorInput}: {lang: string, task: Ta
 				[style.taskViewerFront]: !isFlipped,
 				[style.taskViewerBack]: isFlipped,
 			}, taskClassNames(task[1]))}
-			onClick={() => setFlipped(prev => !prev)}
+			onClick={toggleFlipped}
+			onKeyDownCapture={toggleFlipped}
 		>
 			{isFlipped ? <TaskViewerBack lang={lang} task={task} setEditorInput={setEditorInput}/> : <TaskViewerFront lang={lang} task={task}/>}
 		</div>
 	)
 }
 
-function TaskViewerFront({lang, task}: {lang: string, task: TaskWithId}) {
+function TaskViewerFront({task}: {lang: string, task: TaskWithId}) {
 	const {sendRequest} = useBoardConsumer()
 
-	const toggleStatus = useCallback((e: MouseEvent<HTMLDivElement>) => {
+	const toggleStatus = useCallback((e: SyntheticEvent<HTMLDivElement>) => {
+		if("key" in e && typeof e["key"] === "string") {
+			if(!["Enter", " "].includes(e.key)) {
+				return;
+			}
+		}
 		e.preventDefault()
 		e.stopPropagation()
 		let request: ModifyTaskBoardRequest
@@ -52,7 +69,7 @@ function TaskViewerFront({lang, task}: {lang: string, task: TaskWithId}) {
 	}, [task, sendRequest])
 
     return <>
-		<div className={style.taskIcon} onClick={toggleStatus} tabIndex={0}>
+		<div className={style.taskIcon} onClick={toggleStatus} onKeyDown={toggleStatus} tabIndex={0}>
 			<FontAwesomeIcon
 				size={"lg"}
 				icon={task[1].status === TaskStatus.Complete ? TASK_ICON_TO_FONTAWESOME_SOLID[task[1].icon] : TASK_ICON_TO_FONTAWESOME_REGULAR[task[1].icon]}
@@ -69,7 +86,12 @@ function TaskViewerBack({lang, task, setEditorInput}: {lang: string, task: TaskW
 	const {t} = useClientTranslation(lang, "board")
 	const {sendRequest} = useBoardConsumer()
 
-	const recreateTask = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+	const recreateTask = useCallback((e: SyntheticEvent<HTMLButtonElement>) => {
+		if("key" in e && typeof e["key"] === "string") {
+			if(!["Enter", " "].includes(e.key)) {
+				return;
+			}
+		}
 		e.preventDefault()
 		e.stopPropagation()
 		setEditorInput(taskToString(task[1]))
@@ -78,8 +100,11 @@ function TaskViewerBack({lang, task, setEditorInput}: {lang: string, task: TaskW
 	}, [task, setEditorInput, sendRequest])
 
 	return <>
-		<div className={style.taskButtons}>
-			<button title={t("taskButtonRecreate")} onClick={recreateTask}>
+		<div className={style.taskViewerDebug}>
+			{task[0]}
+		</div>
+		<div className={style.taskViewerButtons}>
+			<button title={t("taskButtonRecreate")} onClick={recreateTask} onKeyDown={recreateTask} tabIndex={0}>
 				<FontAwesomeIcon size={"sm"} icon={faTrashArrowUp}/>
 			</button>
 		</div>
