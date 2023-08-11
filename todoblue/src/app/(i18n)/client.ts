@@ -35,7 +35,7 @@ export function useClientTranslation(lang: string, ns: string) {
     )
 
     return {
-        t: instance?.getFixedT(lang, Array.isArray(ns) ? ns[0] : ns) ?? ((...args) => `${args}`),
+        t: instance?.getFixedT(lang, Array.isArray(ns) ? ns[0] : ns) ?? ((...args) => `${args}`) as (...args: any) => string,  // FIXME: Typing for this function is incorrect.
         i18n: instance,
     }
 }

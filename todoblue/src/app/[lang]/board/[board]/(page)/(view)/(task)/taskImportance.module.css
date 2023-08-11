@@ -1,0 +1,39 @@
+.taskImportanceHighest {
+    --bhsl-current-hue: 15deg;
+    --bhsl-current-saturation: 98%;
+    --bhsl-current-lightness: 75%;
+
+    font-weight: 800;
+}
+
+.taskImportanceHigh {
+    --bhsl-current-hue: 260deg;
+    --bhsl-current-saturation: 66%;
+    --bhsl-current-lightness: 72%;
+
+    font-weight: 700;
+}
+
+.taskImportanceNormal {
+    --bhsl-current-hue: 212deg;
+    --bhsl-current-saturation: 100%;
+    --bhsl-current-lightness: 81%;
+
+    font-weight: 400;
+}
+
+.taskImportanceLow {
+    --bhsl-current-hue: 168deg;
+    --bhsl-current-saturation: 22%;
+    --bhsl-current-lightness: 61%;
+
+    font-weight: 300;
+}
+
+.taskImportanceLowest {
+    --bhsl-current-hue: 120deg;
+    --bhsl-current-saturation: 30%;
+    --bhsl-current-lightness: 30%;
+
+    font-weight: 300;
+}

@@ -13,9 +13,10 @@ export function StarredProvider({children}: {children: ReactNode}) {
 			if(!prev) {
 				return [value]
 			}
-			else {
-				return [...prev, value]
+			if(prev.indexOf(value) >= 0) {
+				return prev
 			}
+			return [...prev, value]
 		})
 	}, [])
 
@@ -39,7 +40,7 @@ export function StarredProvider({children}: {children: ReactNode}) {
 			}
 			const result = [...prev]
 			const index = result.indexOf(value)
-			if(!index) {
+			if(index <= -1) {
 				result.push(value)
 			}
 			else {

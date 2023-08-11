@@ -1,0 +1,9 @@
+.boardHeaderTitleDisplay {
+	padding: 0 0.75ex 4px;
+}
+
+.boardHeaderTitle input {
+	padding: 0 0.75ex 2px;
+	width: 100%;
+	text-align: center;
+}

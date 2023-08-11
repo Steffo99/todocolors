@@ -1,0 +1,22 @@
+.taskViewer {
+	flex-direction: row;
+	align-items: center;
+	min-width: 240px;
+	min-height: 48px;
+
+	cursor: pointer;
+}
+
+.taskIcon {
+	display: flex;
+	width: 28px;
+	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+
+	cursor: pointer;
+}
+
+.taskViewerBack {
+	flex-direction: row-reverse;
+}
