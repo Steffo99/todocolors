@@ -26,19 +26,35 @@ export function useBoardLayoutEditor() {
 	])
 	const sortingHook = useCycler(useLocalStorage<number | undefined>(localStorageKeySorting, undefined), [
         [
-            SortingMode.ByStatus,
+			SortingMode.ByStatus,
             SortingMode.ByPriority,
             SortingMode.ByImportance,
             SortingMode.ByIcon,
             SortingMode.ByText,
         ],
         [
-            SortingMode.ByStatus,
+			SortingMode.ByStatus,
             SortingMode.ByImportance,
             SortingMode.ByPriority,
             SortingMode.ByIcon,
             SortingMode.ByText,
         ],
+		[
+			SortingMode.ByStatus,
+			SortingMode.ByText,
+		],
+		[
+			SortingMode.ByPriority,
+			SortingMode.ByImportance,
+			SortingMode.ByIcon,
+			SortingMode.ByText,
+		],
+		[
+			SortingMode.ByImportance,
+			SortingMode.ByPriority,
+			SortingMode.ByIcon,
+			SortingMode.ByText,
+		],
 		[
 			SortingMode.ByText,
 		]

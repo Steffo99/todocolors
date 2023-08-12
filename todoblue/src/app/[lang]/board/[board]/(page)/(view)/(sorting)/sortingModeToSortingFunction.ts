@@ -20,8 +20,8 @@ const TASK_PRIORITY_TO_VALUE = {
 }
 
 const TASK_STATUS_TO_VALUE = {
-	[TaskStatus.Unfinished]: 1,
-	[TaskStatus.InProgress]: 2,
+	[TaskStatus.Unfinished]: 2,
+	[TaskStatus.InProgress]: 1,
 	[TaskStatus.Complete]: 3,
 }
 

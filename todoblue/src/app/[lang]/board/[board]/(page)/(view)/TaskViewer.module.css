@@ -9,6 +9,8 @@
 
 .taskIcon {
 	display: flex;
+	flex-shrink: 0;
+
 	width: 28px;
 	height: 100%;
 	flex-direction: column;

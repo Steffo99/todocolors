@@ -27,7 +27,7 @@ export function TaskEditor({lang, className, editorHook: {input, setInput, task}
 			className={cn(className, style.taskEditorContainer)}
 		>
 			<form
-				className={cn("panel", style.taskEditor, inputClassName)}
+				className={cn("panel", style.taskEditor, className, inputClassName)}
 				onSubmit={submitTask}
 			>
 				<div className={style.taskEditorIcon}>

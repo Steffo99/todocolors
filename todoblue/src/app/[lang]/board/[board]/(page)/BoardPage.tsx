@@ -1,6 +1,6 @@
 "use client";
 
-import {TaskEditor} from "@/app/[lang]/board/[board]/(page)/(edit)/TaskEditor"
+import {BoardEditor} from "@/app/[lang]/board/[board]/(page)/(edit)/BoardEditor"
 import {BoardHeader} from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeader"
 import {BoardMain} from "@/app/[lang]/board/[board]/(page)/(view)/BoardMain"
 import {useBoardLayoutEditor} from "@/app/[lang]/board/[board]/(page)/useBoardLayoutEditor"
@@ -30,7 +30,7 @@ export function BoardPage({lang}: {lang: string}) {
 				sorting={layoutHook.sortingHook.value}
 				setEditorInput={editorHook.setInput}
 			/>
-			<TaskEditor
+			<BoardEditor
 				lang={lang}
 				className={style.pageEditor}
 				editorHook={editorHook}
