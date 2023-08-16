@@ -17,8 +17,8 @@ export const metadata: NextMetadata = {
 	viewport: {initialScale: 1, width: "device-width", userScalable: false},
 	creator: "Steffo",
 	robots: "noindex, nofollow",
-	manifest: "manifest.json",
-	icons: "favicon-wbg.ico",
+	manifest: "/manifest.json",
+	icons: "/favicon-wbg.ico",
 	themeColor: "#0d193b"
 }
 
