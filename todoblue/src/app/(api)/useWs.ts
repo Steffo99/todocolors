@@ -87,7 +87,7 @@ export function useWs(url: string | undefined, {onclose, onerror, onmessage, ono
 		const openWebSocketAfterBackoff = backOff(openWebSocket);
 		// noinspection JSIgnoredPromiseFromCall
 		openWebSocketAfterBackoff()
-	}, [url, isBackingOff, webSocketState])
+	}, [url, webSocket, isBackingOff, webSocketState])
 
 	return {webSocket, webSocketState, webSocketBackoffMs}
 }
