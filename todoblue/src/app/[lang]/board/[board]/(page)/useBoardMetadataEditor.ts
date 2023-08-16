@@ -17,11 +17,9 @@ export function useBoardMetadataEditor() {
 	const stopEditingMetadata = useCallback(() => {
 		console.debug("[useEditableTitle] Ending title edit...");
 		setEditingMetadata(false);
-		if(titleFromEditor.length > 0) {
-			console.debug("[useEditableTitle] Sending title change request...");
-			const request: TitleBoardRequest = {"Title": titleFromEditor}
-			sendRequest(request)
-		}
+		console.debug("[useEditableTitle] Sending title change request...");
+		const request: TitleBoardRequest = {"Title": titleFromEditor}
+		sendRequest(request)
 	}, [sendRequest, titleFromEditor])
 
 	const toggleEditingMetadata = useCallback(() => {
