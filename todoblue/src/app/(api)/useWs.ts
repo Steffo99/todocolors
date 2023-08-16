@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, useCallback, useEffect, useReducer, Reducer} from "react"
+import {useCallback, useEffect, useReducer, Reducer} from "react"
 
 export interface WebSocketHandlerParams<E extends Event> {
 	event: E,
@@ -52,7 +52,7 @@ function wsReducer(prevState: WebSocketState, action: WebSocketAction) {
 }
 
 export function useWs(url: string | undefined, {onclose, onerror, onmessage, onopen}: WebSocketHandlers) {
-	const [{webSocket, webSocketState, webSocketBackoffMs, nextBackOffMs}, dispatch] = useReducer<Reducer<WebSocketState, WebSocketAction>>(wsReducer, {webSocket: undefined, webSocketState: undefined, webSocketBackoffMs: undefined, nextBackOffMs: 1000})
+	const [{webSocket, webSocketState, webSocketBackoffMs}, dispatch] = useReducer<Reducer<WebSocketState, WebSocketAction>>(wsReducer, {webSocket: undefined, webSocketState: undefined, webSocketBackoffMs: undefined, nextBackOffMs: 1000})
 
 	const closeWebSocket = useCallback(() => {
 		console.debug("[useWebSocket] Closing WebSocket:", webSocket);
