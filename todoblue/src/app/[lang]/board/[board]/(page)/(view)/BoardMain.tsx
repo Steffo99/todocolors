@@ -54,7 +54,7 @@ export function BoardMain({lang, className, columning, sorting, grouping, setEdi
 		case WebSocket.CLOSED:
 			return <SplashWithIcon
 				icon={<FontAwesomeIcon size={"4x"} icon={faLinkSlash}/>}
-				text={t("boardDisconnected", { retryingInSeconds: Math.ceil(webSocketBackoffMs / 1000).toString() })}
+				text={t("boardDisconnected", { retryingInSeconds: Math.ceil(webSocketBackoffMs ?? 0 / 1000).toString() })}
 				className={className}
 			/>
 	}
