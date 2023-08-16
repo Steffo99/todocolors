@@ -27,5 +27,6 @@
 	"columnHeaderTaskStatusComplete": "Complete",
 	"taskButtonDelete": "Delete this task",
 	"taskButtonRecreate": "Delete and go back to editing this task",
-	"editorPlaceholder": "What do you want to do?"
+	"editorPlaceholder": "What do you want to do?",
+	"noTitlePlaceholder": "Untitled board"
 }

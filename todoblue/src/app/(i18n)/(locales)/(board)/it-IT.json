@@ -27,5 +27,6 @@
 	"columnHeaderTaskStatusComplete": "Completata",
 	"taskButtonDelete": "Elimina questa attività",
 	"taskButtonRecreate": "Elimina questa attività e torna a modificarla",
-	"editorPlaceholder": "Cosa vuoi fare?"
+	"editorPlaceholder": "Cosa vuoi fare?",
+	"noTitlePlaceholder": "Board senza titolo"
 }

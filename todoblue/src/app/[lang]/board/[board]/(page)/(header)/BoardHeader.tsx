@@ -27,7 +27,11 @@ export function BoardHeader({lang, className, metadataHook, layoutHook: {columni
 				<ToggleStarredButton lang={lang}/>
 				<ToggleEditingButton lang={lang} metadataHook={metadataHook}/>
 			</div>
-			<BoardHeaderTitle className={style.titleArea} editorHook={metadataHook}/>
+			<BoardHeaderTitle
+				lang={lang}
+				className={style.titleArea}
+				editorHook={metadataHook}
+			/>
 			<div className={cn(style.buttonsArea, style.rightButtonsArea)}>
 				<CycleColumningButton lang={lang} value={columningHook.value} next={columningHook.next}/>
 				<CycleGroupingButton lang={lang} next={groupingHook.next}/>

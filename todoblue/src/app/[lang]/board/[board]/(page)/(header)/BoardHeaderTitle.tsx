@@ -1,3 +1,4 @@
+import {useClientTranslation} from "@/app/(i18n)/client"
 import {usePageTitleSetter} from "@/app/(utils)/usePageTitleSetter"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderTitle.module.css"
@@ -6,7 +7,8 @@ import cn from "classnames"
 import {useMemo} from "react"
 
 
-export function BoardHeaderTitle({className, editorHook}: {className?: string, editorHook: ReturnType<typeof useBoardMetadataEditor>}) {
+export function BoardHeaderTitle({lang, className, editorHook}: {lang: string, className?: string, editorHook: ReturnType<typeof useBoardMetadataEditor>}) {
+	const {t} = useClientTranslation(lang, "board")
 	const {isReady, boardState: {title: titleFromState}} = useBoardConsumer()
 
 	const pageTitle = useMemo(() => {
@@ -33,12 +35,21 @@ export function BoardHeaderTitle({className, editorHook}: {className?: string, e
 			</form>
 		)
 	}
-	else {
+	else if(titleFromState.length > 0) {
 		contents = (
 			<div
 				className={style.boardHeaderTitleDisplay}
 			>
 				{titleFromState}
+			</div>
+		)
+	}
+	else {
+		contents = (
+			<div
+				className={cn(style.boardHeaderTitleDisplay, "fade")}
+			>
+				{t("noTitlePlaceholder")}
 			</div>
 		)
 	}
