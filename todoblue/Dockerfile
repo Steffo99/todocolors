@@ -15,7 +15,7 @@ WORKDIR /usr/lib/todoblue
 
 COPY --from=builder /usr/src/todoblue/public ./public
 COPY --from=builder /usr/src/todoblue/.next/standalone ./
-COPY --from=builder /usr/src/todoblue/.next/static ./static
+COPY --from=builder /usr/src/todoblue/.next/static ./.next/static
 
 ENV NODE_ENV production
 
