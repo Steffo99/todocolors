@@ -84,7 +84,7 @@ export function useWs(url: string | undefined, {onclose, onerror, onmessage, ono
 		}
 		sock.onclose = (event) => {
 			console.debug("[useWebSocket] Closed connection:", event)
-            dispatch({event: "stateChange"})
+			dispatch({event: "disconnect"});
 			onclose?.({event, closeWebSocket});
 		}
 		sock.onerror = (event) => {
