@@ -12,6 +12,10 @@ pub enum BoardChange {
 	Title(String),
 	/// Create, update, or delete the [`Task`] with the given [`Uuid`].
 	Task(Uuid, Option<Task>),
+	/// Add the given client to the connected clients list.
+	Connect(Uuid),
+	/// Remove the given client from the connected clients list.
+	Disconnect(Uuid),
 }
 
 impl BoardChange {
