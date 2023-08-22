@@ -17,10 +17,10 @@ async fn main() {
 		.expect("to be able to connect to Redis");
 
 	let router = axum::Router::new()
-		.route("/", get(routes::root::version))
-		.route("/version", get(routes::root::version))
-		.route("/", post(routes::root::healthcheck))
-		.route("/healthcheck", post(routes::root::healthcheck))
+		.route("/", get(routes::version_route))
+		.route("/version", get(routes::version_route))
+		.route("/", post(routes::healthcheck_route))
+		.route("/healthcheck", post(routes::healthcheck_route))
 		.route("/board/:board/ws", get(routes::board::board_websocket))
 		.layer(axum::Extension(rclient))
 		.layer(tower_http::cors::CorsLayer::new()
