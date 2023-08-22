@@ -1,0 +1,16 @@
+.block {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 36px;
+	padding: 0.125em 0.75ex;
+}
+
+.singleBlock {
+	width: 36px;
+}
+
+.doubleBlock {
+	width: 76px;
+}

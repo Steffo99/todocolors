@@ -7,4 +7,5 @@ import {Task} from "@/app/[lang]/board/[board]/(api)/(task)"
 export type BoardState = {
 	title: string,
 	tasksById: {[key: string]: Task},
+	connectedClients: string[],
 }

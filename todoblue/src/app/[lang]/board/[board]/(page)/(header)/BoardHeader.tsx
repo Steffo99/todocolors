@@ -3,6 +3,7 @@ import {CycleColumningButton} from "@/app/[lang]/board/[board]/(page)/(header)/C
 import {CycleGroupingButton} from "@/app/[lang]/board/[board]/(page)/(header)/CycleGroupingButton"
 import {CycleSortingButton} from "@/app/[lang]/board/[board]/(page)/(header)/CycleSortingButton"
 import {NavigateHomeButton} from "@/app/[lang]/board/[board]/(page)/(header)/NavigateHomeButton"
+import {ConnectedClientsButton} from "@/app/[lang]/board/[board]/(page)/(header)/ConnectedClientsButton"
 import {ToggleEditingButton} from "@/app/[lang]/board/[board]/(page)/(header)/ToggleEditingButton"
 import {ToggleStarredButton} from "@/app/[lang]/board/[board]/(page)/(header)/ToggleStarredButton"
 import {useBoardLayoutEditor} from "@/app/[lang]/board/[board]/(page)/useBoardLayoutEditor"
@@ -25,7 +26,7 @@ export function BoardHeader({lang, className, metadataHook, layoutHook: {columni
 			<div className={cn(style.buttonsArea, style.leftButtonsArea)}>
 				<NavigateHomeButton lang={lang}/>
 				<ToggleStarredButton lang={lang}/>
-				<ToggleEditingButton lang={lang} metadataHook={metadataHook}/>
+				<ConnectedClientsButton lang={lang}/>
 			</div>
 			<BoardHeaderTitle
 				lang={lang}
@@ -33,6 +34,7 @@ export function BoardHeader({lang, className, metadataHook, layoutHook: {columni
 				editorHook={metadataHook}
 			/>
 			<div className={cn(style.buttonsArea, style.rightButtonsArea)}>
+				<ToggleEditingButton lang={lang} metadataHook={metadataHook}/>
 				<CycleColumningButton lang={lang} value={columningHook.value} next={columningHook.next}/>
 				<CycleGroupingButton lang={lang} next={groupingHook.next}/>
 				<CycleSortingButton lang={lang} next={sortingHook.next}/>

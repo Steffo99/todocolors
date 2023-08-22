@@ -1,4 +1,6 @@
 import {BoardSignal, DeleteTaskBoardSignal, TaskBoardSignal, TitleBoardSignal, UpdateTaskBoardSignal} from "@/app/[lang]/board/[board]/(api)/(signal)"
+import {ConnectBoardSignal} from "@/app/[lang]/board/[board]/(api)/(signal)/ConnectBoardSignal"
+import {DisconnectBoardSignal} from "@/app/[lang]/board/[board]/(api)/(signal)/DisconnectBoardSignal"
 import {BoardState} from "@/app/[lang]/board/[board]/(api)/(state)/BoardState"
 import {DEFAULT_BOARD_STATE} from "@/app/[lang]/board/[board]/(api)/(state)/defaultBoardState"
 
@@ -40,6 +42,28 @@ export function boardReducer(state: BoardState, action: BoardSignal | null) {
 			tasksById[id] = task
 		}
 		return {...state, tasksById}
+	}
+	else if("Connect" in action) {
+		const connectAction = action as ConnectBoardSignal;
+		const id = connectAction["Connect"];
+		const connectedClients = [...state.connectedClients, id]
+		console.debug("[boardReducer] Adding new client:", id)
+		return {...state, connectedClients}
+	}
+	else if("Disconnect" in action) {
+		const disconnectAction = action as DisconnectBoardSignal;
+		const id = disconnectAction["Disconnect"];
+		const connectedClients = [...state.connectedClients]
+		const clientIndex = connectedClients.indexOf(id)
+		if(clientIndex !== -1) {
+			connectedClients.splice(clientIndex, 1);
+			console.debug("[boardReducer] Removing client:", id)
+			return {...state, connectedClients}
+		}
+		else {
+			console.warn("[boardReducer] Received DisconnectBoardSignal without the client being connected in first place.")
+			return state
+		}
 	}
 	else {
 		console.warn("[boardReducer] Received unknown signal, ignoring:", action)
