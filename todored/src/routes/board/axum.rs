@@ -1,9 +1,6 @@
 use axum::Extension;
 use axum::extract::{Path, WebSocketUpgrade};
-use uuid::Uuid;
 use crate::kebab::Skewer;
-use crate::routes::board::structs::{BoardAction};
-use crate::task::{Task, TaskIcon, TaskImportance, TaskPriority, TaskStatus};
 use super::ws;
 
 pub(crate) async fn handler(
