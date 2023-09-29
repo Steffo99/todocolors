@@ -1,6 +1,7 @@
 'use client';
 
-import {useCallback, useEffect, useReducer, Reducer} from "react"
+import {Reducer, useCallback, useEffect, useReducer} from "react"
+
 
 export interface WebSocketHandlerParams<E extends Event> {
 	event: E,

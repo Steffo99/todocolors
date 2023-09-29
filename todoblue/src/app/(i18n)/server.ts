@@ -1,6 +1,6 @@
-import "server-only";
 import {createInstance, i18n} from "i18next"
 import resourcesToBackend from "i18next-resources-to-backend"
+import "server-only"
 
 
 async function init(lang: string, ns: string): Promise<i18n> {

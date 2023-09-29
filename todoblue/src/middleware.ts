@@ -1,6 +1,7 @@
 import {AVAILABLE_LOCALES} from "@/app/(i18n)/(locales)"
-import Negotiator from 'negotiator'
+import Negotiator from "negotiator"
 import {NextRequest, NextResponse} from "next/server"
+
 
 export function middleware(request: NextRequest) {
 	// https://nextjs.org/docs/app/building-your-application/routing/internationalization

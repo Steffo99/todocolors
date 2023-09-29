@@ -2,68 +2,50 @@ use std::sync::Arc;
 use axum::extract::ws::{CloseCode, Message};
 use deadqueue::unlimited::Queue;
 use redis::aio::Connection;
-use redis::{AsyncCommands, FromRedisValue, RedisResult};
+use redis::AsyncCommands;
 use redis::streams::{StreamReadOptions, StreamReadReply};
+use crate::outcome::LoggableOutcome;
+use crate::routes::board::stream::xread_to_vbc;
 
 pub async fn handler(
 	mut rconn: Connection,
 	key: String,
 	messages_to_send: Arc<Queue<Message>>,
-) -> CloseCode {
+) -> Result<(), CloseCode> {
 	log::trace!("Thread started!");
 
 	let mut seq = "0".to_string();
 
 	loop {
 		log::trace!("Waiting for events to broadcast for 60 seconds...");
-		let response: RedisResult<StreamReadReply> = rconn.xread_options(
-			&[&key],
-			&[&seq],
-			&StreamReadOptions::default().block(60000)
-		).await;
+		let r: StreamReadReply = rconn
+			.xread_options(
+				&[&key],
+				&[&*seq],
+				&StreamReadOptions::default().block(60000)
+			).await
+			.log_err_to_error("Could not XREAD events from Redis")
+			.map_err(|_| 1011u16)?;
 
-		match response {
-			Err(err) => {
-				log::error!("Could not XREAD Redis stream, closing connection: {err:?}");
-				return 1002;
-			},
-			Ok(reply) => {
-				match reply.keys.get(0) {
-					None => {
-						log::trace!("Stream does not exist yet, retrying...");
+		log::trace!("Processing events retrieved from Redis...");
+		let (vec, new_seq) = xread_to_vbc(r).await;
+		seq = new_seq;
+		vec
+			.into_iter()
+			.for_each(|vbc| {
+				log::trace!("Upgrading event to the latest possible version...");
+				let bc = vbc.to_latest_bc();
+
+				log::trace!("Serializing event...");
+				match serde_json::ser::to_string(&bc) {
+					Err(err) => {
+						log::warn!("Failed to serialize BoardChange, skipping: {err:?}");
 					}
-					Some(key) => {
-						key.ids.iter().for_each(|id| {
-							match id.map.get("change") {
-								None => {
-									log::warn!("Malformed event, skipping: {id:?}");
-								}
-								Some(value) => {
-									match value {
-										redis::Value::Data(data) => {
-											match String::from_byte_vec(data) {
-												None => {
-													log::warn!("Event with no data, skipping: {data:?}");
-												}
-												Some(strings) => {
-													strings.into_iter().for_each(|string| {
-														log::trace!("Received event, sending it: {string:?}");
-														messages_to_send.push(Message::Text(string))
-													})
-												}
-											}
-										}
-										_ => {
-											log::warn!("Malformed value, skipping...");
-										}
-									}
-								}
-							}
-							seq = id.id.clone();
-						})
+					Ok(string) => {
+						log::trace!("Pushing serialized event to queue...");
+						messages_to_send.push(Message::Text(string));
 					}
 				}
-			},
-		}
+			});
 	}
 }

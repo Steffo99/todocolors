@@ -3,6 +3,7 @@ import {ICON_DEFAULT, ICON_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)
 import {IMPORTANCE_DEFAULT, IMPORTANCE_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
 import {PRIORITY_DEFAULT, PRIORITY_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/priority"
 
+
 const TASK_IMPORTANCE_TO_VALUE = {
 	[TaskImportance.Highest]: "1",
 	[TaskImportance.High]: "2",
@@ -22,6 +23,12 @@ const TASK_PRIORITY_TO_VALUE = {
 export function taskToString(t: Task): string {
 	let s = ""
 
+	if(t.icon !== ICON_DEFAULT) {
+		s += ICON_GLYPH
+		s += t.icon
+		s += " "
+	}
+
 	if(t.importance !== IMPORTANCE_DEFAULT) {
 		s += IMPORTANCE_GLYPH
 		s += TASK_IMPORTANCE_TO_VALUE[t.importance]
@@ -31,12 +38,6 @@ export function taskToString(t: Task): string {
 	if(t.priority !== PRIORITY_DEFAULT) {
 		s += PRIORITY_GLYPH
 		s += TASK_PRIORITY_TO_VALUE[t.priority]
-		s += " "
-	}
-
-	if(t.icon !== ICON_DEFAULT) {
-		s += ICON_GLYPH
-		s += t.icon
 		s += " "
 	}
 

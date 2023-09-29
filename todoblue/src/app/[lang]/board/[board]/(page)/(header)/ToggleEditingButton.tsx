@@ -1,17 +1,17 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
 import {useBoardMetadataEditor} from "@/app/[lang]/board/[board]/(page)/useBoardMetadataEditor"
 import {faFloppyDisk, faPencil} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
+import {TFunction} from "i18next"
 
 
-export function ToggleEditingButton({lang, metadataHook}: {lang: string, metadataHook: ReturnType<typeof useBoardMetadataEditor>}) {
-    const {t} = useClientTranslation(lang, "board")
-    const {isReady} = useBoardConsumer()
+export function ToggleEditingButton({t, metadataHook}: {t: TFunction, metadataHook: ReturnType<typeof useBoardMetadataEditor>}) {
+    const {isReady, boardState: {locked}} = useBoardConsumer()
 
     if(!isReady) return null;
+	if(locked) return null;
 
     return (
         <button

@@ -1,14 +1,13 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import cn from "classnames"
-import {COLUMNING_MODE_TO_ICON, ColumningMode} from "../(view)/(columning)"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import cn from "classnames"
+import {TFunction} from "i18next"
+import {COLUMNING_MODE_TO_ICON, ColumningMode} from "../(view)/(columning)"
 
 
-export function CycleColumningButton({lang, value, next}: {lang: string, value: ColumningMode, next: () => void}) {
+export function CycleColumningButton({t, value, next}: {t: TFunction, value: ColumningMode, next: () => void}) {
 	const {isReady} = useBoardConsumer()
-	const {t} = useClientTranslation(lang, "board")
 
 	if(!isReady) return null;
 

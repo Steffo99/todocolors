@@ -8,7 +8,7 @@ pub async fn handler(
 	mut receiver: SplitStream<WebSocket>,
 	strings_to_process: Arc<Queue<String>>,
 	messages_to_send: Arc<Queue<Message>>,
-) -> CloseCode {
+) -> Result<(), CloseCode> {
 	log::trace!("Thread started!");
 
 	loop {
@@ -19,14 +19,14 @@ pub async fn handler(
 		log::trace!("Checking if the websocket timed out...");
 		if value.is_none() {
 			log::debug!("Websocket timed out, closing connection.");
-			return 1001;
+			return Err(1001u16);
 		}
 		let value = value.unwrap();
 
 		log::trace!("Checking if websocket returned an error...");
 		if let Err(err) = value {
 			log::error!("Websocket returned error: {err:?}");
-			return 1002;
+			return Err(1002u16);
 		}
 		let value = value.unwrap();
 
@@ -38,7 +38,7 @@ pub async fn handler(
 			}
 			Message::Binary(_) => {
 				log::warn!("Received a binary, closing connection.");
-				return 1003;
+				return Err(1003u16);
 			}
 			Message::Ping(vec) => {
 				log::trace!("Received a ping, delegating to pong handler: {vec:?}");
@@ -49,7 +49,7 @@ pub async fn handler(
 			}
 			Message::Close(cls) => {
 				log::debug!("Received a close, closing connection: {cls:?}");
-				return 1000;
+				return Err(1000u16);
 			}
 		}
 	}

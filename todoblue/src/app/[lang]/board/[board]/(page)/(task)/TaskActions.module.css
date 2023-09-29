@@ -1,0 +1,7 @@
+.taskActions {
+    display: flex;
+    gap: 4px;
+
+    flex-grow: 0;
+    flex-shrink: 1;
+}

@@ -1,5 +1,5 @@
 "use client";
-import "client-only";
+import "client-only"
 import {createInstance, i18n} from "i18next"
 import resourcesToBackend from "i18next-resources-to-backend"
 import {useEffect, useState} from "react"

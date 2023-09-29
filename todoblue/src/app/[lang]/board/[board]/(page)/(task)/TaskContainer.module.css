@@ -1,0 +1,140 @@
+.taskContainer {
+    flex-direction: row;
+    align-items: center;
+    min-width: 240px;
+    min-height: 48px;
+}
+
+.taskImportanceHighest {
+    --bhsl-current-hue: 18deg;
+    --bhsl-current-saturation: 100%;
+    --bhsl-current-lightness: 75%;
+
+    font-weight: 800;
+}
+
+.taskImportanceHigh {
+    --bhsl-current-hue: 250deg;
+    --bhsl-current-saturation: 100%;
+    --bhsl-current-lightness: 78%;
+
+    font-weight: 600;
+}
+
+.taskImportanceNormal {
+    --bhsl-current-hue: 212deg;
+    --bhsl-current-saturation: 100%;
+    --bhsl-current-lightness: 81%;
+
+    font-weight: 400;
+}
+
+.taskImportanceLow {
+    --bhsl-current-hue: 160deg;
+    --bhsl-current-saturation: 45%;
+    --bhsl-current-lightness: 60%;
+
+    font-weight: 300;
+}
+
+.taskImportanceLowest {
+    --bhsl-current-hue: 120deg;
+    --bhsl-current-saturation: 30%;
+    --bhsl-current-lightness: 45%;
+
+    font-weight: 200;
+}
+
+.taskPriorityHighest {
+    border: 4px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.45);
+    padding: 4px;
+}
+
+.taskPriorityHigh {
+    border: 3px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
+    padding: 5px;
+}
+
+.taskPriorityNormal {
+    border: 2px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+    padding: 6px;
+}
+
+.taskPriorityLow {
+    border: 1px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+    padding: 7px;
+}
+
+.taskPriorityLowest {
+    border: 0;
+    padding: 8px;
+}
+
+@keyframes inProgress {
+    0%, 100% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.taskStatusNonExistent {
+
+}
+
+.taskStatusInProgress :global(.taskDescription) {
+    animation-name: inProgress;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.taskStatusComplete :global(.taskDescription) {
+    opacity: 0.4;
+    text-decoration: 2px currentColor solid line-through;
+}
+
+.taskStatusUnfinishedColumnHeader {
+
+}
+
+.taskStatusInProgressColumnHeader {
+    animation-name: inProgress;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.taskStatusCompleteColumnHeader {
+    opacity: 0.4;
+    text-decoration: 2px currentColor solid line-through;
+}
+
+.taskStatusJournaled {
+
+}
+
+.taskPriorityHighestColumnHeader {
+    text-decoration: underline 4px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 1.0);
+}
+
+.taskPriorityHighColumnHeader {
+    text-decoration: underline 3px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.75);
+}
+
+.taskPriorityNormalColumnHeader {
+    text-decoration: underline 2px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.50);
+}
+
+.taskPriorityLowColumnHeader {
+    text-decoration: underline 1px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
+}
+
+.taskPriorityLowestColumnHeader {
+    text-decoration: none;
+}

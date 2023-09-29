@@ -1,0 +1,6 @@
+export type {UpdateTaskBoardChange} from "./UpdateTaskBoardChange"
+export type {DeleteTaskBoardChange} from "./DeleteTaskBoardChange"
+export type {TaskBoardChange} from "./TaskBoardChange"
+export type {TitleBoardChange} from "./TitleBoardChange"
+export type {LockBoardChange} from "./LockBoardChange"
+export type {BoardChange} from "./BoardChange"

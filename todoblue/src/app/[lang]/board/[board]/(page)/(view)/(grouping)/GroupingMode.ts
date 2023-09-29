@@ -3,4 +3,5 @@ export enum GroupingMode {
 	ByPriority,
 	ByStatus,
 	ByIcon,
+	Journal,
 }

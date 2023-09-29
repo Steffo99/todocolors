@@ -1,4 +1,6 @@
 pub mod structs;
+pub mod stream;
+
 pub(self) mod axum;
 pub(self) mod ws;
 pub(self) mod ws_receive;

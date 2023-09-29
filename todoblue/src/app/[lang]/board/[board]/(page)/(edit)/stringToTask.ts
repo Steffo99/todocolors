@@ -1,7 +1,8 @@
-import {Task, TaskIcon, TaskImportance, TaskPriority, TaskStatus} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {Task, TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {ICON_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
 import {IMPORTANCE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
 import {PRIORITY_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/priority"
+
 
 const VALUE_TO_TASK_IMPORTANCE = {
 	"1": TaskImportance.Highest,
@@ -31,11 +32,13 @@ const VALUE_TO_TASK_ICON = {
 	"hand": TaskIcon.Hand,
 	"handshake": TaskIcon.Handshake,
 	"facesmile": TaskIcon.FaceSmile,
+	"smile": TaskIcon.FaceSmile,
 	"user": TaskIcon.User,
 	"comment": TaskIcon.Comment,
 	"envelope": TaskIcon.Envelope,
 	"file": TaskIcon.File,
 	"paperplane": TaskIcon.PaperPlane,
+	"plane": TaskIcon.PaperPlane,
 	"building": TaskIcon.Building,
 	"flag": TaskIcon.Flag,
 	"bell": TaskIcon.Bell,
@@ -61,9 +64,12 @@ export function stringToTask(text: string): Task {
 
 	return {
 		text,
-		status: TaskStatus.Unfinished,
 		priority,
 		importance,
 		icon,
+		created_on: + new Date(),
+		started_on: null,
+		completed_on: null,
+		journaled_on: null,
 	}
 }

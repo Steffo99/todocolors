@@ -1,14 +1,13 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faArrowDownWideShort} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
+import {TFunction} from "i18next"
 
 
-export function CycleSortingButton({lang, next}: {lang: string, next: () => void}) {
+export function CycleSortingButton({t, next}: {t: TFunction, next: () => void}) {
 	const {isReady} = useBoardConsumer()
-	const {t} = useClientTranslation(lang, "board")
 
 	if(!isReady) return null;
 

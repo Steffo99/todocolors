@@ -1,6 +1,6 @@
 /**
  * **Object** signaling a change to the title of the board.
  */
-export type TitleBoardSignal = {
+export type TitleBoardChange = {
 	"Title": string,
 }

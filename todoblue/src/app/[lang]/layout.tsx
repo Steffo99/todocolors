@@ -1,12 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
-import "./layout.css";
-import {Body} from "@/app/[lang]/(layout)/Body"
 import {StarredProvider} from "@/app/[lang]/(layout)/(contextStarred)/StarredProvider"
+import {Body} from "@/app/[lang]/(layout)/Body"
+
+import {config} from "@fortawesome/fontawesome-svg-core"
 import type {Metadata as NextMetadata} from "next"
 import {default as React, ReactNode} from "react"
+import "./layout.css"
 
-import { config } from '@fortawesome/fontawesome-svg-core';
+
 config.autoAddCss = false;
 
 

@@ -1,6 +1,6 @@
 import {useServerTranslation} from "@/app/(i18n)/server"
-import style from "./RootHeader.module.css"
 import {default as React} from "react"
+import style from "./RootHeader.module.css"
 
 
 export async function RootHeader({lang}: {lang: string}) {

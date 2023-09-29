@@ -1,6 +1,7 @@
-import {TaskIcon, TaskImportance, TaskPriority, TaskStatus} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {GroupingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(grouping)/GroupingMode"
-import {TaskGroup} from "@/app/[lang]/board/[board]/(page)/(view)/(task)/TaskGroup"
+import {TaskGroup} from "@/app/[lang]/board/[board]/(page)/(view)/(grouping)/TaskGroup"
+
 
 const TASK_IMPORTANCE_TO_VALUE = {
     [TaskImportance.Highest]: 1,
@@ -19,9 +20,10 @@ const TASK_PRIORITY_TO_VALUE = {
 }
 
 const TASK_STATUS_TO_VALUE = {
-    [TaskStatus.Unfinished]: 1,
-    [TaskStatus.InProgress]: 2,
-    [TaskStatus.Complete]: 3,
+	"Journaled": 3,
+	"Complete": 2,
+	"InProgress": 1,
+	"Unfinished": 0,
 }
 
 const TASK_ICON_TO_VALUE = {
@@ -55,10 +57,14 @@ export const GROUPING_MODE_TO_GROUP_SORTER_FUNCTION = {
     [GroupingMode.ByPriority]: function sortGroupsByPriority(a: TaskGroup<TaskPriority>, b: TaskGroup<TaskPriority>): number {
         return TASK_PRIORITY_TO_VALUE[a.k] - TASK_PRIORITY_TO_VALUE[b.k]
     },
-    [GroupingMode.ByStatus]: function sortGroupsByStatus(a: TaskGroup<TaskStatus>, b: TaskGroup<TaskStatus>): number {
-        return TASK_STATUS_TO_VALUE[a.k] - TASK_STATUS_TO_VALUE[b.k]
+    [GroupingMode.ByStatus]: function sortGroupsByStatus(a: TaskGroup<string>, b: TaskGroup<string>): number {
+        // @ts-ignore
+		return TASK_STATUS_TO_VALUE[a.k] - TASK_STATUS_TO_VALUE[b.k]
     },
     [GroupingMode.ByIcon]: function sortGroupsByIcon(a: TaskGroup<TaskIcon>, b: TaskGroup<TaskIcon>): number {
         return TASK_ICON_TO_VALUE[a.k] - TASK_ICON_TO_VALUE[b.k]
     },
+    [GroupingMode.Journal]: function sortGroupsAlphabetically(a: TaskGroup<TaskIcon>, b: TaskGroup<TaskIcon>): number {
+        return b.k.localeCompare(a.k)
+    }
 }

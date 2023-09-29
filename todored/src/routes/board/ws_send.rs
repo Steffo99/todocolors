@@ -1,5 +1,5 @@
 use std::sync::Arc;
-use axum::extract::ws::{Message, WebSocket};
+use axum::extract::ws::{CloseCode, Message, WebSocket};
 use deadqueue::unlimited::Queue;
 use futures_util::SinkExt;
 use futures_util::stream::SplitSink;
@@ -8,7 +8,7 @@ use crate::outcome::LoggableOutcome;
 pub async fn handler(
 	mut sender: SplitSink<WebSocket, Message>,
 	messages_to_send: Arc<Queue<Message>>,
-) {
+) -> Result<(), CloseCode> {
 	log::trace!("Thread started!");
 
 	loop {
@@ -23,7 +23,7 @@ pub async fn handler(
 
 		if exit_when_done {
 			log::trace!("Done sending messages, shutting down...");
-			return;
+			return Err(1000u16);
 		}
 	}
 }

@@ -1,11 +1,11 @@
 'use client';
 
+import {useWs, WebSocketHandlerParams} from "@/app/(api)/useWs"
 import {BoardRequest} from "@/app/[lang]/board/[board]/(api)/(request)"
-import {BoardSignal} from "@/app/[lang]/board/[board]/(api)/(signal)"
 import {useBoardState} from "@/app/[lang]/board/[board]/(api)/(state)/useBoardState"
 import {useBoardWsURL} from "@/app/[lang]/board/[board]/(api)/(ws)/useBoardWsURL"
 import {useCallback, useMemo} from "react"
-import {useWs, WebSocketHandlerParams} from "@/app/(api)/useWs"
+import {BoardChange} from "../(change)"
 
 
 /**
@@ -16,20 +16,20 @@ import {useWs, WebSocketHandlerParams} from "@/app/(api)/useWs"
 export function useBoardWs(boardName: string) {
 	const wsFullURL = useBoardWsURL(boardName)
 
-	const {boardState, processBoardSignal} = useBoardState();
+	const {boardState, processBoardChange} = useBoardState();
 
 	const {webSocket, webSocketState, webSocketBackoffMs} = useWs(wsFullURL, {
 
 		onopen: useCallback(({}) => {
 			console.debug("[useBoardWs] Opened connection, resetting BoardState to default:", boardName);
-			processBoardSignal(null);
-		}, [processBoardSignal]),
+			processBoardChange(null);
+		}, [processBoardChange]),
 
 		onmessage: useCallback(({event}: WebSocketHandlerParams<MessageEvent>) => {
-			const action: BoardSignal = JSON.parse(event.data);
+			const action: BoardChange = JSON.parse(event.data);
 			console.debug("[useBoardWs] Received signal:", action);
-			processBoardSignal(action)
-		}, [processBoardSignal]),
+			processBoardChange(action)
+		}, [processBoardChange]),
 
 		onerror: useCallback(({event, closeWebSocket}: WebSocketHandlerParams<Event>) => {
 			console.error("[useBoardWs] Encountered a WebSocket error, closing current connection:", event);

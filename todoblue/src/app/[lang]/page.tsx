@@ -1,7 +1,7 @@
 import {RootFooter} from "@/app/[lang]/(page)/RootFooter"
 import {RootHeader} from "@/app/[lang]/(page)/RootHeader"
 import {RootMain} from "@/app/[lang]/(page)/RootMain"
-import {default as React} from "react";
+import {default as React} from "react"
 import style from "./page.module.css"
 
 

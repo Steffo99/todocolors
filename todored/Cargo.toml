@@ -1,12 +1,13 @@
 [package]
 name = "todored"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 axum = { version = "0.6.19", features = ["ws"] }
+chrono = { version = "0.4.28", features = ["serde"] }
 deadqueue = "0.2.4"
 futures-util = "0.3.28"
 lazy_static = "1.4.0"

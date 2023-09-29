@@ -7,6 +7,7 @@ pub mod task;
 pub(crate) mod config;
 mod routes;
 pub mod kebab;
+pub mod proxy;
 
 #[tokio::main]
 async fn main() {

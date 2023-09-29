@@ -3,10 +3,10 @@
 import {useClientTranslation} from "@/app/(i18n)/client"
 import {useLowerKebabifier} from "@/app/(utils)/(kebab)"
 import {faKey} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {useRouter} from "next/navigation"
 import {default as React, SyntheticEvent, useCallback, useState} from "react"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 
 export function KnownBoardsPanel({lang}: {lang: string}) {

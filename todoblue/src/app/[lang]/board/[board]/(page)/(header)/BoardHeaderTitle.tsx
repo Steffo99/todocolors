@@ -1,14 +1,13 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {usePageTitleSetter} from "@/app/(utils)/usePageTitleSetter"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderTitle.module.css"
 import {useBoardMetadataEditor} from "@/app/[lang]/board/[board]/(page)/useBoardMetadataEditor"
 import cn from "classnames"
+import {TFunction} from "i18next"
 import {useMemo} from "react"
 
 
-export function BoardHeaderTitle({lang, className, editorHook}: {lang: string, className?: string, editorHook: ReturnType<typeof useBoardMetadataEditor>}) {
-	const {t} = useClientTranslation(lang, "board")
+export function BoardHeaderTitle({t, className, editorHook}: {t: TFunction, className?: string, editorHook: ReturnType<typeof useBoardMetadataEditor>}) {
 	const {isReady, boardState: {title: titleFromState}} = useBoardConsumer()
 
 	const pageTitle = useMemo(() => {

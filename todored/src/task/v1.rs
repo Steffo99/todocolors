@@ -1,12 +1,10 @@
-//! Module with containers related to boards and tasks.
+//! The first iteration of tasks.
 
 use serde::{Deserialize, Serialize};
-use crate::outcome::LoggableOutcome;
 use uuid::Uuid;
 
 /// A change to a board's contents.
 #[derive(Clone, Debug, Serialize, Deserialize)]
-#[non_exhaustive]
 pub enum BoardChange {
 	/// Set the board's title.
 	Title(String),
@@ -18,38 +16,22 @@ pub enum BoardChange {
 	Disconnect(Uuid),
 }
 
-impl BoardChange {
-	/// Store this in Redis.
-	pub(crate) async fn store_in_redis(&self, rconn: &mut redis::aio::Connection, key: &str) -> Result<String, ()> {
-		log::debug!("Storing BoardOperation in Redis: {:?}", &self);
-
-		log::trace!("Serializing BoardOperation to JSON...");
-		let change = serde_json::ser::to_string(self)
-			.log_err_to_error("Failed to serialize BoardOperation")
-			.map_err(|_| ())?;
-
-		log::trace!("Adding to the Redis stream {key:?}...");
-		let id = redis::cmd("XADD")
-			.arg(key)
-			.arg("*")
-			.arg("change")
-			.arg(change)
-			.query_async::<redis::aio::Connection, String>(rconn).await
-			.log_err_to_error("Failed to XADD to Redis")
-			.map_err(|_| ())?;
-
-		log::trace!("Added to Redis stream with id {id:?}!");
-		Ok(id)
-	}
-}
-
 /// A task that can be displayed on the board.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Task {
+	#[serde(default)]
 	pub text: String,
+
+	#[serde(default)]
 	pub icon: TaskIcon,
+
+	#[serde(default)]
 	pub importance: TaskImportance,
+
+	#[serde(default)]
 	pub priority: TaskPriority,
+
+	#[serde(default)]
 	pub status: TaskStatus,
 }
 
@@ -79,6 +61,12 @@ pub enum TaskIcon {
 	Moon,
 }
 
+impl Default for TaskIcon {
+	fn default() -> Self {
+		TaskIcon::Circle
+	}
+}
+
 /// The importance of a [`Task`] (how much it matters).
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum TaskImportance {
@@ -87,6 +75,12 @@ pub enum TaskImportance {
 	Normal,
 	Low,
 	Lowest,
+}
+
+impl Default for TaskImportance {
+	fn default() -> Self {
+		TaskImportance::Normal
+	}
 }
 
 /// The priority of a [`Task`] (how soon it should be completed).
@@ -99,10 +93,22 @@ pub enum TaskPriority {
 	Lowest,
 }
 
+impl Default for TaskPriority {
+	fn default() -> Self {
+		TaskPriority::Normal
+	}
+}
+
 /// The status a [`Task`] is currently in.
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum TaskStatus {
 	Unfinished,
 	InProgress,
 	Complete,
+}
+
+impl Default for TaskStatus {
+	fn default() -> Self {
+		TaskStatus::Unfinished
+	}
 }

@@ -1,17 +1,16 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import {ColumningMode} from "@/app/[lang]/board/[board]/(page)/(view)/(columning)"
 import {GroupingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(grouping)"
 import {SortingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(sorting)"
-import {SplashWithIcon} from "@/app/[lang]/board/[board]/(page)/(view)/SplashWithIcon"
 import {BoardViewer} from "@/app/[lang]/board/[board]/(page)/(view)/BoardViewer"
-import {faLink, faLinkSlash, faGear, faAsterisk} from "@fortawesome/free-solid-svg-icons"
+import {SplashWithIcon} from "@/app/[lang]/board/[board]/(page)/(view)/SplashWithIcon"
+import {faAsterisk, faGear, faLink, faLinkSlash} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {TFunction} from "i18next"
 import {Dispatch, SetStateAction} from "react"
 
 
-export function BoardMain({lang, className, columning, sorting, grouping, setEditorInput}: {lang: string, className?: string, columning: ColumningMode, grouping: GroupingMode, sorting: SortingMode[], setEditorInput: Dispatch<SetStateAction<string>>}) {
-	const {t} = useClientTranslation(lang, "board")
+export function BoardMain({t, className, columning, sorting, grouping, setEditorInput}: {t: TFunction, className?: string, columning: ColumningMode, grouping: GroupingMode, sorting: SortingMode[], setEditorInput: Dispatch<SetStateAction<string>>}) {
 	const {webSocketState, webSocketBackoffMs, boardState} = useBoardConsumer()
 
 	switch(webSocketState) {
@@ -28,7 +27,7 @@ export function BoardMain({lang, className, columning, sorting, grouping, setEdi
 				className={className}
 			/>
 		case WebSocket.OPEN:
-			if(Object.keys(boardState.tasksById).length === 0) {
+			if(Object.keys(boardState.tasks).length === 0) {
 				return <SplashWithIcon
 					icon={<FontAwesomeIcon size={"4x"} icon={faAsterisk}/>}
 					text={t("boardEmpty")}
@@ -37,7 +36,7 @@ export function BoardMain({lang, className, columning, sorting, grouping, setEdi
 			}
 			else {
 				return <BoardViewer
-					lang={lang}
+					t={t}
 					columning={columning}
 					sorting={sorting}
 					grouping={grouping}

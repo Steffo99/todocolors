@@ -1,0 +1,4 @@
+.taskDescription {
+    border-radius: var(--b-border-radius);
+    flex-grow: 1;
+}

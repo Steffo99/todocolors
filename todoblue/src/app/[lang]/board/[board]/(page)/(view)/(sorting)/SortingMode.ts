@@ -4,4 +4,5 @@ export enum SortingMode {
 	ByIcon,
 	ByText,
 	ByStatus,
+	ByCreation,
 }

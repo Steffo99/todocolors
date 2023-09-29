@@ -1,120 +1,112 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
-import {TASK_ICON_TO_FONTAWESOME_REGULAR, TaskIcon, TaskImportance, TaskPriority, TaskStatus} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TASK_ICON_TO_FONTAWESOME_REGULAR, TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
+import style from "@/app/[lang]/board/[board]/(page)/(task)/TaskContainer.module.css"
 import {GroupingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(grouping)/GroupingMode"
-import taskImportanceStyle from "@/app/[lang]/board/[board]/(page)/(view)/(task)/taskImportance.module.css"
-import taskPriorityStyle from "@/app/[lang]/board/[board]/(page)/(view)/(task)/taskPriority.module.css"
-import taskStatusStyle from "@/app/[lang]/board/[board]/(page)/(view)/(task)/taskStatus.module.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {TFunction} from "i18next"
 import {ReactNode} from "react"
 
 
 export interface TitleComponentProps {
-	lang: string,
+	t: TFunction,
 	k: any,
 }
 
 
 export const GROUPING_MODE_TO_TITLE_COMPONENT: {[key in GroupingMode]: (t: TitleComponentProps) => ReactNode} = {
-	[GroupingMode.ByImportance]: function TitleFromImportance({lang, k}: { lang: string, k: TaskImportance }): ReactNode {
-		const {t} = useClientTranslation(lang, "board")
-
+	[GroupingMode.ByImportance]: function TitleFromImportance({t, k}: { t: TFunction, k: TaskImportance }): ReactNode {
 		switch(k) {
 			case TaskImportance.Highest:
 				return (
-					<span className={taskImportanceStyle.taskImportanceHighest}>
-						{t("columnHeaderTaskImportanceHighest")}
+					<span className={style.taskImportanceHighest}>
+						{t("taskImportanceHighest")}
 					</span>
                 )
 			case TaskImportance.High:
 				return (
-					<span className={taskImportanceStyle.taskImportanceHigh}>
-                        {t("columnHeaderTaskImportanceHigh")}
+					<span className={style.taskImportanceHigh}>
+                        {t("taskImportanceHigh")}
 					</span>
                 )
 			case TaskImportance.Normal:
 				return (
-					<span className={taskImportanceStyle.taskImportanceNormal}>
-                        {t("columnHeaderTaskImportanceNormal")}
+					<span className={style.taskImportanceNormal}>
+                        {t("taskImportanceNormal")}
 					</span>
                 )
 			case TaskImportance.Low:
 				return (
-					<span className={taskImportanceStyle.taskImportanceLow}>
-                        {t("columnHeaderTaskImportanceLow")}
+					<span className={style.taskImportanceLow}>
+                        {t("taskImportanceLow")}
 					</span>
                 )
 			case TaskImportance.Lowest:
 				return (
-					<span className={taskImportanceStyle.taskImportanceLowest}>
-                        {t("columnHeaderTaskImportanceLowest")}
+					<span className={style.taskImportanceLowest}>
+                        {t("taskImportanceLowest")}
 					</span>
                 )
 		}
 	},
 
-	[GroupingMode.ByPriority]: function TitleFromPriority({lang, k}: { lang: string, k: TaskPriority }): ReactNode {
-		const {t} = useClientTranslation(lang, "board")
-
+	[GroupingMode.ByPriority]: function TitleFromPriority({t, k}: { t: TFunction, k: TaskPriority }): ReactNode {
 		switch(k) {
 			case TaskPriority.Highest:
 				return (
-					<span className={taskPriorityStyle.taskPriorityHighestColumnHeader}>
-						{t("columnHeaderTaskPriorityHighest")}
+					<span className={style.taskPriorityHighestColumnHeader}>
+						{t("taskPriorityHighest")}
 					</span>
                 )
 			case TaskPriority.High:
 				return (
-					<span className={taskPriorityStyle.taskPriorityHighColumnHeader}>
-						{t("columnHeaderTaskPriorityHigh")}
+					<span className={style.taskPriorityHighColumnHeader}>
+						{t("taskPriorityHigh")}
 					</span>
                 )
 			case TaskPriority.Normal:
 				return (
-					<span className={taskPriorityStyle.taskPriorityNormalColumnHeader}>
-						{t("columnHeaderTaskPriorityNormal")}
+					<span className={style.taskPriorityNormalColumnHeader}>
+						{t("taskPriorityNormal")}
 					</span>
                 )
 			case TaskPriority.Low:
 				return (
-					<span className={taskPriorityStyle.taskPriorityLowColumnHeader}>
-						{t("columnHeaderTaskPriorityLow")}
+					<span className={style.taskPriorityLowColumnHeader}>
+						{t("taskPriorityLow")}
 					</span>
                 )
 			case TaskPriority.Lowest:
 				return (
-					<span className={taskPriorityStyle.taskPriorityLowestColumnHeader}>
-						{t("columnHeaderTaskPriorityLowest")}
+					<span className={style.taskPriorityLowestColumnHeader}>
+						{t("taskPriorityLowest")}
 					</span>
                 )
 		}
 	},
 
-	[GroupingMode.ByStatus]: function TitleFromStatus({lang, k}: { lang: string, k: TaskStatus }): ReactNode {
-		const {t} = useClientTranslation(lang, "board")
-
+	[GroupingMode.ByStatus]: function TitleFromStatus({t, k}: { t: TFunction, k: string }): ReactNode {
         switch(k) {
-            case TaskStatus.Unfinished:
+            case "Unfinished":
                 return (
-                    <span className={taskStatusStyle.taskStatusUnfinishedColumnHeader}>
-						{t("columnHeaderTaskStatusUnfinished")}
+                    <span className={style.taskStatusUnfinishedColumnHeader}>
+						{t("taskStatusUnfinished")}
 					</span>
                 )
-            case TaskStatus.InProgress:
+            case "InProgress":
                 return (
-                    <span className={taskStatusStyle.taskStatusInProgressColumnHeader}>
-						{t("columnHeaderTaskStatusInProgress")}
+                    <span className={style.taskStatusInProgressColumnHeader}>
+						{t("taskStatusInProgress")}
 					</span>
                 )
-            case TaskStatus.Complete:
+            case "Complete":
                 return (
-                    <span className={taskStatusStyle.taskStatusCompleteColumnHeader}>
-						{t("columnHeaderTaskStatusComplete")}
+                    <span className={style.taskStatusCompleteColumnHeader}>
+						{t("taskStatusComplete")}
 					</span>
                 )
         }
 	},
 
-	[GroupingMode.ByIcon]: function TitleFromIcon({k}: { lang: string, k: TaskIcon }): ReactNode {
+	[GroupingMode.ByIcon]: function TitleFromIcon({k}: { t: TFunction, k: TaskIcon }): ReactNode {
 		return (
 			<span>
 				<FontAwesomeIcon icon={TASK_ICON_TO_FONTAWESOME_REGULAR[k]}/>
@@ -123,4 +115,12 @@ export const GROUPING_MODE_TO_TITLE_COMPONENT: {[key in GroupingMode]: (t: Title
 			</span>
 		)
 	},
+
+	[GroupingMode.Journal]: function TitleFromDatetime({k}: { t: TFunction, k: string }): ReactNode {
+		return (
+			<time dateTime={k}>
+				{k}
+			</time>
+		)
+	}
 }

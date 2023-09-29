@@ -1,19 +1,32 @@
-import {TaskIcon, TaskImportance, TaskPriority, TaskStatus} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(task)/TaskWithId"
 import {GroupingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(grouping)/GroupingMode"
-import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(view)/(task)/TaskWithId"
 
 
 export const GROUPING_MODE_TO_TASK_GROUPER_FUNCTION = {
-	[GroupingMode.ByImportance]: function groupTasksByImportance(t: TaskWithId): TaskImportance {
+	[GroupingMode.ByImportance]: function groupTasksByImportance(t: TaskWithId): TaskImportance | null {
+		if(t[1].journaled_on) return null
 		return t[1].importance
 	},
-	[GroupingMode.ByPriority]: function groupTasksByPriority(t: TaskWithId): TaskPriority {
+	[GroupingMode.ByPriority]: function groupTasksByPriority(t: TaskWithId): TaskPriority | null {
+		if(t[1].journaled_on) return null
 		return t[1].priority
 	},
-	[GroupingMode.ByStatus]: function groupTasksByStatus(t: TaskWithId): TaskStatus {
-		return t[1].status
+	[GroupingMode.ByStatus]: function groupTasksByStatus(t: TaskWithId): string | null {
+		if(t[1].journaled_on) return null
+		else if(t[1].completed_on) return "Complete"
+		else if(t[1].started_on) return "InProgress"
+		else return "Unfinished"
 	},
-	[GroupingMode.ByIcon]: function groupTasksByIcon(t: TaskWithId): TaskIcon {
+	[GroupingMode.ByIcon]: function groupTasksByIcon(t: TaskWithId): TaskIcon | null {
+		if(t[1].journaled_on) return null
 		return t[1].icon
 	},
+	[GroupingMode.Journal]: function groupTasksByCompletitionDate(t: TaskWithId): string | null {
+		if(!t[1].journaled_on) return null
+		let date;
+		if(!t[1].completed_on) date = new Date(0)
+		else date = new Date(t[1].completed_on)
+		return date.toISOString().split("T")[0]
+	}
 }

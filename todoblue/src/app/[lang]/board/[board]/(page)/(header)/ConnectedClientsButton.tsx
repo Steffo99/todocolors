@@ -1,25 +1,24 @@
-import {useClientTranslation} from "@/app/(i18n)/client"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faUsers} from "@fortawesome/free-solid-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
+import {TFunction} from "i18next"
 
 
-export function ConnectedClientsButton({lang}: {lang: string}) {
-	const {isReady, boardState: {connectedClients}} = useBoardConsumer()
-	const {t} = useClientTranslation(lang, "board")
+export function ConnectedClientsButton({t}: {t: TFunction}) {
+	const {isReady, boardState: {clients}} = useBoardConsumer()
 
 	if(!isReady) return null;
 
 	return (
 		<div
 			title={t("privacyButtonTitle")}
-			className={cn(style.block, style.doubleBlock)}
+			className={cn(style.block, style.singleBlock)}
 		>
-			<FontAwesomeIcon icon={faUsers}/>
+			<FontAwesomeIcon icon={faUsers} size={"2xs"}/>
 			&nbsp;
-			{connectedClients.length}
+			{clients.length}
 		</div>
 	)
 }

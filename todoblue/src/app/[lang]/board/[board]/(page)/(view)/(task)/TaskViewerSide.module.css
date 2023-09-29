@@ -1,0 +1,12 @@
+.taskViewerSide {
+
+}
+
+.taskViewerSideVisible {
+    display: flex;
+    flex-direction: row;
+}
+
+.taskViewerSideHidden {
+    display: none;
+}

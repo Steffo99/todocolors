@@ -1,6 +1,6 @@
-import {TaskIcon, TaskImportance, TaskPriority, TaskStatus} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(task)/TaskWithId"
 import {SortingMode} from "@/app/[lang]/board/[board]/(page)/(view)/(sorting)/SortingMode"
-import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(view)/(task)/TaskWithId"
 
 
 const TASK_IMPORTANCE_TO_VALUE = {
@@ -17,12 +17,6 @@ const TASK_PRIORITY_TO_VALUE = {
 	[TaskPriority.Normal]: 3,
 	[TaskPriority.Low]: 4,
 	[TaskPriority.Lowest]: 5,
-}
-
-const TASK_STATUS_TO_VALUE = {
-	[TaskStatus.Unfinished]: 2,
-	[TaskStatus.InProgress]: 1,
-	[TaskStatus.Complete]: 3,
 }
 
 const TASK_ICON_TO_VALUE = {
@@ -76,6 +70,27 @@ const SORTING_MODE_TO_SORTING_FUNCTION = {
         return TASK_PRIORITY_TO_VALUE[a[1].priority] - TASK_PRIORITY_TO_VALUE[b[1].priority]
     },
     [SortingMode.ByStatus]: function sortTasksByStatus(a: TaskWithId, b: TaskWithId) {
-        return TASK_STATUS_TO_VALUE[a[1].status] - TASK_STATUS_TO_VALUE[b[1].status]
-    }
+        if(a[1].journaled_on && !b[1].journaled_on) return 1;
+        if(!a[1].journaled_on && b[1].journaled_on) return -1;
+        if(a[1].completed_on && !b[1].completed_on) return 1;
+        if(!a[1].completed_on && b[1].completed_on) return -1;
+        if(a[1].started_on && !b[1].started_on) return -1;
+        if(!a[1].started_on && b[1].started_on) return 1;
+
+        // @ts-ignore
+        const journaled_on = a[1].journaled_on - b[1].journaled_on
+        if(journaled_on) return journaled_on
+        // @ts-ignore
+        const completed_on = a[1].completed_on - b[1].completed_on
+        if(completed_on) return completed_on
+        // @ts-ignore
+		const started_on = a[1].started_on - b[1].started_on
+		if(started_on) return started_on
+
+		return 0
+    },
+	[SortingMode.ByCreation]: function sortTasksByCreation(a: TaskWithId, b: TaskWithId) {
+        // @ts-ignore
+        return a[1].created_on - b[1].created_on
+	},
 }
