@@ -36,7 +36,7 @@ pub struct Task {
 }
 
 /// Possible icons for a [`Task`].
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub enum TaskIcon {
 	User,
 	Image,
@@ -54,61 +54,37 @@ pub enum TaskIcon {
 	Handshake,
 	Sun,
 	Clock,
-	Circle,
+	#[default] Circle,
 	Square,
 	Building,
 	Flag,
 	Moon,
 }
 
-impl Default for TaskIcon {
-	fn default() -> Self {
-		TaskIcon::Circle
-	}
-}
-
 /// The importance of a [`Task`] (how much it matters).
-#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub enum TaskImportance {
 	Highest,
 	High,
-	Normal,
+	#[default] Normal,
 	Low,
 	Lowest,
-}
-
-impl Default for TaskImportance {
-	fn default() -> Self {
-		TaskImportance::Normal
-	}
 }
 
 /// The priority of a [`Task`] (how soon it should be completed).
-#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub enum TaskPriority {
 	Highest,
 	High,
-	Normal,
+	#[default] Normal,
 	Low,
 	Lowest,
 }
 
-impl Default for TaskPriority {
-	fn default() -> Self {
-		TaskPriority::Normal
-	}
-}
-
 /// The status a [`Task`] is currently in.
-#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
+#[derive(Copy, Clone, Debug, Default, Serialize, Deserialize)]
 pub enum TaskStatus {
-	Unfinished,
+	#[default] Unfinished,
 	InProgress,
 	Complete,
-}
-
-impl Default for TaskStatus {
-	fn default() -> Self {
-		TaskStatus::Unfinished
-	}
 }
