@@ -44,12 +44,13 @@ pub struct ExtractReverseProxy {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub struct ExtractReverseProxyOption ( Option<ExtractReverseProxy> );
+pub struct ExtractReverseProxyOption ( pub Option<ExtractReverseProxy> );
 
 #[async_trait]
 impl<S> FromRequestParts<S> for ExtractReverseProxyOption where S: Send + Sync {
 	type Rejection = ResponseError;
 
+	// TODO: Pending a security audit, as in second thought this doesn't seem so secure...
 	async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
 		let proxy_list = config::AXUM_XFORWARDED.clone();
 
