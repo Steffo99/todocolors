@@ -1,0 +1,25 @@
+services:
+  redis:
+    image: "redis"
+    restart: unless-stopped
+    command: >-
+      redis-server
+      --save 60 1
+      --loglevel notice
+    volumes:
+      - "./data/redis/rdata:/data"
+  red:
+    build: "../todored"
+    restart: unless-stopped
+    environment:
+      REDIS_CONN: "redis://redis:6379/"  # You probably don't need to change this
+  blue:
+    build: "../todoblue"
+    restart: unless-stopped
+  caddy:
+    image: "caddy"
+    restart: unless-stopped
+    volumes:
+      - "./data/caddy:/data"
+      - "./config/caddy/Caddyfile:/etc/caddy/Caddyfile"
+    network_mode: host

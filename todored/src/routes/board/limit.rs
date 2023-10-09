@@ -5,11 +5,11 @@ use crate::outcome::LoggableOutcome;
 
 pub async fn rate_limit_by_key(
 	rconn: &mut redis::aio::Connection,
-	key: String,
+	key: &str,
 	increment: usize,
 	limit: usize,
 	expiration_s: usize
-) -> Result<(), CloseCode> {
+) -> Result<usize, CloseCode> {
 	log::trace!("Incrementing rate limit counter for {key:?}...");
 	let response: usize = redis::cmd("INCRBY")
 		.arg(&key)
@@ -25,11 +25,11 @@ pub async fn rate_limit_by_key(
 		.query_async::<redis::aio::Connection, ()>(rconn).await
 		.log_err_to_warn("Could not set expiration for rate limit counter");
 
-	log::trace!("Checking rate limit of {limit} / {expiration_s} s for {key:?}...");
+	log::trace!("Checking rate limit of {limit} per {expiration_s} s for {key:?}...");
 	if response > limit {
-		log::warn!("Hit rate limit of {limit} / {expiration_s} s for {key:?}: counter is at {response}!");
+		log::warn!("Hit rate limit with {response} out of {limit} per {expiration_s} s for {key:?}!");
 		return Err(1008u16);
 	}
 
-	Ok(())
+	Ok(response)
 }

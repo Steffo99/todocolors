@@ -1,9 +1,8 @@
-use std::net::SocketAddr;
+use std::net::IpAddr;
 use std::str::FromStr;
 use axum::async_trait;
 use axum::extract::FromRequestParts;
 use axum::http::request::Parts;
-use axum::http::StatusCode;
 use crate::config;
 use crate::outcome::ResponseError;
 
@@ -39,7 +38,7 @@ impl FromStr for ReverseProxyInfoList {
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ExtractReverseProxy {
-	pub r#for: SocketAddr,
+	pub r#for: IpAddr,
 	pub info: ReverseProxyInfo,
 }
 
@@ -52,54 +51,84 @@ impl<S> FromRequestParts<S> for ExtractReverseProxyOption where S: Send + Sync {
 
 	// TODO: Pending a security audit, as in second thought this doesn't seem so secure...
 	async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
+		log::debug!("Extracting reverse proxy headers...");
+
+		log::trace!("Getting authorized proxy list...");
 		let proxy_list = config::AXUM_XFORWARDED.clone();
 
 		// Reverse proxying is not configured
+		log::trace!("Making sure a proxy list has been defined...");
 		if proxy_list.is_none() {
+			log::trace!("No authorized proxies have been defined, extracting None...");
 			return Ok(ExtractReverseProxyOption(None))
 		}
 
 		let proxy_list = proxy_list.unwrap().0;
+		log::trace!("Authorized proxies are: {proxy_list:?}");
 
+		log::trace!("Parsing X-Forwarded headers...");
 		let r#for = parts.headers.get("X-Forwarded-For");
+		log::trace!("Raw X-Forwarded-For: {:?}", r#for);
 		let proto = parts.headers.get("X-Forwarded-Proto");
+		log::trace!("Raw X-Forwarded-Proto: {:?}", proto);
 		let host = parts.headers.get("X-Forwarded-Host");
+		log::trace!("Raw X-Forwarded-For: {:?}", host);
 
 		// Accessing the server without a reverse proxy
+		log::trace!("Checking for presence of headers...");
 		if r#for.is_none() || proto.is_none() || host.is_none() {
-			// TODO: Should this return None instead?
-			return Err(StatusCode::BAD_GATEWAY)
+			log::warn!("X-Forwarded headers are missing, extracting None...");
+			return Ok(ExtractReverseProxyOption(None))
 		}
 
+		log::trace!("Converting X-Forwarded headers to &str...");
 		let r#for = r#for.unwrap().to_str();
+		log::trace!("Stringified X-Forwarded-For: {:?}", r#for);
 		let proto = proto.unwrap().to_str();
+		log::trace!("Stringified X-Forwarded-Proto: {:?}", proto);
 		let host = host.unwrap().to_str();
+		log::trace!("Stringified X-Forwarded-For: {:?}", host);
 
 		// Control characters in X-Forwarded headers
+		log::trace!("Checking for control characters...");
 		if r#for.is_err() || proto.is_err() || host.is_err() {
-			return Err(StatusCode::BAD_GATEWAY)
+			log::warn!("X-Forwarded headers have invalid characters in them, extracting None...");
+			return Ok(ExtractReverseProxyOption(None))
 		}
 
+		log::trace!("Cloning X-Forwarded headers...");
 		let r#for = r#for.unwrap().to_string();
 		let proto = proto.unwrap().to_string();
 		let host = host.unwrap().to_string();
 
+		log::trace!("Constructing ReverseProxyInfo...");
 		let info = ReverseProxyInfo { proto, host };
+		log::trace!("Constructed ReverseProxyInfo: {info:?}");
 
 		// X-Forwarded-Host is not authorized
+		log::trace!("Checking if proxy is authorized...");
 		if !proxy_list.contains(&info) {
-			return Err(StatusCode::BAD_GATEWAY)
+			log::warn!("X-Forwarded-Host is not an authorized proxy, extracting None...");
+			return Ok(ExtractReverseProxyOption(None))
 		}
 
-		let r#for = r#for.parse::<SocketAddr>();
+		log::trace!("Parsing X-Forwarded-For as a IpAddr...");
+		let r#for = r#for.parse::<IpAddr>();
 
 		// X-Forwarded-For is not a valid IP address
+		log::trace!("Making sure X-Forwarded-For is a valid SocketAddr...");
 		if r#for.is_err() {
-			return Err(StatusCode::BAD_GATEWAY)
+			log::warn!("X-Forwarded-For is not a valid SocketAddr, extracting None...");
+			return Ok(ExtractReverseProxyOption(None))
 		}
 
 		let r#for = r#for.unwrap();
+		log::trace!("Parsing X-Forwarded-For as: {:?}", r#for);
 
-		Ok(ExtractReverseProxyOption(Some(ExtractReverseProxy { r#for, info })))
+		log::trace!("Constructing result...");
+		let result = Ok(ExtractReverseProxyOption(Some(ExtractReverseProxy { r#for, info })));
+		log::debug!("Extracted reverse proxy headers as: {result:?}");
+
+		result
 	}
 }
