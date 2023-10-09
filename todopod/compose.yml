@@ -13,6 +13,9 @@ services:
     restart: unless-stopped
     environment:
       REDIS_CONN: "redis://redis:6379/"  # You probably don't need to change this
+      AXUM_XFORWARDED: "TODO-YOUR-PUBLIC-URL-GOES-HERE"
+      TODORED_RATE_LIMIT_CONNECTIONS_PER_MINUTE: 5
+      TODORED_RATE_LIMIT_MESSAGES_PER_MINUTE: 100
   blue:
     image: "ghcr.io/steffo99/todocolors-blue"
     restart: unless-stopped
