@@ -11,6 +11,7 @@ pub async fn handler(
 	board_name: String,
 	rclient: redis::Client,
 	websocket: WebSocket,
+	rate_limit_key: Option<String>,
 ) {
 	log::trace!("Creating Redis connection for the main thread...");
 	let main_redis = rclient.get_async_connection().await;
@@ -21,6 +22,16 @@ pub async fn handler(
 	}
 	let mut main_redis = main_redis.unwrap();
 	log::trace!("Created Redis connection for the main thread!");
+
+	log::trace!("Creating Redis connection for the receive thread...");
+	let receive_redis = rclient.get_async_connection().await;
+	if receive_redis.is_err() {
+		log::error!("Could not open Redis connection for the receive thread.");
+		let _ = websocket.close().await;
+		return;
+	}
+	let receive_redis = receive_redis.unwrap();
+	log::trace!("Created Redis connection for the receive thread!");
 
 	log::trace!("Creating Redis connection for the XADD thread...");
 	let xadd_redis = rclient.get_async_connection().await;
@@ -63,9 +74,11 @@ pub async fn handler(
 
 	log::trace!("Spawning ws_receive_thread...");
 	let ws_receive_thread = tokio::spawn(ws_receive::handler(
+		receive_redis,
 		receiver,
 		strings_to_process.clone(),
 		messages_to_send.clone(),
+		rate_limit_key,
 	));
 	let ws_receive_abort = ws_receive_thread.abort_handle();
 
@@ -116,7 +129,7 @@ pub async fn handler(
 		ws_send_thread
 	);
 
-	log::debug!("Websocket threads closed successfully!")
+	log::debug!("Websocket threads closed successfully!");
 }
 
 fn close_with_code(
