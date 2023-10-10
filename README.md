@@ -18,7 +18,7 @@ A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
 
 ## Installation
 
-To deploy your own instance of Todocolors, use the (Docker) `compose.yml` file included in `todopod/`, tweaking the `network_mode` and `ports` of the `caddy` container as you see appropriate.
+To deploy your own instance of Todocolors, use the files contained in `todopod/`, tweaking the `network_mode` and `ports` of the `caddy` container as you see appropriate.
 
 Data will be stored in the `data/redis/rdata/` directory.
 
@@ -26,6 +26,12 @@ Data will be stored in the `data/redis/rdata/` directory.
 
 For more customization, make changes and then build your own Docker images using the provided `Dockerfile` in `todored/` and `todoblue/`.
 
-## Credits & acknowledgements
+## License
 
-TODO
+This project is licensed under the [AGPL-3.0-or-later](./LICENSE.txt).
+
+## Attribution
+
+Open source attributions are split by module, see:
+- [Todored attributions](./todored/NOTICE.md)
+- [Todoblue attributions](./todoblue/NOTICE.txt)
