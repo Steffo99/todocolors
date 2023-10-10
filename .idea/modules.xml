@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/todoblue/todoblue.iml" filepath="$PROJECT_DIR$/todoblue/todoblue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todocolors.iml" filepath="$PROJECT_DIR$/todocolors.iml" />
       <module fileurl="file://$PROJECT_DIR$/todopod/todopod.iml" filepath="$PROJECT_DIR$/todopod/todopod.iml" />
       <module fileurl="file://$PROJECT_DIR$/todored/todored.iml" filepath="$PROJECT_DIR$/todored/todored.iml" />
     </modules>
