@@ -43,6 +43,12 @@ Build instructions are provided for the two modules:
 - [todored](todored/BUILD.md)
 - [todoblue](todoblue/BUILD.md)
 
+## Development
+
+Development instructions are provided for the two modules:
+- [todored](todored/DEVELOP.md)
+- [todoblue](todoblue/DEVELOP.md)
+
 ## License
 
 This project is licensed under the [AGPL-3.0-or-later](./LICENSE.txt).
