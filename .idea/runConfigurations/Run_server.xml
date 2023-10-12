@@ -13,7 +13,8 @@
       <env name="AXUM_HOST" value="0.0.0.0:8080" />
       <env name="REDIS_CONN" value="redis://127.0.0.1:6379/" />
       <env name="RUST_LOG" value="todored" />
-      <env name="TODORED_RATE_LIMIT_CONNECTIONS" value="0" />
+      <env name="TODORED_RATE_LIMIT_CONNECTIONS_PER_MINUTE" value="0" />
+      <env name="TODORED_RATE_LIMIT_MESSAGES_PER_MINUTE" value="0" />
     </envs>
     <option name="isRedirectInput" value="false" />
     <option name="redirectInputPath" value="" />
