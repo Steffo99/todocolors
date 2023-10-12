@@ -16,6 +16,17 @@ A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
 
 ![Screenshot of the application, detailing a nonsensical "Plan for conquering the world"](media/screenshot.png 'Screenshot of the application, detailing a nonsensical "Plan for conquering the world')
 
+## Architecture
+
+The application is split in two modules:
+- [todored](todored), a backend written in [Rust] built upon [axum]
+- [todoblue](todoblue), a frontend written in [TypeScript] built upon [Next.JS]
+
+[Rust]: https://www.rust-lang.org/
+[axum]: https://docs.rs/axum/latest/axum/
+[TypeScript]: https://www.typescriptlang.org/
+[Next.JS]: https://nextjs.org/
+
 ## Installation
 
 To deploy your own instance of Todocolors, use the files contained in `todopod/`, tweaking the `network_mode` and `ports` of the `caddy` container as you see appropriate.
