@@ -50,5 +50,5 @@ This project is licensed under the [AGPL-3.0-or-later](./LICENSE.txt).
 ## Attribution
 
 Open source attributions are split by module, see:
-- [Todored attributions](./todored/NOTICE.md)
-- [Todoblue attributions](./todoblue/NOTICE.txt)
+- [todored](todored/NOTICE.md)
+- [todoblue](todoblue/NOTICE.txt)
