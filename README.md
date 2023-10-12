@@ -37,6 +37,12 @@ Data will be stored in the `data/redis/rdata/` directory.
 
 For more customization, make changes and then build your own Docker images using the provided `Dockerfile` in `todored/` and `todoblue/`.
 
+## Build
+
+Build instructions are provided for the two modules:
+- [todored](todored/BUILD.md)
+- [todoblue](todoblue/BUILD.md)
+
 ## License
 
 This project is licensed under the [AGPL-3.0-or-later](./LICENSE.txt).
