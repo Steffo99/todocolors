@@ -51,7 +51,7 @@ Development instructions are provided for the two modules:
 
 ## License
 
-This project is licensed under the [AGPL-3.0-or-later](./LICENSE.txt).
+This project is licensed under the [EUPL-1.2](./LICENSE.txt).
 
 ## Attribution
 
