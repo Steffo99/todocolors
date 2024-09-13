@@ -1,6 +1,6 @@
 import {ModifyTaskBoardRequest} from "@/app/[lang]/board/[board]/(api)/(request)"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
-import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/taskToString"
+import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/convertTTS"
 import {TaskActions} from "@/app/[lang]/board/[board]/(page)/(task)/TaskActions"
 import {TaskContainer} from "@/app/[lang]/board/[board]/(page)/(task)/TaskContainer"
 import {TaskDescription} from "@/app/[lang]/board/[board]/(page)/(task)/TaskDescription"

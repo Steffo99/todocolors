@@ -1,7 +1,7 @@
 import {Task, TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
-import {DEADLINE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/deadline"
-import {ICON_DEFAULT, ICON_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
-import {IMPORTANCE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
+import {DEADLINE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/taskDeadline"
+import {ICON_DEFAULT, ICON_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/taskIcon"
+import {IMPORTANCE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/taskImportance"
 import {default as dateParser} from "any-date-parser"
 
 // ahhh i love typescript shenanigans
@@ -16,7 +16,7 @@ const VALUE_TO_TASK_IMPORTANCE = {
 	"5": TaskImportance.Lowest,
 }
 
-export function stringToTask(text: string, lang: string): Task {
+export function convertSTT(text: string, lang: string): Task {
 	const importanceMatch = IMPORTANCE_GLYPH_RE.exec(text)
 	const iconMatch = ICON_GLYPH_RE.exec(text)
 	const deadlineMatch = DEADLINE_GLYPH_RE.exec(text)

@@ -1,7 +1,7 @@
 import {Task, TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
-import {DEADLINE_DEFAULT, DEADLINE_GLYPH_END, DEADLINE_GLYPH_START} from "@/app/[lang]/board/[board]/(page)/(edit)/deadline"
-import {ICON_DEFAULT, ICON_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
-import {IMPORTANCE_DEFAULT, IMPORTANCE_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
+import {DEADLINE_DEFAULT, DEADLINE_GLYPH_END, DEADLINE_GLYPH_START} from "@/app/[lang]/board/[board]/(page)/(edit)/taskDeadline"
+import {ICON_DEFAULT, ICON_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/taskIcon"
+import {IMPORTANCE_DEFAULT, IMPORTANCE_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/taskImportance"
 
 
 const TASK_IMPORTANCE_TO_VALUE = {

@@ -1,6 +1,6 @@
 import {DeleteTaskBoardRequest} from "@/app/[lang]/board/[board]/(api)/(request)"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
-import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/taskToString"
+import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/convertTTS"
 import {TaskButton} from "@/app/[lang]/board/[board]/(page)/(task)/TaskButton"
 import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(task)/TaskWithId"
 import {fas} from "@awesome.me/kit-dfe340c874/icons"
