@@ -10,12 +10,13 @@ import {Dispatch, SetStateAction, SyntheticEvent, useCallback} from "react"
 
 export type TaskViewerRecreateButtonProps = {
     t: TFunction,
+	lang: string,
     taskWithId: TaskWithId,
     setEditorInput: Dispatch<SetStateAction<string>>,
 }
 
 
-export function TaskViewerRecreateButton({t, taskWithId: [id, task], setEditorInput}: TaskViewerRecreateButtonProps) {
+export function TaskViewerRecreateButton({t, lang, taskWithId: [id, task], setEditorInput}: TaskViewerRecreateButtonProps) {
     const {sendRequest, boardState: {locked}} = useBoardConsumer()
 
     const recreateTask = useCallback((e: SyntheticEvent<HTMLButtonElement>) => {
@@ -26,7 +27,7 @@ export function TaskViewerRecreateButton({t, taskWithId: [id, task], setEditorIn
         }
         e.preventDefault()
         e.stopPropagation()
-        setEditorInput(taskToString(task))
+        setEditorInput(taskToString(task, lang))
         const request: DeleteTaskBoardRequest = {"Task": [id, null]};
         sendRequest(request)
     }, [task, setEditorInput, sendRequest])

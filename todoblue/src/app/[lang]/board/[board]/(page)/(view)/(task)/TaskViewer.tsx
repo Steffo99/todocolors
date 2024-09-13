@@ -104,6 +104,7 @@ export function TaskViewer({lang, t, taskWithId: [id, task], setEditorInput}: {l
 			goAwayButton = (
 				<TaskViewerRecreateButton
 					t={t}
+					lang={lang}
 					taskWithId={[id, task]}
 					setEditorInput={setEditorInput}
 				/>
