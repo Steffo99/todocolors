@@ -13,7 +13,7 @@ export function BoardEditor({className, lang, t, editorHook}: {className?: strin
 
 	return (
 		<section className={cn(style.boardEditor, className)}>
-			<TaskEditor t={t} editorHook={editorHook}/>
+			<TaskEditor lang={lang} t={t} editorHook={editorHook}/>
 		</section>
 	)
 }
