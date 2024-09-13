@@ -6,7 +6,7 @@ import {TFunction} from "i18next"
 import style from "./BoardEditor.module.css"
 
 
-export function BoardEditor({className, t, editorHook}: {className?: string, t: TFunction, editorHook: ReturnType<typeof useTaskEditor>}) {
+export function BoardEditor({className, lang, t, editorHook}: {className?: string, lang: string, t: TFunction, editorHook: ReturnType<typeof useTaskEditor>}) {
 	const {boardState: {locked}} = useBoardConsumer()
 
 	if(locked) return null;

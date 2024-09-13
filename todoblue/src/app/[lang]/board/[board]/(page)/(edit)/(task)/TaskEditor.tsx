@@ -12,7 +12,7 @@ import {SyntheticEvent, useCallback} from "react"
 import style from "./TaskEditor.module.css"
 
 
-export function TaskEditor({t, className, editorHook: {input, setInput, task, setTask}}: { t: TFunction, className?: string, editorHook: ReturnType<typeof useTaskEditor> }) {
+export function TaskEditor({lang, t, className, editorHook: {input, setInput, task, setTask}}: { lang: string, t: TFunction, className?: string, editorHook: ReturnType<typeof useTaskEditor> }) {
 	const {isReady, sendRequest} = useBoardConsumer()
 	
 	const nextIcon = useCallback((e: SyntheticEvent<HTMLButtonElement>) => {
@@ -33,7 +33,7 @@ export function TaskEditor({t, className, editorHook: {input, setInput, task, se
 			return
 		}
 		sendRequest({"Task": [null, task]})
-		setInput(taskToString({...task, text: ""}))
+		setInput(taskToString({...task, text: ""}, lang))
 	}, [sendRequest, task, setInput])
 	
 	if(!isReady) {

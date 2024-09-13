@@ -37,6 +37,7 @@ export function BoardPage({lang}: {lang: string}) {
 				setEditorInput={editorHook.setInput}
 			/>
 			<BoardEditor
+				lang={lang}
 				t={t}
 				className={style.pageEditor}
 				editorHook={editorHook}
