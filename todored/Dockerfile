@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} rust:1.71-bullseye AS builder
+FROM --platform=${BUILDPLATFORM} rust:bullseye AS builder
 ARG BUILDPLATFORM
 ARG TARGETPLATFORM
 
@@ -60,7 +60,7 @@ RUN \
 
 #############################################################################
 
-FROM --platform=${TARGETPLATFORM} rust:1.71-slim-bullseye AS final
+FROM --platform=${TARGETPLATFORM} rust:slim-bullseye AS final
 
 WORKDIR /usr/src/todored/
 COPY --from=builder \
