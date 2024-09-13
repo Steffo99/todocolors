@@ -3,7 +3,7 @@ FROM node AS base
 FROM base AS builder
 WORKDIR /usr/src/todoblue
 
-COPY ./package.json ./yarn.lock ./
+COPY ./package.json ./yarn.lock .npmrc ./
 RUN yarn install --frozen-lockfile
 
 COPY ./ ./
