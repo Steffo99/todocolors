@@ -7,6 +7,7 @@ pub type ResponseError = StatusCode;
 pub type Response<T> = Result<T, ResponseError>;
 
 /// Trait to easily [`log`] function outcomes.
+#[allow(dead_code)]
 pub(crate) trait LoggableOutcome {
 	fn log_err_to_trace(self, msg: &str) -> Self;
 	fn log_err_to_debug(self, msg: &str) -> Self;
