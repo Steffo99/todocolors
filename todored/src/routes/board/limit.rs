@@ -12,7 +12,7 @@ pub async fn rate_limit_by_key(
 ) -> Result<usize, CloseCode> {
 	log::trace!("Incrementing rate limit counter for {key:?}...");
 	let response: usize = redis::cmd("INCRBY")
-		.arg(&key)
+		.arg(key)
 		.arg(increment)
 		.query_async::<redis::aio::Connection, usize>(rconn).await
 		.log_err_to_error("Could not increase rate limit counter")
@@ -20,7 +20,7 @@ pub async fn rate_limit_by_key(
 
 	log::trace!("Refreshing rate limit counter expiration for {key:?}...");
 	let _ = redis::cmd("EXPIRE")
-		.arg(&key)
+		.arg(key)
 		.arg(expiration_s)
 		.query_async::<redis::aio::Connection, ()>(rconn).await
 		.log_err_to_warn("Could not set expiration for rate limit counter");

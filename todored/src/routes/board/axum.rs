@@ -45,7 +45,7 @@ pub(crate) async fn handler(
 		log::trace!("Connection rate limit is: {count} / 60 s");
 		if count > 0 {
 			log::trace!("Checking rate limit...");
-			let result = super::limit::rate_limit_by_key(&mut handle_redis, &rate_limit_key, 1, count, 60).await;
+			let result = super::limit::rate_limit_by_key(&mut handle_redis, rate_limit_key, 1, count, 60).await;
 			if result.is_err() {
 				return Err::<(), StatusCode>(StatusCode::BAD_REQUEST).into_response()
 			}

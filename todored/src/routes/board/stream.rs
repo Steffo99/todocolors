@@ -4,7 +4,7 @@ use crate::task::{v1, VersionedBoardChange};
 
 pub async fn xread_to_vbc(r: StreamReadReply) -> (Vec<VersionedBoardChange>, String) {
 	log::trace!("Making sure that the Redis Stream existed...");
-	let r = r.keys.get(0);
+	let r = r.keys.first();
 
 	let mut current_id: String = "0".to_string();
 
