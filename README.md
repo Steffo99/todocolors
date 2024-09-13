@@ -1,8 +1,12 @@
-# ![](media/icon.png) Todocolors
+<div align="center">
 
-A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
+# ![](.media/icon.png) Todocolors
 
-> Warning:
+A self-hostable multiplayer todo app
+
+</div>
+
+> [!Warning]
 >
 > This project is currently a prototype.
 > 
@@ -10,11 +14,15 @@ A self-hostable multiplayer todo app with Redis, Rust, WebSockets and Next.js.
 > 
 > The code is a bit better now, but still may get rewritten from scratch for the next iteration of the project!
 > 
-> Use and contribute at your own risk.
+> Use and contribute at your own risk.ù
+
+## Links
+
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Ftodo.steffo.eu%2F)](https://todo.steffo.eu/)
 
 ## Screenshots
 
-![Screenshot of the application, detailing a nonsensical "Plan for conquering the world"](media/screenshot.png 'Screenshot of the application, detailing a nonsensical "Plan for conquering the world')
+![Screenshot of the application, detailing a nonsensical "Plan for conquering the world"](.media/screenshot.png 'Screenshot of the application, detailing a nonsensical "Plan for conquering the world')
 
 ## Architecture
 

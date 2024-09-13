@@ -8,6 +8,7 @@ services:
       --loglevel notice
     volumes:
       - "./data/redis/rdata:/data"
+  
   red:
     image: "ghcr.io/steffo99/todocolors-red"
     restart: unless-stopped
@@ -16,9 +17,11 @@ services:
       AXUM_XFORWARDED: "TODO-YOUR-PUBLIC-URL-GOES-HERE"
       TODORED_RATE_LIMIT_CONNECTIONS_PER_MINUTE: 5
       TODORED_RATE_LIMIT_MESSAGES_PER_MINUTE: 100
+  
   blue:
     image: "ghcr.io/steffo99/todocolors-blue"
     restart: unless-stopped
+  
   caddy:
     image: "caddy"
     restart: unless-stopped
