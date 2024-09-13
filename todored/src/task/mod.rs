@@ -5,28 +5,32 @@ use crate::outcome::LoggableOutcome;
 
 pub mod v1;
 pub mod v2;
-pub use v2 as latest;
+pub mod v3;
+
+pub use v3 as latest;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum VersionedBoardChange {
 	V1(v1::BoardChange),
 	V2(v2::BoardChange),
+	V3(v3::BoardChange),
 }
 
 impl VersionedBoardChange {
 	pub fn to_latest_bc(self) -> latest::BoardChange {
 		match self {
-			VersionedBoardChange::V1(bc) => bc.into(),
-			VersionedBoardChange::V2(bc) => bc,
+			Self::V1(bc) => Self::V2(v2::BoardChange::from(bc)).to_latest_bc(),
+			Self::V2(bc) => Self::V3(v3::BoardChange::from(bc)).to_latest_bc(),
+			Self::V3(bc) => bc,
 		}
 	}
 
 	pub fn to_latest(self) -> VersionedBoardChange {
-		Self::V2(self.to_latest_bc())
+		Self::V3(self.to_latest_bc())
 	}
 	
 	pub fn new_latest(bc: latest::BoardChange) -> VersionedBoardChange {
-		Self::V2(bc)
+		Self::V3(bc)
 	}
 
 	pub(crate) async fn store_in_redis_stream(&self, rconn: &mut redis::aio::Connection, key: &str) -> Result<String, ()> {

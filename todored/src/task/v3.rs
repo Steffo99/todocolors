@@ -1,16 +1,13 @@
-//! Adds [`BoardState`], [`Task::started_on`], [`Task::completed_on`] and [`Task::journaled_on`].
-
 use std::collections::{HashMap, HashSet};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use chrono::DateTime;
-use chrono::Utc;
 use chrono::serde::{ts_milliseconds, ts_milliseconds_option};
 use uuid::Uuid;
-use super::v1;
+use super::v2;
 
-pub use v1::TaskIcon;
-pub use v1::TaskImportance;
-pub use v1::TaskPriority;
+pub use v2::TaskImportance;
+pub use v2::TaskPriority;
+
 
 /// A change to a board's contents.
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -37,31 +34,90 @@ pub enum BoardChange {
 pub struct Task {
 	#[serde(default)]
 	pub text: String,
-
+	
 	#[serde(default)]
-	pub icon: TaskIcon,
-
+	pub icon: String,
+	
 	#[serde(default)]
 	pub importance: TaskImportance,
-
-	#[serde(default)]
-	pub priority: TaskPriority,
-
+	
+	#[serde(default, with = "ts_milliseconds_option")]
+	pub deadline: Option<DateTime<Utc>>,
+	
 	/// When the task was created.
 	#[serde(default, with = "ts_milliseconds")]
 	pub created_on: DateTime<Utc>,
-
+	
 	/// When the task was started. If [`None`], the task hasn't been started yet.
 	#[serde(default, with = "ts_milliseconds_option")]
 	pub started_on: Option<DateTime<Utc>>,
-
+	
 	/// When the task was completed. If [`None`], the task hasn't been completed yet.
 	#[serde(default, with = "ts_milliseconds_option")]
 	pub completed_on: Option<DateTime<Utc>>,
-
+	
 	/// When the task was journaled. If [`None`], the task hasn't been journaled yet.
 	#[serde(default, with = "ts_milliseconds_option")]
 	pub journaled_on: Option<DateTime<Utc>>,
+}
+
+impl From<v2::BoardChange> for BoardChange {
+	fn from(value: v2::BoardChange) -> Self {
+		match value {
+			v2::BoardChange::Title(title) => BoardChange::Title(title),
+			v2::BoardChange::Task(id, opt) => BoardChange::Task(id, opt.map(|task| task.into())),
+			v2::BoardChange::Connect(id) => BoardChange::Connect(id),
+			v2::BoardChange::Disconnect(id) => BoardChange::Disconnect(id),
+			v2::BoardChange::Lock(value) => BoardChange::Lock(value),
+			v2::BoardChange::State(state) => {
+				let tasks: HashMap<Uuid, Task> = state.tasks.into_iter().map(|(u, t)| (u, t.into())).collect();
+				let state = BoardState {
+					title: state.title,
+					clients: state.clients,
+					locked: state.locked,
+					tasks,
+				};
+				BoardChange::State(state)
+			}
+		}
+	}
+}
+
+impl From<v2::Task> for Task {
+	fn from(value: v2::Task) -> Self {
+		Self {
+			text: value.text,
+			icon: match value.icon {
+				v2::TaskIcon::User => "user",
+				v2::TaskIcon::Image => "image",
+				v2::TaskIcon::Envelope => "envelope",
+				v2::TaskIcon::Star => "star",
+				v2::TaskIcon::Heart => "heart",
+				v2::TaskIcon::Comment => "comment",
+				v2::TaskIcon::FaceSmile => "face-smile",
+				v2::TaskIcon::File => "file",
+				v2::TaskIcon::Bell => "bell",
+				v2::TaskIcon::Bookmark => "bookmark",
+				v2::TaskIcon::Eye => "eye",
+				v2::TaskIcon::Hand => "hand",
+				v2::TaskIcon::PaperPlane => "paper-plane",
+				v2::TaskIcon::Handshake => "handshake",
+				v2::TaskIcon::Sun => "sun",
+				v2::TaskIcon::Clock => "clock",
+				v2::TaskIcon::Circle => "circle",
+				v2::TaskIcon::Square => "square",
+				v2::TaskIcon::Building => "building",
+				v2::TaskIcon::Flag => "flag",
+				v2::TaskIcon::Moon => "moon",
+			}.to_string(),
+			importance: value.importance,
+			deadline: None,
+			created_on: value.created_on,
+			started_on: value.started_on,
+			completed_on: value.completed_on,
+			journaled_on: value.journaled_on,
+		}
+	}
 }
 
 /// The complete state of a board.
@@ -75,39 +131,6 @@ pub struct BoardState {
 	pub tasks: HashMap<Uuid, Task>,
 	/// If the board is locked or not.
 	pub locked: bool,
-}
-
-
-impl From<v1::BoardChange> for BoardChange {
-	fn from(value: v1::BoardChange) -> Self {
-		match value {
-			v1::BoardChange::Title(title) => BoardChange::Title(title),
-			v1::BoardChange::Task(id, opt) => BoardChange::Task(id, opt.map(|task| task.into())),
-			v1::BoardChange::Connect(id) => BoardChange::Connect(id),
-			v1::BoardChange::Disconnect(id) => BoardChange::Disconnect(id),
-		}
-	}
-}
-
-impl From<v1::Task> for Task {
-	fn from(value: v1::Task) -> Self {
-		Task {
-			text: value.text,
-			icon: value.icon,
-			importance: value.importance,
-			priority: value.priority,
-			created_on: Utc::now(),
-			started_on: match value.status {
-				v1::TaskStatus::Unfinished => None,
-				v1::TaskStatus::InProgress | v1::TaskStatus::Complete => Some(Utc::now()),
-			},
-			completed_on: match value.status {
-				v1::TaskStatus::Unfinished | v1::TaskStatus::InProgress => None,
-				v1::TaskStatus::Complete => Some(Utc::now()),
-			},
-			journaled_on: None,
-		}
-	}
 }
 
 impl BoardState {
