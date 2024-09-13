@@ -1,5 +1,6 @@
 import {TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {TaskSimplifiedStatus} from "@/app/[lang]/board/[board]/(page)/(task)/TaskSimplifiedStatus"
+import {useTimeDelta} from "@/app/[lang]/board/[board]/(page)/(task)/useTimeDelta"
 import cn from "classnames"
 import {ComponentPropsWithoutRef} from "react"
 import style from "./TaskContainer.module.css"
@@ -15,9 +16,7 @@ export type TaskContainerProps = {
 
 
 export function TaskContainer({role, className, importance, deadline, status, ...props}: TaskContainerProps) {
-	const now = + new Date();
-	const delta = deadline === null ? null : deadline - now
-	const deltaAbs = delta === null ? null : Math.abs(delta)
+	const {delta, deltaAbs} = useTimeDelta(deadline ?? undefined, 30 * 1000)
 	
     const fullProps = {
         className: cn({
@@ -30,12 +29,12 @@ export function TaskContainer({role, className, importance, deadline, status, ..
             [style.taskImportanceLow]: importance === TaskImportance.Low,
             [style.taskImportanceLowest]: importance === TaskImportance.Lowest,
 	        [style.taskDeadlineNone]: deadline === null,
-	        [style.taskDeadlineHour]: deltaAbs !== null && deltaAbs < 60 * 60 * 1000,
-	        [style.taskDeadlineDay]: deltaAbs !== null && 60 * 60 * 1000 <= deltaAbs && deltaAbs < 24 * 60 * 60 * 1000,
-	        [style.taskDeadlineWeek]: deltaAbs !== null && 24 * 60 * 60 * 1000 <= deltaAbs && deltaAbs < 7 * 24 * 60 * 60 * 1000,
-	        [style.taskDeadlineMonth]: deltaAbs !== null && deltaAbs >= 7 * 24 * 60 * 60 * 1000,
-	        [style.taskDeadlineFuture]: delta !== null && delta >= 0,
-	        [style.taskDeadlinePast]: delta !== null && delta < 0,
+	        [style.taskDeadlineHour]: deltaAbs !== undefined && deltaAbs < 60 * 60 * 1000,
+	        [style.taskDeadlineDay]: deltaAbs !== undefined && 60 * 60 * 1000 <= deltaAbs && deltaAbs < 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineWeek]: deltaAbs !== undefined && 24 * 60 * 60 * 1000 <= deltaAbs && deltaAbs < 7 * 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineMonth]: deltaAbs !== undefined && deltaAbs >= 7 * 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineFuture]: delta !== undefined && delta >= 0,
+	        [style.taskDeadlinePast]: delta !== undefined && delta < 0,
             [style.taskStatusNonExistent]: status === TaskSimplifiedStatus.NonExistent,
             [style.taskStatusUnfinished]: status === TaskSimplifiedStatus.Unfinished,
             [style.taskStatusInProgress]: status === TaskSimplifiedStatus.InProgress,
