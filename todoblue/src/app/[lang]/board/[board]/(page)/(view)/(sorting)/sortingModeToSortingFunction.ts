@@ -36,7 +36,7 @@ const SORTING_MODE_TO_SORTING_FUNCTION = {
         return TASK_IMPORTANCE_TO_VALUE[a[1].importance] - TASK_IMPORTANCE_TO_VALUE[b[1].importance]
     },
     [SortingMode.ByDeadline]: function sortTasksByPriority(a: TaskWithId, b: TaskWithId) {
-        return (a[1].deadline ?? -1) - (b[1].deadline ?? -1)
+        return (b[1].deadline ?? -1) - (a[1].deadline ?? -1)
     },
     [SortingMode.ByStatus]: function sortTasksByStatus(a: TaskWithId, b: TaskWithId) {
         if(a[1].journaled_on && !b[1].journaled_on) return 1;

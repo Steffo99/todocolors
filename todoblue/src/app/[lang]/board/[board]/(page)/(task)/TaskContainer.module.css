@@ -3,6 +3,9 @@
     align-items: center;
     min-width: 240px;
     min-height: 48px;
+	border-style: solid;
+	border-width: 0;
+	padding: 8px;
 }
 
 .taskImportanceHighest {
@@ -46,36 +49,31 @@
 }
 
 .taskDeadlineHour {
-    border: 4px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.45);
-    padding: 4px;
+    border-left-width: 4px;
+    padding-left: 4px;
 }
 
 .taskDeadlineDay {
-    border: 3px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
-    padding: 5px;
+	border-left-width: 3px;
+	padding-left: 5px;
 }
 
 .taskDeadlineWeek {
-    border: 2px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
-    padding: 6px;
+	border-left-width: 2px;
+	padding-left: 6px;
 }
 
 .taskDeadlineMonth {
-    border: 1px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
-    padding: 7px;
+	border-left-width: 1px;
+	padding-left: 7px;
 }
 
-.taskDeadlineNone {
-    border: 0;
-    padding: 8px;
-}
-
-.taskDeadlineIncoming {
-	border-style: solid;
+.taskDeadlineFuture {
+	border-color: hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
 }
 
 .taskDeadlinePast {
-	border-style: dashed;
+	border-color: hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 1.00);
 }
 
 @keyframes inProgress {

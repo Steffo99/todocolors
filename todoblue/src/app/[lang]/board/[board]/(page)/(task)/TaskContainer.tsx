@@ -34,7 +34,7 @@ export function TaskContainer({role, className, importance, deadline, status, ..
 	        [style.taskDeadlineDay]: deltaAbs !== null && 60 * 60 * 1000 <= deltaAbs && deltaAbs < 24 * 60 * 60 * 1000,
 	        [style.taskDeadlineWeek]: deltaAbs !== null && 24 * 60 * 60 * 1000 <= deltaAbs && deltaAbs < 7 * 24 * 60 * 60 * 1000,
 	        [style.taskDeadlineMonth]: deltaAbs !== null && deltaAbs >= 7 * 24 * 60 * 60 * 1000,
-	        [style.taskDeadlineIncoming]: delta !== null && delta > 0,
+	        [style.taskDeadlineFuture]: delta !== null && delta >= 0,
 	        [style.taskDeadlinePast]: delta !== null && delta < 0,
             [style.taskStatusNonExistent]: status === TaskSimplifiedStatus.NonExistent,
             [style.taskStatusUnfinished]: status === TaskSimplifiedStatus.Unfinished,
