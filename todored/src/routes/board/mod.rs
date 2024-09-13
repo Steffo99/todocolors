@@ -1,12 +1,12 @@
 pub mod structs;
 pub mod stream;
 
-pub(self) mod axum;
-pub(self) mod ws;
-pub(self) mod ws_receive;
-pub(self) mod redis_xadd;
-pub(self) mod redis_xread;
-pub(self) mod ws_send;
-pub(self) mod limit;
+mod axum;
+mod ws;
+mod ws_receive;
+mod redis_xadd;
+mod redis_xread;
+mod ws_send;
+mod limit;
 
 pub(crate) use self::axum::handler as board_websocket;
