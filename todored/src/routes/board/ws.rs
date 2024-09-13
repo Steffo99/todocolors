@@ -3,8 +3,8 @@ use std::sync::Arc;
 use deadqueue::unlimited::Queue;
 use futures_util::StreamExt;
 use uuid::Uuid;
-use crate::task::VersionedBoardChange::V2;
-use crate::task::v2::BoardChange;
+use crate::task::latest::BoardChange;
+use crate::task::VersionedBoardChange;
 use super::{redis_xread, redis_xadd, ws_receive, ws_send};
 
 pub async fn handler(
@@ -65,7 +65,7 @@ pub async fn handler(
 	log::trace!("Client UUID is: {client_uuid:?}");
 
 	log::trace!("Notifying clients of the new connection...");
-	let _connect_id = V2(BoardChange::Connect(client_uuid)).store_in_redis_stream(&mut main_redis, &redis_key).await;
+	let _connect_id = VersionedBoardChange::new_latest(BoardChange::Connect(client_uuid)).store_in_redis_stream(&mut main_redis, &redis_key).await;
 	log::trace!("Notified clients of the new connection successfully!");
 
 	log::trace!("Creating synchronization structures...");
@@ -121,7 +121,7 @@ pub async fn handler(
 	redis_xread_abort.abort();
 
 	log::trace!("Notifying clients of the disconnection...");
-	let _connect_id = V2(BoardChange::Disconnect(client_uuid)).store_in_redis_stream(&mut main_redis, &redis_key).await;
+	let _connect_id = VersionedBoardChange::new_latest(BoardChange::Disconnect(client_uuid)).store_in_redis_stream(&mut main_redis, &redis_key).await;
 	log::trace!("Notified clients of the disconnection successfully!");
 
 	log::trace!("Waiting for the last messages to be sent...");

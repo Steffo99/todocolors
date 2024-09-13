@@ -5,8 +5,8 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use crate::outcome::LoggableOutcome;
 use crate::routes::board::stream::xread_to_vbc;
-use crate::task::VersionedBoardChange::V2;
-use crate::task::v2::{BoardChange, BoardState, Task};
+use crate::task::VersionedBoardChange;
+use crate::task::latest::{BoardChange, BoardState, Task};
 
 /// A request sent from a client to the server to perform a [`BoardAction`] on a board.
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -24,7 +24,7 @@ impl BoardRequest {
 		match self.action {
 			BoardAction::Title(title) => {
 				log::debug!("Setting board Title: {title:?}");
-				let operation = V2(BoardChange::Title(title));
+				let operation = VersionedBoardChange::new_latest(BoardChange::Title(title));
 				let _id = operation.store_in_redis_stream(rconn, &self.key).await;
 				Ok(())
 			},
@@ -32,25 +32,25 @@ impl BoardRequest {
 				log::debug!("Creating Task: {task:?}");
 				let id = Uuid::new_v4();
 				log::trace!("Assigned id {id:?} to Task: {task:?}");
-				let operation = V2(BoardChange::Task(id, Some(task)));
+				let operation = VersionedBoardChange::new_latest(BoardChange::Task(id, Some(task)));
 				let _id = operation.store_in_redis_stream(rconn, &self.key).await;
 				Ok(())
 			},
 			BoardAction::Task(Some(id), Some(task)) => {
 				log::debug!("Editing Task {id:?}: {task:?}");
-				let operation = V2(BoardChange::Task(id, Some(task)));
+				let operation = VersionedBoardChange::new_latest(BoardChange::Task(id, Some(task)));
 				let _id = operation.store_in_redis_stream(rconn, &self.key).await;
 				Ok(())
 			},
 			BoardAction::Task(Some(id), None) => {
 				log::debug!("Deleting Task {id:?}...");
-				let operation = V2(BoardChange::Task(id, None));
+				let operation = VersionedBoardChange::new_latest(BoardChange::Task(id, None));
 				let _id = operation.store_in_redis_stream(rconn, &self.key).await;
 				Ok(())
 			},
 			BoardAction::Lock(lock) => {
 				log::debug!("Setting board lock to: {lock:?}");
-				let operation = V2(BoardChange::Lock(lock));
+				let operation = VersionedBoardChange::new_latest(BoardChange::Lock(lock));
 				let _id = operation.store_in_redis_stream(rconn, &self.key).await;
 				Ok(())
 			},
@@ -81,7 +81,7 @@ impl BoardRequest {
 					});
 
 				log::trace!("Storing new full board state in the Redis Stream...");
-				let id = V2(BoardChange::State(board))
+				let id = VersionedBoardChange::new_latest(BoardChange::State(board))
 					.store_in_redis_stream(rconn, &self.key).await
 					.log_err_to_error("Failed to store trimmed board")
 					.map_err(|_| 1011u16)?;

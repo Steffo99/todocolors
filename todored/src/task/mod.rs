@@ -5,6 +5,7 @@ use crate::outcome::LoggableOutcome;
 
 pub mod v1;
 pub mod v2;
+pub use v2 as latest;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum VersionedBoardChange {
@@ -13,15 +14,19 @@ pub enum VersionedBoardChange {
 }
 
 impl VersionedBoardChange {
-	pub fn to_latest_bc(self) -> v2::BoardChange {
+	pub fn to_latest_bc(self) -> latest::BoardChange {
 		match self {
 			VersionedBoardChange::V1(bc) => bc.into(),
 			VersionedBoardChange::V2(bc) => bc,
 		}
 	}
 
-	pub fn to_latest_vbc(self) -> VersionedBoardChange {
+	pub fn to_latest(self) -> VersionedBoardChange {
 		Self::V2(self.to_latest_bc())
+	}
+	
+	pub fn new_latest(bc: latest::BoardChange) -> VersionedBoardChange {
+		Self::V2(bc)
 	}
 
 	pub(crate) async fn store_in_redis_stream(&self, rconn: &mut redis::aio::Connection, key: &str) -> Result<String, ()> {
