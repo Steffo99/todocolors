@@ -1,6 +1,6 @@
 export enum SortingMode {
-	ByPriority,
 	ByImportance,
+	ByDeadline,
 	ByIcon,
 	ByText,
 	ByStatus,

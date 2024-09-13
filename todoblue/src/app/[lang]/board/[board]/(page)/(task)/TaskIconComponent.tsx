@@ -1,5 +1,6 @@
-import {TASK_ICON_TO_FONTAWESOME_REGULAR, TASK_ICON_TO_FONTAWESOME_SOLID, TaskIcon} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {TaskSimplifiedStatus} from "@/app/[lang]/board/[board]/(page)/(task)/TaskSimplifiedStatus"
+import {fal, far, fas} from "@awesome.me/kit-dfe340c874/icons"
+import {IconPack} from "@fortawesome/fontawesome-svg-core"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {SyntheticEvent} from "react"
@@ -9,11 +10,18 @@ import style from "./TaskIconComponent.module.css"
 type TaskIconProps = {
     className?: string,
     title: string,
-    icon: TaskIcon,
+    icon: string,
     status: TaskSimplifiedStatus,
     onInteract?: (e: SyntheticEvent<HTMLButtonElement>) => void,
 }
 
+const STATUS_TO_PREFIX: {[t in TaskSimplifiedStatus]: IconPack} = {
+	[TaskSimplifiedStatus.Unfinished]: fal,
+	[TaskSimplifiedStatus.InProgress]: far,
+	[TaskSimplifiedStatus.Complete]: fas,
+	[TaskSimplifiedStatus.Journaled]: fas,
+	[TaskSimplifiedStatus.NonExistent]: far,
+}
 
 export function TaskIconComponent({className, title, icon, status, onInteract}: TaskIconProps) {
     const clickable = !!onInteract;
@@ -32,7 +40,7 @@ export function TaskIconComponent({className, title, icon, status, onInteract}: 
         >
             <FontAwesomeIcon
                 size={"lg"}
-                icon={[TaskSimplifiedStatus.Complete, TaskSimplifiedStatus.Journaled].includes(status) ? TASK_ICON_TO_FONTAWESOME_SOLID[icon] : TASK_ICON_TO_FONTAWESOME_REGULAR[icon]}
+                icon={STATUS_TO_PREFIX[status][`fa${icon}`]}
                 beatFade={status === TaskSimplifiedStatus.InProgress}
             />
         </button>

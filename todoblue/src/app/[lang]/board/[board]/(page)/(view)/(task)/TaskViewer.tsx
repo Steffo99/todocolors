@@ -1,5 +1,6 @@
 import {ModifyTaskBoardRequest} from "@/app/[lang]/board/[board]/(api)/(request)"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
+import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/taskToString"
 import {TaskActions} from "@/app/[lang]/board/[board]/(page)/(task)/TaskActions"
 import {TaskContainer} from "@/app/[lang]/board/[board]/(page)/(task)/TaskContainer"
 import {TaskDescription} from "@/app/[lang]/board/[board]/(page)/(task)/TaskDescription"
@@ -12,7 +13,7 @@ import {TFunction} from "i18next"
 import {Dispatch, KeyboardEvent, PointerEvent, SetStateAction, SyntheticEvent, useCallback, useState} from "react"
 
 
-export function TaskViewer({t, taskWithId: [id, task], setEditorInput}: {t: TFunction, taskWithId: TaskWithId, setEditorInput: Dispatch<SetStateAction<string>>}) {
+export function TaskViewer({lang, t, taskWithId: [id, task], setEditorInput}: {lang: string, t: TFunction, taskWithId: TaskWithId, setEditorInput: Dispatch<SetStateAction<string>>}) {
     const [isFlipped, setFlipped] = useState<boolean>(false)
 	const {sendRequest, boardState: {locked}} = useBoardConsumer()
 
@@ -129,7 +130,7 @@ export function TaskViewer({t, taskWithId: [id, task], setEditorInput}: {t: TFun
 		<TaskContainer
 			role={"article"}
 			importance={task.importance}
-			priority={task.priority}
+			deadline={task.deadline}
 			status={status}
 			onKeyDown={toggleFlipOnKeyDown}
 			onPointerEnter={flipOnPointerEnter}
@@ -138,12 +139,13 @@ export function TaskViewer({t, taskWithId: [id, task], setEditorInput}: {t: TFun
 		>
 			<TaskViewerIcon
 				t={t}
-			 	icon={task.icon}
+			 	icon={task.icon as any}
 				status={status}
 				onInteract={status === TaskSimplifiedStatus.Journaled ? undefined : toggleStatus}
 			/>
 			<TaskDescription
-				text={task.text}
+				isSource={isFlipped}
+				text={isFlipped ? taskToString(task, lang) : task.text}
 			/>
 			{sideElements}
 		</TaskContainer>

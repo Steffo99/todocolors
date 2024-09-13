@@ -1,7 +1,7 @@
 "use client";
 
 import {useClientTranslation} from "@/app/(i18n)/client"
-import {faLock} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import classNames from "classnames"
 import {useRouter} from "next/navigation"
@@ -71,7 +71,7 @@ export function CreatePrivateBoardPanel({lang}: {lang: string}) {
 			onSubmit={createBoardValidated}
 		>
 			<h3>
-				<FontAwesomeIcon icon={faLock} size={"1x"}/>
+				<FontAwesomeIcon icon={fas.faLock} size={"1x"}/>
 				{" "}
 				{t("createPrivateBoardTitle")}
 			</h3>

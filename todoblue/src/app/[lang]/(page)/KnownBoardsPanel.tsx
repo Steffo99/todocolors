@@ -2,7 +2,7 @@
 
 import {useClientTranslation} from "@/app/(i18n)/client"
 import {useLowerKebabifier} from "@/app/(utils)/(kebab)"
-import {faKey} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {useRouter} from "next/navigation"
@@ -32,7 +32,7 @@ export function KnownBoardsPanel({lang}: {lang: string}) {
             onSubmit={moveToBoardValidated}
         >
             <h3>
-                <FontAwesomeIcon icon={faKey}/>
+                <FontAwesomeIcon icon={fas.faKey}/>
                 {" "}
                 {t("existingKnownBoardsTitle")}
             </h3>

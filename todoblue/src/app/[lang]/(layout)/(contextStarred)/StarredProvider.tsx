@@ -51,7 +51,7 @@ export function StarredProvider({children}: {children: ReactNode}) {
 	}, [])
 
 	const isStarred = useCallback((value: string) => {
-		return starred.indexOf(value) >= 0
+		return starred.includes(value)
 	}, [starred])
 
 	return (

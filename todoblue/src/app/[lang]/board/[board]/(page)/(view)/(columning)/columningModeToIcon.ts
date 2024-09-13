@@ -1,8 +1,9 @@
 import {ColumningMode} from "@/app/[lang]/board/[board]/(page)/(view)/(columning)/ColumningMode"
-import {faTableColumns, faTableList} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
+import {IconDefinition} from "@fortawesome/fontawesome-svg-core"
 
 
-export const COLUMNING_MODE_TO_ICON = {
-	[ColumningMode.SingleColumn]: faTableList,
-	[ColumningMode.MultiColumn]: faTableColumns,
+export const COLUMNING_MODE_TO_ICON: {[m in ColumningMode]: IconDefinition}  = {
+	[ColumningMode.SingleColumn]: fas.faTableList,
+	[ColumningMode.MultiColumn]: fas.faTableColumns,
 }

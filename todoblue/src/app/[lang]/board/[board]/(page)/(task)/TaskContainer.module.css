@@ -45,29 +45,37 @@
     font-weight: 200;
 }
 
-.taskPriorityHighest {
-    border: 4px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.45);
+.taskDeadlineHour {
+    border: 4px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.45);
     padding: 4px;
 }
 
-.taskPriorityHigh {
-    border: 3px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
+.taskDeadlineDay {
+    border: 3px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.25);
     padding: 5px;
 }
 
-.taskPriorityNormal {
-    border: 2px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+.taskDeadlineWeek {
+    border: 2px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
     padding: 6px;
 }
 
-.taskPriorityLow {
-    border: 1px solid hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
+.taskDeadlineMonth {
+    border: 1px hsl(var(--bhsl-current-hue) var(--bhsl-current-saturation) var(--bhsl-current-lightness) / 0.15);
     padding: 7px;
 }
 
-.taskPriorityLowest {
+.taskDeadlineNone {
     border: 0;
     padding: 8px;
+}
+
+.taskDeadlineIncoming {
+	border-style: solid;
+}
+
+.taskDeadlinePast {
+	border-style: dashed;
 }
 
 @keyframes inProgress {

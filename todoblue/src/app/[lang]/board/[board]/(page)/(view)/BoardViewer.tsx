@@ -12,7 +12,7 @@ import {Dispatch, SetStateAction} from "react"
 import style from "./BoardViewer.module.css"
 
 
-export function BoardViewer({className, t, columning, grouping, sorting, setEditorInput}: {className?: string, t: TFunction, columning: ColumningMode, grouping: GroupingMode, sorting: SortingMode[], setEditorInput: Dispatch<SetStateAction<string>>}) {
+export function BoardViewer({className, lang, t, columning, grouping, sorting, setEditorInput}: {className?: string, t: TFunction, lang: string, columning: ColumningMode, grouping: GroupingMode, sorting: SortingMode[], setEditorInput: Dispatch<SetStateAction<string>>}) {
 	const {boardState: {tasks}} = useBoardConsumer()
 	const {taskGroups} = useBoardTasksArranger(tasks, grouping, sorting);
 
@@ -22,12 +22,12 @@ export function BoardViewer({className, t, columning, grouping, sorting, setEdit
 			[style.boardMainTaskGroupsMultiColumn]: columning === ColumningMode.MultiColumn,
 			[style.boardMainTaskGroupsSingleColumn]: columning === ColumningMode.SingleColumn,
 		})}>
-			{taskGroups.map((tg) => <BoardViewerColumn t={t} taskGroup={tg} key={tg.k} grouping={grouping} setEditorInput={setEditorInput}/>)}
+			{taskGroups.map((tg) => <BoardViewerColumn lang={lang} t={t} taskGroup={tg} key={tg.k} grouping={grouping} setEditorInput={setEditorInput}/>)}
 		</main>
 	)
 }
 
-export function BoardViewerColumn({t, grouping, taskGroup, setEditorInput}: {t: TFunction, grouping: GroupingMode, taskGroup: TaskGroup<string | number>, setEditorInput: Dispatch<SetStateAction<string>>}) {
+export function BoardViewerColumn({lang, t, grouping, taskGroup, setEditorInput}: {lang: string, t: TFunction, grouping: GroupingMode, taskGroup: TaskGroup<string | number>, setEditorInput: Dispatch<SetStateAction<string>>}) {
 	const ColumnTitle = GROUPING_MODE_TO_TITLE_COMPONENT[grouping]
 
 	return (
@@ -36,7 +36,7 @@ export function BoardViewerColumn({t, grouping, taskGroup, setEditorInput}: {t: 
 				<ColumnTitle t={t} k={taskGroup.k}/>
 			</h3>
 			<div className={style.boardColumnContents}>
-				{taskGroup.tasks.map((task: TaskWithId) => <TaskViewer t={t} taskWithId={task} key={task[0]} setEditorInput={setEditorInput}/>)}
+				{taskGroup.tasks.map((task: TaskWithId) => <TaskViewer lang={lang} t={t} taskWithId={task} key={task[0]} setEditorInput={setEditorInput}/>)}
 			</div>
 		</div>
 	)

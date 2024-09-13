@@ -4,12 +4,12 @@ import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/taskToStrin
 import {useCallback, useMemo, useState} from "react"
 
 
-export function useTaskEditor() {
+export function useTaskEditor(lang: string) {
 	const [input, setInput] = useState<string>("")
-	const task = useMemo(() => stringToTask(input), [input])
+	const task = useMemo(() => stringToTask(input, lang), [input, lang])
 
 	const setTask = useCallback((t: Task) => {
-		setInput(taskToString(t))
+		setInput(taskToString(t, lang))
 	}, [])
 
 	return {

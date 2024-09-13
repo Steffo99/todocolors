@@ -1,6 +1,6 @@
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import {faUsers} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {TFunction} from "i18next"
@@ -16,7 +16,7 @@ export function ConnectedClientsButton({t}: {t: TFunction}) {
 			title={t("privacyButtonTitle")}
 			className={cn(style.block, style.singleBlock)}
 		>
-			<FontAwesomeIcon icon={faUsers} size={"2xs"}/>
+			<FontAwesomeIcon icon={fas.faUsers} size={"2xs"}/>
 			&nbsp;
 			{clients.length}
 		</div>

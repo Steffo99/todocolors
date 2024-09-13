@@ -1,8 +1,12 @@
-import {Task, TaskIcon, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
-import {ICON_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
+import {Task, TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {DEADLINE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/deadline"
+import {ICON_DEFAULT, ICON_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
 import {IMPORTANCE_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
-import {PRIORITY_GLYPH_RE} from "@/app/[lang]/board/[board]/(page)/(edit)/priority"
+import {default as dateParser} from "any-date-parser"
 
+// ahhh i love typescript shenanigans
+// @ts-ignore
+const DATE_FROM_STRING = dateParser.fromString;
 
 const VALUE_TO_TASK_IMPORTANCE = {
 	"1": TaskImportance.Highest,
@@ -12,61 +16,28 @@ const VALUE_TO_TASK_IMPORTANCE = {
 	"5": TaskImportance.Lowest,
 }
 
-const VALUE_TO_TASK_PRIORITY = {
-	"1": TaskPriority.Highest,
-	"2": TaskPriority.High,
-	"3": TaskPriority.Normal,
-	"4": TaskPriority.Low,
-	"5": TaskPriority.Lowest,
-}
-
-const VALUE_TO_TASK_ICON = {
-	"bookmark": TaskIcon.Bookmark,
-	"circle": TaskIcon.Circle,
-	"square": TaskIcon.Square,
-	"heart": TaskIcon.Heart,
-	"star": TaskIcon.Star,
-	"sun": TaskIcon.Sun,
-	"moon": TaskIcon.Moon,
-	"eye": TaskIcon.Eye,
-	"hand": TaskIcon.Hand,
-	"handshake": TaskIcon.Handshake,
-	"facesmile": TaskIcon.FaceSmile,
-	"smile": TaskIcon.FaceSmile,
-	"user": TaskIcon.User,
-	"comment": TaskIcon.Comment,
-	"envelope": TaskIcon.Envelope,
-	"file": TaskIcon.File,
-	"paperplane": TaskIcon.PaperPlane,
-	"plane": TaskIcon.PaperPlane,
-	"building": TaskIcon.Building,
-	"flag": TaskIcon.Flag,
-	"bell": TaskIcon.Bell,
-	"clock": TaskIcon.Clock,
-	"image": TaskIcon.Image,
-}
-
-export function stringToTask(text: string): Task {
-	const priorityMatch = PRIORITY_GLYPH_RE.exec(text)
+export function stringToTask(text: string, lang: string): Task {
 	const importanceMatch = IMPORTANCE_GLYPH_RE.exec(text)
 	const iconMatch = ICON_GLYPH_RE.exec(text)
+	const deadlineMatch = DEADLINE_GLYPH_RE.exec(text)
 
-	const priority: TaskPriority = VALUE_TO_TASK_PRIORITY[priorityMatch?.[1]?.trim() as "1"|"2"|"3"|"4"|"5" ?? "3"]
 	const importance: TaskImportance = VALUE_TO_TASK_IMPORTANCE[importanceMatch?.[1]?.trim() as "1"|"2"|"3"|"4"|"5" ?? "3"]
-	// @ts-ignore
-	const icon: TaskIcon = VALUE_TO_TASK_ICON[iconMatch?.[1]?.toLowerCase()?.trim()] ?? TaskIcon.Circle
+	const icon: string = iconMatch?.[1]?.trim() ?? ICON_DEFAULT
+	const deadlineGroup: string | undefined = deadlineMatch?.[1]?.trim()
+	const deadlineDate: Date | undefined = deadlineGroup === undefined ? undefined : DATE_FROM_STRING(deadlineGroup, lang) ?? undefined
+	const deadline: number | null = (deadlineDate?.getTime?.()) ?? null
 
 	// TODO: Splice so the regexes aren't executed twice
-	text = text.replace(PRIORITY_GLYPH_RE, "")
 	text = text.replace(IMPORTANCE_GLYPH_RE, "")
 	text = text.replace(ICON_GLYPH_RE, "")
+	text = text.replace(DEADLINE_GLYPH_RE, "")
 	text = text.trim()
 
 	return {
 		text,
-		priority,
 		importance,
 		icon,
+		deadline,
 		created_on: + new Date(),
 		started_on: null,
 		completed_on: null,

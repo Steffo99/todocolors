@@ -2,7 +2,7 @@
 
 import {useClientTranslation} from "@/app/(i18n)/client"
 import {useLowerKebabifier} from "@/app/(utils)/(kebab)"
-import {faGlobe} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {useRouter} from "next/navigation"
@@ -32,7 +32,7 @@ export function CreatePublicBoardPanel({lang}: {lang: string}) {
 			onSubmit={createBoardValidated}
 		>
 			<h3>
-				<FontAwesomeIcon icon={faGlobe}/>
+				<FontAwesomeIcon icon={fas.faGlobe}/>
 				{" "}
 				{t("createPublicBoardTitle")}
 			</h3>

@@ -1,4 +1,4 @@
-import {TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {TaskSimplifiedStatus} from "@/app/[lang]/board/[board]/(page)/(task)/TaskSimplifiedStatus"
 import cn from "classnames"
 import {ComponentPropsWithoutRef} from "react"
@@ -9,12 +9,16 @@ export type TaskContainerProps = {
     className?: string,
     role: "article" | "form",
     importance: TaskImportance,
-    priority: TaskPriority,
+	deadline: number | null,
     status: TaskSimplifiedStatus,
 } & ComponentPropsWithoutRef<"article">
 
 
-export function TaskContainer({role, className, importance, priority, status, ...props}: TaskContainerProps) {
+export function TaskContainer({role, className, importance, deadline, status, ...props}: TaskContainerProps) {
+	const now = + new Date();
+	const delta = deadline === null ? null : deadline - now
+	const deltaAbs = delta === null ? null : Math.abs(delta)
+	
     const fullProps = {
         className: cn({
             "panel": true,
@@ -25,11 +29,13 @@ export function TaskContainer({role, className, importance, priority, status, ..
             [style.taskImportanceNormal]: importance === TaskImportance.Normal,
             [style.taskImportanceLow]: importance === TaskImportance.Low,
             [style.taskImportanceLowest]: importance === TaskImportance.Lowest,
-            [style.taskPriorityHighest]: priority === TaskPriority.Highest,
-            [style.taskPriorityHigh]: priority === TaskPriority.High,
-            [style.taskPriorityNormal]: priority === TaskPriority.Normal,
-            [style.taskPriorityLow]: priority === TaskPriority.Low,
-            [style.taskPriorityLowest]: priority === TaskPriority.Lowest,
+	        [style.taskDeadlineNone]: deadline === null,
+	        [style.taskDeadlineHour]: deltaAbs !== null && deltaAbs < 60 * 60 * 1000,
+	        [style.taskDeadlineDay]: deltaAbs !== null && 60 * 60 * 1000 <= deltaAbs && deltaAbs < 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineWeek]: deltaAbs !== null && 24 * 60 * 60 * 1000 <= deltaAbs && deltaAbs < 7 * 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineMonth]: deltaAbs !== null && deltaAbs >= 7 * 24 * 60 * 60 * 1000,
+	        [style.taskDeadlineIncoming]: delta !== null && delta > 0,
+	        [style.taskDeadlinePast]: delta !== null && delta < 0,
             [style.taskStatusNonExistent]: status === TaskSimplifiedStatus.NonExistent,
             [style.taskStatusUnfinished]: status === TaskSimplifiedStatus.Unfinished,
             [style.taskStatusInProgress]: status === TaskSimplifiedStatus.InProgress,

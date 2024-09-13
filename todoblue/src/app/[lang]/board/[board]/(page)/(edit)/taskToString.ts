@@ -1,7 +1,7 @@
-import {Task, TaskImportance, TaskPriority} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {Task, TaskImportance} from "@/app/[lang]/board/[board]/(api)/(task)"
+import {DEADLINE_DEFAULT, DEADLINE_GLYPH_END, DEADLINE_GLYPH_START} from "@/app/[lang]/board/[board]/(page)/(edit)/deadline"
 import {ICON_DEFAULT, ICON_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/icon"
 import {IMPORTANCE_DEFAULT, IMPORTANCE_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/importance"
-import {PRIORITY_DEFAULT, PRIORITY_GLYPH} from "@/app/[lang]/board/[board]/(page)/(edit)/priority"
 
 
 const TASK_IMPORTANCE_TO_VALUE = {
@@ -12,16 +12,24 @@ const TASK_IMPORTANCE_TO_VALUE = {
 	[TaskImportance.Lowest]: "5",
 }
 
-const TASK_PRIORITY_TO_VALUE = {
-	[TaskPriority.Highest]: "1",
-	[TaskPriority.High]: "2",
-	[TaskPriority.Normal]: "3",
-	[TaskPriority.Low]: "4",
-	[TaskPriority.Lowest]: "5",
-}
-
-export function taskToString(t: Task): string {
+export function taskToString(t: Task, lang: string): string {
+	const intlDate = Intl.DateTimeFormat(lang, {
+		year: "numeric",
+		month: "short",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+	})
+	
 	let s = ""
+	
+	if(t.deadline !== DEADLINE_DEFAULT) {
+		s += DEADLINE_GLYPH_START
+		s += intlDate.format(new Date(t.deadline))
+		s += DEADLINE_GLYPH_END
+		s += " "
+	}
 
 	if(t.icon !== ICON_DEFAULT) {
 		s += ICON_GLYPH
@@ -32,12 +40,6 @@ export function taskToString(t: Task): string {
 	if(t.importance !== IMPORTANCE_DEFAULT) {
 		s += IMPORTANCE_GLYPH
 		s += TASK_IMPORTANCE_TO_VALUE[t.importance]
-		s += " "
-	}
-
-	if(t.priority !== PRIORITY_DEFAULT) {
-		s += PRIORITY_GLYPH
-		s += TASK_PRIORITY_TO_VALUE[t.priority]
 		s += " "
 	}
 

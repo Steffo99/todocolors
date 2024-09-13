@@ -19,7 +19,6 @@ export function useBoardLayoutEditor() {
 		ColumningMode.MultiColumn,
 	])
 	const groupingHook = useCycler(useLocalStorage<number | undefined>(localStorageKeyGrouping, undefined), [
-		GroupingMode.ByPriority,
 		GroupingMode.ByImportance,
 		GroupingMode.ByStatus,
 		GroupingMode.ByIcon,
@@ -28,7 +27,7 @@ export function useBoardLayoutEditor() {
 	const sortingHook = useCycler(useLocalStorage<number | undefined>(localStorageKeySorting, undefined), [
         [
 			SortingMode.ByStatus,
-            SortingMode.ByPriority,
+            SortingMode.ByDeadline,
             SortingMode.ByImportance,
             SortingMode.ByText,
 			SortingMode.ByIcon,
@@ -37,7 +36,7 @@ export function useBoardLayoutEditor() {
         [
 			SortingMode.ByStatus,
             SortingMode.ByImportance,
-            SortingMode.ByPriority,
+            SortingMode.ByDeadline,
             SortingMode.ByText,
 			SortingMode.ByIcon,
 			SortingMode.ByCreation,
@@ -53,7 +52,7 @@ export function useBoardLayoutEditor() {
 			SortingMode.ByCreation,
 		],
 		[
-			SortingMode.ByPriority,
+			SortingMode.ByDeadline,
 			SortingMode.ByImportance,
 			SortingMode.ByText,
 			SortingMode.ByIcon,
@@ -61,7 +60,7 @@ export function useBoardLayoutEditor() {
 		],
 		[
 			SortingMode.ByImportance,
-			SortingMode.ByPriority,
+			SortingMode.ByDeadline,
 			SortingMode.ByText,
 			SortingMode.ByIcon,
 			SortingMode.ByCreation,

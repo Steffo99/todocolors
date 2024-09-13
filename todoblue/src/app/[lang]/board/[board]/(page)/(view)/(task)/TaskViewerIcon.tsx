@@ -1,4 +1,3 @@
-import {TaskIcon} from "@/app/[lang]/board/[board]/(api)/(task)"
 import {TaskIconComponent} from "@/app/[lang]/board/[board]/(page)/(task)/TaskIconComponent"
 import {TaskSimplifiedStatus} from "@/app/[lang]/board/[board]/(page)/(task)/TaskSimplifiedStatus"
 import {TFunction} from "i18next"
@@ -15,7 +14,7 @@ const TASK_STATUS_TO_I18N_KEY: {[key in TaskSimplifiedStatus]: string} = {
 export type TaskViewerIconProps = {
     t: TFunction,
     status: TaskSimplifiedStatus,
-    icon: TaskIcon,
+    icon: string,
     onInteract?: Parameters<typeof TaskIconComponent>[0]["onInteract"]
 }
 

@@ -2,7 +2,7 @@ import {UpdateTaskBoardChange} from "@/app/[lang]/board/[board]/(api)/(change)"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import {TaskButton} from "@/app/[lang]/board/[board]/(page)/(task)/TaskButton"
 import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(task)/TaskWithId"
-import {faBookBookmark} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {TFunction} from "i18next"
 import {SyntheticEvent, useCallback} from "react"
 
@@ -25,7 +25,7 @@ export function TaskViewerJournalButton({t, taskWithId: [id, task]}: {t: TFuncti
     return (
         <TaskButton
             title={t("taskButtonJournal")}
-            icon={faBookBookmark}
+            icon={fas.faBookBookmark}
             onInteract={locked ? undefined : toggleJournalTask}
         />
     )

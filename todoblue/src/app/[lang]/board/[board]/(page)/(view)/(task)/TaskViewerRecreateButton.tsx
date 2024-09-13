@@ -3,7 +3,7 @@ import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoar
 import {taskToString} from "@/app/[lang]/board/[board]/(page)/(edit)/taskToString"
 import {TaskButton} from "@/app/[lang]/board/[board]/(page)/(task)/TaskButton"
 import {TaskWithId} from "@/app/[lang]/board/[board]/(page)/(task)/TaskWithId"
-import {faTrashArrowUp} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {TFunction} from "i18next"
 import {Dispatch, SetStateAction, SyntheticEvent, useCallback} from "react"
 
@@ -34,7 +34,7 @@ export function TaskViewerRecreateButton({t, taskWithId: [id, task], setEditorIn
     return (
         <TaskButton
             title={t("taskButtonRecreate")}
-            icon={faTrashArrowUp}
+            icon={fas.faTrashArrowUp}
             onInteract={locked ? undefined : recreateTask}
         />
     )

@@ -10,11 +10,11 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@awesome.me/kit-dfe340c874": "^1.0.10",
 		"@fortawesome/fontawesome-svg-core": "*",
-		"@fortawesome/free-regular-svg-icons": "*",
-		"@fortawesome/free-solid-svg-icons": "*",
 		"@fortawesome/react-fontawesome": "*",
 		"@steffo/bluelib": "*",
+		"any-date-parser": "^1.5.4",
 		"classnames": "*",
 		"client-only": "*",
 		"i18next": "*",

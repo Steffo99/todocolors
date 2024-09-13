@@ -15,7 +15,7 @@ export function BoardPage({lang}: {lang: string}) {
 	const internationalization = useClientTranslation(lang, "board")
 	const metadataHook = useBoardMetadataEditor()
 	const layoutHook = useBoardLayoutEditor()
-	const editorHook = useTaskEditor()
+	const editorHook = useTaskEditor(lang)
 
 	const t = internationalization.t as TFunction
 
@@ -28,6 +28,7 @@ export function BoardPage({lang}: {lang: string}) {
 				layoutHook={layoutHook}
 			/>
 			<BoardMain
+				lang={lang}
 				t={t}
 				className={style.pageMain}
 				columning={layoutHook.columningHook.value}

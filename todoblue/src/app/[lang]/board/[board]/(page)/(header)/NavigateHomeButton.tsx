@@ -1,5 +1,5 @@
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import {faHouse} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {TFunction} from "i18next"
@@ -17,7 +17,7 @@ export function NavigateHomeButton({t}: {t: TFunction}) {
 			onClick={goHome}
 			className={cn(style.block, style.singleBlock)}
 		>
-            <FontAwesomeIcon icon={faHouse}/>
+            <FontAwesomeIcon icon={fas.faHouse}/>
         </button>
     )
 }

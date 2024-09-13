@@ -1,7 +1,7 @@
 import {LockBoardRequest} from "@/app/[lang]/board/[board]/(api)/(request)"
 import {useBoardConsumer} from "@/app/[lang]/board/[board]/(layout)/(contextBoard)"
 import style from "@/app/[lang]/board/[board]/(page)/(header)/BoardHeaderButtons.module.css"
-import {faLock, faLockOpen} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import {TFunction} from "i18next"
@@ -25,7 +25,7 @@ export function ToggleLockedButton({t}: {t: TFunction}) {
             onClick={toggleLock}
 			className={cn(style.block, style.singleBlock)}
         >
-            <FontAwesomeIcon icon={locked ? faLock : faLockOpen}/>
+            <FontAwesomeIcon icon={fas[locked ? "faLock" : "faLockOpen"]}/>
         </button>
     )
 }

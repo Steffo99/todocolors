@@ -2,7 +2,7 @@
 
 import {useClientTranslation} from "@/app/(i18n)/client"
 import {useStarredConsumer} from "@/app/[lang]/(layout)/(contextStarred)"
-import {faStar} from "@fortawesome/free-solid-svg-icons"
+import {fas} from "@awesome.me/kit-dfe340c874/icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import cn from "classnames"
 import Link from "next/link"
@@ -66,7 +66,7 @@ export function StarredBoardsPanel({lang}: {lang: string}) {
 			"box": true,
 		})}>
 			<h3>
-				<FontAwesomeIcon icon={faStar}/>
+				<FontAwesomeIcon icon={fas.faStar}/>
 				{" "}
 				{t("existingStarredBoardsTitle")}
 			</h3>
