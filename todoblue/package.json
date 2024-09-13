@@ -1,36 +1,36 @@
 {
-  "name": "todoblue",
-  "version": "0.3.0",
-  "license": "EUPL-1.2",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@steffo/bluelib": "^9.0.1",
-    "@types/node": "^20.4.5",
-    "@types/react": "^18.2.17",
-    "@types/react-dom": "^18.2.7",
-    "classnames": "^2.3.2",
-    "client-only": "^0.0.1",
-    "i18next": "^23.4.2",
-    "i18next-resources-to-backend": "^1.1.4",
-    "negotiator": "^0.6.3",
-    "next": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "server-only": "^0.0.1",
-    "typescript": "^5.1.6",
-    "use-local-storage": "^3.0.0"
-  },
-  "devDependencies": {
-    "@types/negotiator": "^0.6.1"
-  }
+	"name": "todoblue",
+	"version": "0.3.0",
+	"license": "EUPL-1.2",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "*",
+		"@fortawesome/free-regular-svg-icons": "*",
+		"@fortawesome/free-solid-svg-icons": "*",
+		"@fortawesome/react-fontawesome": "*",
+		"@steffo/bluelib": "*",
+		"classnames": "*",
+		"client-only": "*",
+		"i18next": "*",
+		"i18next-resources-to-backend": "*",
+		"negotiator": "*",
+		"next": "*",
+		"react": "*",
+		"react-dom": "*",
+		"server-only": "*",
+		"use-local-storage": "*"
+	},
+	"devDependencies": {
+		"@types/negotiator": "*",
+		"@types/node": "*",
+		"@types/react": "*",
+		"@types/react-dom": "*",
+		"typescript": "*"
+	}
 }
