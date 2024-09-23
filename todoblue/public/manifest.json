@@ -6,7 +6,7 @@
     "display": "standalone",
 	"theme_color": "#0d193b",
     "background_color": "#0c193b",
-    "description": "Self-hostable multiplayer todo app",
+    "description": "Multiplayer todo app",
 	"categories": ["productivity"],
 	"icons": [
 		{
