@@ -15,8 +15,8 @@ const TASK_IMPORTANCE_TO_VALUE = {
 const TASK_STATUS_TO_VALUE = {
 	"Journaled": 3,
 	"Complete": 2,
-	"InProgress": 1,
-	"Unfinished": 0,
+	"InProgress": 0,
+	"Unfinished": 1,
 }
 
 export const GROUPING_MODE_TO_GROUP_SORTER_FUNCTION = {
