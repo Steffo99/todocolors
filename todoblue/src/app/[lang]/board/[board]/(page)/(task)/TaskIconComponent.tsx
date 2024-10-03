@@ -16,11 +16,11 @@ type TaskIconProps = {
 }
 
 const STATUS_TO_PREFIX: {[t in TaskSimplifiedStatus]: IconPack} = {
-	[TaskSimplifiedStatus.Unfinished]: fal,
-	[TaskSimplifiedStatus.InProgress]: far,
-	[TaskSimplifiedStatus.Complete]: fas,
-	[TaskSimplifiedStatus.Journaled]: fas,
-	[TaskSimplifiedStatus.NonExistent]: far,
+	[TaskSimplifiedStatus.Unfinished]: fas,
+	[TaskSimplifiedStatus.InProgress]: fas,
+	[TaskSimplifiedStatus.Complete]: fal,
+	[TaskSimplifiedStatus.Journaled]: far,
+	[TaskSimplifiedStatus.NonExistent]: fas,
 }
 
 export function TaskIconComponent({className, title, icon, status, onInteract}: TaskIconProps) {
@@ -31,6 +31,7 @@ export function TaskIconComponent({className, title, icon, status, onInteract}: 
             className={cn({
                 [style.taskIconComponent]: true,
                 [style.taskIconComponentClickable]: clickable,
+	            "fade": status === TaskSimplifiedStatus.Complete,
             }, className)}
             type={"button"}
             title={title}
